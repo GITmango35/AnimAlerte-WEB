@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,12 +15,15 @@ namespace AnimAlerte.Models
             DetailsContactNomUtilisateurCreateurNavigations = new HashSet<DetailsContact>();
             DetailsContactNomUtilisateurFavorisNavigations = new HashSet<DetailsContact>();
         }
-
+        [Display(Name="Nom d'utilisateur")]
         public string NomUtilisateur { get; set; }
         public string Nom { get; set; }
+        [Display(Name = "Prénon")]
         public string Prenom { get; set; }
         public string Courriel { get; set; }
+        [Display(Name = "Mot de passe")]
         public string MotDePasse { get; set; }
+        [Display(Name = "Téléphone")]
         public string NumTel { get; set; }
         public byte? UtilisateurActive { get; set; }
         public byte? IsAdmin { get; set; }
