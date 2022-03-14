@@ -47,7 +47,6 @@ namespace AnimAlerte
             app.UseSession();
 <<<<<<< Updated upstream
 =======
-
 >>>>>>> Stashed changes
             app.UseAuthorization();
             app.UseHttpsRedirection();
