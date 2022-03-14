@@ -66,41 +66,36 @@ namespace AnimAlerte.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
-            if (ModelState.IsValid)
+            var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
+
+            ViewBag.Message = "";
+            try
             {
-                try
+
+                if (u == null && ModelState.IsValid)
                 {
                     _context.Add(utilisateur);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.Message = "Vous etes bien enregistré";
+                    return RedirectToAction("Index", "Home", new { msg = ViewBag.Message });
                 }
-                catch (Exception)
+                else
                 {
-                    _context.C
-                    throw;
+                    ViewBag.Message = "Le nom d'utilisateur existe deja!";
+                    return View(utilisateur);
                 }
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "On ne peut pas enregistrer");
+
+
             }
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
             return View(utilisateur);
         }
-
-        // GET: Utilisateurs/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-            ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
-            return View(utilisateur);
-        }
-
         // POST: Utilisateurs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
