@@ -45,10 +45,7 @@ namespace AnimAlerte
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>

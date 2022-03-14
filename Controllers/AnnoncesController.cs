@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
+using Microsoft.AspNetCore.Http;
 //test2
 namespace AnimAlerte.Controllers
 {
     public class AnnoncesController : Controller
     {
         private readonly AnimAlerteContext _context;
+        private readonly ISession session;
 
-        public AnnoncesController(AnimAlerteContext context)
+        public AnnoncesController(AnimAlerteContext context, IHttpContextAccessor accessor)
         {
             _context = context;
+            this.session = accessor.HttpContext.Session;
         }
 
         // GET: Annonces
@@ -25,6 +28,12 @@ namespace AnimAlerte.Controllers
             return View(await animAlerteContext.ToListAsync());
         }
 
+        public IActionResult TousMesAnnonces()
+        {
+            var nomuser = session.GetString("NomUtilisateur");
+            var mesAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == nomuser && a.AnnonceActive == 1).ToList();
+            return View(mesAnnonces);
+        }
         // GET: Annonces/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,101 +58,73 @@ namespace AnimAlerte.Controllers
         // GET: Annonces/Create
         public IActionResult Create()
         {
-            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "DescriptionAnimal");
-            ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin");
-            ViewData["NomUtilisateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
+            ViewBag.userSession = session.GetString("NomUtilisateur");
+            ViewBag.animaux_User = _context.Animals.Where(a => a.Proprietaire == session.GetString("NomUtilisateur")).ToList();
             return View();
         }
 
         // POST: Annonces/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAnnonce,DateCreation,Titre,DescriptionAnnonce,Ville,AnnonceActive,TypeAnnonce,IdAnimal,NomUtilisateur,NomAdminDesactivateur")] Annonce annonce)
+        public async Task<IActionResult> Create(Annonce annonce)
         {
-            if (ModelState.IsValid)
+            try
             {
+                annonce.NomUtilisateur = session.GetString("NomUtilisateur");
                 _context.Add(annonce);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "DescriptionAnimal", annonce.IdAnimal);
-            ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", annonce.NomAdminDesactivateur);
-            ViewData["NomUtilisateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", annonce.NomUtilisateur);
-            return View(annonce);
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Annonces/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> ModifierMonAnnonce(int? idAnnonce)
         {
-            if (id == null)
+
+            if (idAnnonce == null)
             {
                 return NotFound();
             }
 
-            var annonce = await _context.Annonces.FindAsync(id);
+            var annonce = await _context.Annonces.FindAsync(idAnnonce);
+            ViewBag.animaux_User = _context.Animals.Where(a => a.Proprietaire == session.GetString("NomUtilisateur")).ToList();
             if (annonce == null)
             {
                 return NotFound();
             }
-            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "DescriptionAnimal", annonce.IdAnimal);
-            ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", annonce.NomAdminDesactivateur);
-            ViewData["NomUtilisateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", annonce.NomUtilisateur);
             return View(annonce);
         }
 
         // POST: Annonces/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAnnonce,DateCreation,Titre,DescriptionAnnonce,Ville,AnnonceActive,TypeAnnonce,IdAnimal,NomUtilisateur,NomAdminDesactivateur")] Annonce annonce)
+        public IActionResult ModifierMonAnnonce(Annonce annonce)
         {
-            if (id != annonce.IdAnnonce)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(annonce);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AnnonceExists(annonce.IdAnnonce))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var annonceModif = _context.Annonces.Attach(annonce);
+                annonceModif.State = EntityState.Modified;
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(TousMesAnnonces));
             }
-            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "DescriptionAnimal", annonce.IdAnimal);
-            ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", annonce.NomAdminDesactivateur);
-            ViewData["NomUtilisateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", annonce.NomUtilisateur);
             return View(annonce);
         }
 
         // GET: Annonces/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DesactiverMonAnnonce(int? idAnnonce)
         {
-            if (id == null)
+            if (idAnnonce == null)
             {
                 return NotFound();
             }
 
-            var annonce = await _context.Annonces
-                .Include(a => a.IdAnimalNavigation)
-                .Include(a => a.NomAdminDesactivateurNavigation)
-                .Include(a => a.NomUtilisateurNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnnonce == id);
+            var annonce = await _context.Annonces.FindAsync(idAnnonce);
+            ViewBag.animal = await _context.Animals.FindAsync(annonce.IdAnimal);
             if (annonce == null)
             {
                 return NotFound();
@@ -153,19 +134,17 @@ namespace AnimAlerte.Controllers
         }
 
         // POST: Annonces/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DesactiverMonAnnonce")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DesactivationConfirmed(int idAnnonce)
         {
-            var annonce = await _context.Annonces.FindAsync(id);
-            _context.Annonces.Remove(annonce);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var annonce = _context.Annonces.Find(idAnnonce);
+            annonce.AnnonceActive = 0;
+            var annonceModif = _context.Annonces.Attach(annonce);
+            annonceModif.State = EntityState.Modified;
+            _context.SaveChanges();
 
-        private bool AnnonceExists(int id)
-        {
-            return _context.Annonces.Any(e => e.IdAnnonce == id);
+            return RedirectToAction(nameof(TousMesAnnonces));
         }
     }
 }
