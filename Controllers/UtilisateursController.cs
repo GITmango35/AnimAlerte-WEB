@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
+using System.Data;
 using Microsoft.AspNetCore.Http;
 
 namespace AnimAlerte.Controllers
@@ -65,11 +66,32 @@ namespace AnimAlerte.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
-            if (ModelState.IsValid)
+            var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
+            
+                ViewBag.Message = "";
+            try
             {
-              
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                if (u == null && ModelState.IsValid)
+                {
+                    _context.Add(utilisateur);
+                    await _context.SaveChangesAsync();
+                  
+                    ViewBag.Message = "Vous etes bien enregistré";
+                    return RedirectToAction("Index", "Home", new { msg = ViewBag.Message });
+                }
+                else 
+                {
+                    ViewBag.Message = "Le nom d'utilisateur existe deja!";
+                    return View(utilisateur);
+                }
+
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "On ne peut pas enregistrer");
+
+
             }
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
             return View(utilisateur);
