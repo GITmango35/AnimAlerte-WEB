@@ -66,40 +66,19 @@ namespace AnimAlerte.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
-            var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
-            
-                ViewBag.Message = "";
-            try
+            if (ModelState.IsValid)
             {
-<<<<<<< HEAD
-                
+                try
+                {
                     _context.Add(utilisateur);
-               
+                }
+                catch (Exception)
+                {
+                    _context.C
+                    throw;
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-=======
-
-                if (u == null && ModelState.IsValid)
-                {
-                    _context.Add(utilisateur);
-                    await _context.SaveChangesAsync();
-                  
-                    ViewBag.Message = "Vous etes bien enregistré";
-                    return RedirectToAction("Index", "Home", new { msg = ViewBag.Message });
-                }
-                else 
-                {
-                    ViewBag.Message = "Le nom d'utilisateur existe deja!";
-                    return View(utilisateur);
-                }
-
-            }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "On ne peut pas enregistrer");
-
-
->>>>>>> 881ebf288b785f1bb6944843f205ce710330b62a
             }
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
             return View(utilisateur);
