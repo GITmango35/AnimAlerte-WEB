@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AnimAlerte.Controllers
 {
@@ -16,6 +17,7 @@ namespace AnimAlerte.Controllers
         public AdministrateursController(AnimAlerteContext context)
         {
             _context = context;
+            
         }
 
         // GET: Administrateurs
@@ -43,7 +45,80 @@ namespace AnimAlerte.Controllers
 
             return View(administrateur);
         }
+        // GET: Utilisateurs/Create
+        public IActionResult Create()
+        {
+          //  ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin");
+            return View();
+        }
 
+        // POST: Utilisateurs/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
+        {
+
+
+            Utilisateur obj = new Utilisateur();
+            try
+            {
+                obj.NomUtilisateur= utilisateur.NomUtilisateur ;
+                obj.Nom = utilisateur.Nom;
+                obj.Prenom = utilisateur.Prenom;
+                obj.Courriel = utilisateur.Courriel;
+                obj.MotDePasse = utilisateur.MotDePasse;
+                obj.NumTel = utilisateur.NumTel;
+                obj.UtilisateurActive = 1;
+                obj.IsAdmin = 1;
+                obj.NomAdminDesactivateur = null;
+                _context.Utilisateurs.Add(obj);
+                _context.SaveChanges();
+                Administrateur admin = new Administrateur();
+                admin.NomAdmin = utilisateur.NomUtilisateur;
+                admin.DateCreation = DateTime.Today;
+                _context.Administrateurs.Add(admin);
+                _context.SaveChanges();
+               // return RedirectToAction("AllAnnoncesAdmin", "Annonce");
+                return RedirectToAction("Index", "Administrateurs");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
+        if (ModelState.IsValid)
+        {
+            _context.Add(utilisateur);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
+        return View(utilisateur);
+    }
+        */
+
+
+
+
+
+
+
+        /*
         // GET: Administrateurs/Create
         public IActionResult Create()
         {
@@ -66,7 +141,7 @@ namespace AnimAlerte.Controllers
             }
             ViewData["NomAdmin"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", administrateur.NomAdmin);
             return View(administrateur);
-        }
+        }*/
 
         // GET: Administrateurs/Edit/5
         public async Task<IActionResult> Edit(string id)

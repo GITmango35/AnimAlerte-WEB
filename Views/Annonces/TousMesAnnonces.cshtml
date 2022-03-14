@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AnimAlerte.Models.Annonce>
+
+@{
+    ViewData["Title"] = "Mes Annonces";
+}
+
+<h1>Mes Annonces</h1>
+
+<p>
+    <a asp-action="Create">Créer une annonce</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Titre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeAnnonce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ville)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </th>
+            <th>Opérations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ville)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreation)
+                </td>
+                <td>
+                    @*<a asp-action="ModifierMonAnnonce" asp-route-id="@item.IdAnnonce">Modifier</a> |*@
+                    @Html.ActionLink("Modifier", "ModifierMonAnnonce", new { idAnnonce = @item.IdAnnonce })
+                    @Html.ActionLink("Supprimer", "DesactiverMonAnnonce", new { idAnnonce = @item.IdAnnonce })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

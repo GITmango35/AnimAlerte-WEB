@@ -15,6 +15,7 @@ namespace AnimAlerte.Models
             DetailsContactNomUtilisateurCreateurNavigations = new HashSet<DetailsContact>();
             DetailsContactNomUtilisateurFavorisNavigations = new HashSet<DetailsContact>();
         }
+
         [StringLength(50)]
         [Display(Name="Nom d'utilisateur")]
         [Required(ErrorMessage = "SVP ENTREZ UN NOM D'UTILISATEUR")]
