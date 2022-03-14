@@ -6,26 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
+using Microsoft.AspNetCore.Hosting;
+using AnimAlerte.ViewModels;
+using AnimAlerte.Controllers;
+using System.IO;
 
 namespace AnimAlerte.Controllers
 {
     public class AnimalsController : Controller
     {
         private readonly AnimAlerteContext _context;
+        private readonly IWebHostEnvironment hosting;
 
-        public AnimalsController(AnimAlerteContext context)
+        public AnimalsController(AnimAlerteContext context, IWebHostEnvironment hosting)
         {
             _context = context;
+            this.hosting = hosting;
         }
 
-        // GET: Animals
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var animAlerteContext = _context.Animals.Include(a => a.ProprietaireNavigation);
-            return View(await animAlerteContext.ToListAsync());
+
+            ViewBag.us = UtilisateursController.usersession;
+            return View();
         }
 
-        // GET: Animals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,95 +38,165 @@ namespace AnimAlerte.Controllers
                 return NotFound();
             }
 
-            var animal = await _context.Animals
-                .Include(a => a.ProprietaireNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnimal == id);
+
+            Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
+            Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
+
+            ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
+            {
+                IdAnimal = animal.IdAnimal,
+                NomAnimal = animal.NomAnimal,
+                DescriptionAnimal = animal.DescriptionAnimal,
+                DateInscription = animal.DateInscription,
+                AnimalActif = animal.AnimalActif,
+                Espece = animal.Espece,
+                Proprietaire = animal.Proprietaire,
+                PhotoPath = image.PathImage
+            };
+
+
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return View(animal);
+            return View(model);
         }
 
-        // GET: Animals/Create
-        public IActionResult Create()
+        public IActionResult MesAnimaux()
         {
-            ViewData["Proprietaire"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
-            return View();
+            var animaux = _context.getAnimalsForUser(UtilisateursController.usersession).ToList();
+            ViewBag.images = _context.Images.ToList();
+            return View(animaux);
+        }
+        public IActionResult AjoutAnimal()
+        {
+
+            ViewBag.us = UtilisateursController.usersession;
+            var model = new ImageAnimalViewModel
+            {
+
+            };
+            return View(model);
         }
 
         // POST: Animals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAnimal,NomAnimal,DescriptionAnimal,DateInscription,AnimalActif,Espece,Proprietaire")] Animal animal)
+        public IActionResult AjoutAnimal(ImageAnimalViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(animal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Proprietaire"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", animal.Proprietaire);
-            return View(animal);
-        }
-
-        // GET: Animals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var animal = await _context.Animals.FindAsync(id);
-            if (animal == null)
-            {
-                return NotFound();
-            }
-            ViewData["Proprietaire"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", animal.Proprietaire);
-            return View(animal);
-        }
-
-        // POST: Animals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAnimal,NomAnimal,DescriptionAnimal,DateInscription,AnimalActif,Espece,Proprietaire")] Animal animal)
-        {
-            if (id != animal.IdAnimal)
-            {
-                return NotFound();
-            }
+            // string proprietaire = UtilisateursController.usersession;
+            Animal animal = new Animal();
+            Image image = new Image();
 
             if (ModelState.IsValid)
             {
-                try
+                string fileName = null;
+
+                if (model.Photo != null)
                 {
-                    _context.Update(animal);
-                    await _context.SaveChangesAsync();
+
+                    string extFile = Path.GetExtension(model.Photo.FileName);
+                    string uploads = Path.Combine(hosting.WebRootPath, "uploads");
+                    fileName = Guid.NewGuid() + "_" + model.Photo.FileName;
+                    string fullPath = Path.Combine(uploads, fileName);
+                    model.Photo.CopyTo(new FileStream(fullPath, FileMode.Create));
+
                 }
-                catch (DbUpdateConcurrencyException)
+
+                animal.NomAnimal = model.NomAnimal;
+                animal.DescriptionAnimal = model.DescriptionAnimal;
+                animal.DateInscription = DateTime.Today;
+                animal.AnimalActif = 1;
+                animal.Espece = model.Espece;
+                //animal.Proprietaire = proprietaire;
+
+                _context.Animals.Add(animal);
+                _context.SaveChanges();
+
+                image.TitreImage = model.NomAnimal;
+                if (fileName != null)
                 {
-                    if (!AnimalExists(animal.IdAnimal))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    image.PathImage = fileName;
                 }
-                return RedirectToAction(nameof(Index));
+
+                image.IdAnimal = animal.IdAnimal;
+                _context.Images.Add(image);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(MesAnimaux));
             }
-            ViewData["Proprietaire"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", animal.Proprietaire);
-            return View(animal);
+            return View(model);
         }
 
-        // GET: Animals/Delete/5
+
+        public IActionResult ModifierAnimal(int idAnimal)
+        {
+            Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == idAnimal);
+            Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == idAnimal);
+
+            ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
+            {
+                IdAnimal = animal.IdAnimal,
+                NomAnimal = animal.NomAnimal,
+                DescriptionAnimal = animal.DescriptionAnimal,
+                DateInscription = animal.DateInscription,
+                AnimalActif = animal.AnimalActif,
+                Espece = animal.Espece,
+                Proprietaire = animal.Proprietaire,
+                PhotoPath = image.PathImage
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult ModifierAnimal(ModifImageAnimalViewModel model)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == model.IdAnimal);
+                animal.NomAnimal = model.NomAnimal;
+                animal.DescriptionAnimal = model.DescriptionAnimal;
+
+                animal.DateInscription = model.DateInscription;
+                animal.AnimalActif = 1;
+                animal.Espece = model.Espece;
+                animal.Proprietaire = model.Proprietaire;
+
+                Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == model.IdAnimal);
+                string fileName = null;
+
+                if (model.Photo != null)
+                {
+                    string extFile = Path.GetExtension(model.Photo.FileName);
+
+                    string uploads = Path.Combine(hosting.WebRootPath, "uploads");
+                    fileName = Guid.NewGuid() + "_" + model.Photo.FileName;
+                    string fullPath = Path.Combine(uploads, fileName);
+                    model.Photo.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    image.TitreImage = model.NomAnimal;
+                    image.PathImage = fileName;
+                    image.IdAnimal = model.IdAnimal;
+                }
+
+                var animalmodif = _context.Animals.Attach(animal);
+                animalmodif.State = EntityState.Modified;
+                _context.SaveChanges();
+
+
+                var imageModif = _context.Images.Attach(image);
+                imageModif.State = EntityState.Modified;
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(MesAnimaux));
+            }
+            return View(model);
+        }
+
+        // GET: Animals1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +204,90 @@ namespace AnimAlerte.Controllers
                 return NotFound();
             }
 
-            var animal = await _context.Animals
-                .Include(a => a.ProprietaireNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnimal == id);
+            Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
+            Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
+
+            ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
+            {
+                IdAnimal = animal.IdAnimal,
+                NomAnimal = animal.NomAnimal,
+                DescriptionAnimal = animal.DescriptionAnimal,
+                DateInscription = animal.DateInscription,
+                AnimalActif = animal.AnimalActif,
+                Espece = animal.Espece,
+                Proprietaire = animal.Proprietaire,
+                PhotoPath = image.PathImage
+            };
+
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return View(animal);
+            return View(model);
         }
 
-        // POST: Animals/Delete/5
+        // POST: Animals1/Delete/5
+
+
+        // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var animal = await _context.Animals.FindAsync(id);
-            _context.Animals.Remove(animal);
+            animal.AnimalActif = 0;
+            _context.Animals.Update(animal);
+            //_context.Utilisateurs.Remove(utilisateur);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            // session.Clear();
+            //  usersession = "";
+            return RedirectToAction("MesAnimaux");
+            //return RedirectToAction(nameof(Index));
         }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var animal = await _context.Animals.FindAsync(id);
+        //    var image = await _context.Images.FindAsync(id);
+        //    var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", image.PathImage);
 
-        private bool AnimalExists(int id)
-        {
-            return _context.Animals.Any(e => e.IdAnimal == id);
-        }
+        //    _context.Animals.Remove(animal);
+        //    if (await _context.SaveChangesAsync() > 0)
+        //    {
+        //        if (System.IO.File.Exists(CurrentImage))
+        //        {
+        //            System.IO.File.Delete(CurrentImage);
+        //        }
+        //    }
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //private bool AnimalExists(int id)
+        //{
+        //    return _context.Animals.Any(e => e.IdAnimal == id);
+        //}
+
+        //private string FichierUpload(ImageAnimalViewModel model)
+        //{
+        //    string nomFichier = null;
+
+        //    if (model.Image != null)
+        //    {
+        //        string uploadsFolder = Path.Combine(hosting.WebRootPath, "uploads");
+        //        nomFichier = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+        //        string filePath = Path.Combine(uploadsFolder, nomFichier);
+        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            model.Photo.CopyTo(fileStream);
+
+        //        }
+        //    }
+
+        //    return nomFichier;
+        //}
+
+
     }
 }
