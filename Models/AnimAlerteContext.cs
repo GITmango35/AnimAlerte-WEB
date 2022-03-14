@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -24,13 +26,13 @@ namespace AnimAlerte.Models
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        //-------METHODES DE MANIPULATION DE LA BD ---------
+
+        // Récuperer tous les animaux d`un utilisateur
+        public List<Animal> getAnimalsForUser(string nomuser)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=ASUS-TUF\\SQLEXPRESS01;database=animalerte4;integrated security=true;");
-            }
+            return Animals.Where(a => a.Proprietaire == nomuser).ToList();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -298,6 +300,11 @@ namespace AnimAlerte.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+        }
+
+        internal object getAnimalsForUser(object usersession)
+        {
+            throw new NotImplementedException();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

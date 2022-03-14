@@ -1,19 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AnimAlerte.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace AnimAlerte.Models
+namespace AnimAlerte.ViewModels
 {
-    public partial class Animal
+    public class ImageAnimalViewModel
     {
-        public Animal()
-        {
-            Annonces = new HashSet<Annonce>();
-            Images = new HashSet<Image>();
-        }
         [Display(Name = "Nom Animal ")]
         [Required(ErrorMessage = "Entrer le nom de votre animal")]
         public int IdAnimal { get; set; }
@@ -29,12 +25,22 @@ namespace AnimAlerte.Models
 
         [Display(Name = "Espéce")]
         public string Espece { get; set; }
-        public string Proprietaire { get; set; }
 
         [Display(Name = "Proprietaire")]
-        public virtual Utilisateur ProprietaireNavigation { get; set; }
-        public virtual ICollection<Annonce> Annonces { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+        public string Proprietaire { get; set; }
+
+      
+        public Animal Animal { get; set; }
+
+        public Image Image { get; set; }
+
+
+        [Display(Name = "Photo ")]
+        public IFormFile Photo { get; set; }
+       
+       
+
+       
 
     }
 }
