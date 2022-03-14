@@ -16,31 +16,34 @@ namespace AnimAlerte.Models
             DetailsContactNomUtilisateurFavorisNavigations = new HashSet<DetailsContact>();
         }
 
-        [Key]
-
-        [Display(Name = "Nom d'utilisateur:")]
-        [Required(ErrorMessage = "Entrer le nom d'utilisateur")]
+        [StringLength(50)]
+        [Display(Name="Nom d'utilisateur")]
+        [Required(ErrorMessage = "SVP ENTREZ UN NOM D'UTILISATEUR")]
         public string NomUtilisateur { get; set; }
-
-        [Display(Name = "Nom:")]
-        [Required(ErrorMessage = "Entrer votre nom")]
+        [StringLength(25)]
+        [Required(ErrorMessage = "SVP ENTREZ VOTRE NOM")]
         public string Nom { get; set; }
-        [Display(Name = "Prenom:")]
-        [Required(ErrorMessage = "Entrer votre prénom")]
+        [StringLength(25)]
+        [Required(ErrorMessage = "SVP ENTREZ VOTRE PRENOM")]
+        [Display(Name = "Prénon")]
         public string Prenom { get; set; }
-        [Display(Name = "Courriel:")]
-        [Required(ErrorMessage = "Entrer votre courriel")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Le corriel n'est pas valide.")]
+        [StringLength(25)]
+        [Required(ErrorMessage = "SVP ENTREZ UN COURRIEL VALIDE")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "COURRIEL NON VALIDE")]
         public string Courriel { get; set; }
-        [Display(Name = "Mot de passe:")]
-        [Required(ErrorMessage = "Entrer un mot de passe")]
+        [StringLength(25)]
+        [Display(Name = "Mot de passe")]
+        [Required(ErrorMessage = "SVP ENTREZ UN MOT DE PASSE")]
         public string MotDePasse { get; set; }
-        [Display(Name = "Numéro de Téléphone:")]
-        [RegularExpression(@"^[1-9]\d{2}\d{3}\d{4}", ErrorMessage = "Numero de Telphone n'est pas valide.")]
-      
+        [StringLength(10)]
+        [Display(Name = "Téléphone")]
+        [Required(ErrorMessage = "SVP ENTREZ VOTRE TELEPHONE")]
         public string NumTel { get; set; }
+        [Range(0,1)]
         public byte? UtilisateurActive { get; set; }
+        [Range(0, 1)]
         public byte? IsAdmin { get; set; }
+        [StringLength(50)]
         public string NomAdminDesactivateur { get; set; }
 
         public virtual Administrateur NomAdminDesactivateurNavigation { get; set; }

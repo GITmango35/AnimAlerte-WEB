@@ -20,41 +20,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1" id="menu">
                         @if ((AnimAlerte.Controllers.HomeController.usersession != null) && (AnimAlerte.Controllers.HomeController.admin == 0))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Index">Utilisateur</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">Administrateur</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="Index">Animal</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="Index">Annonce</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="DetailsContacts" asp-action="Index">Contact Favorits</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Se deconnecter</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Create">Ajouter Admin</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <form asp-action="Logout" asp-controller="Account" method="post">
-                                    <button type="submit" class="btn btn-primary text-white">
-                                        Se déconnecter  @AnimAlerte.Controllers.HomeController.usersession
-                                    </button>
-                                </form>
-                            </li>
+                                           <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Index">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">Administrateur</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="Index">Animal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="Index">Annonce</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="DetailsContacts" asp-action="Index">Contact Favoris</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Logout">Se deconnecter</a>
+                        </li>
                         }
                         @if ((AnimAlerte.Controllers.HomeController.usersession != null) && (AnimAlerte.Controllers.HomeController.admin == 1))
                         {
@@ -74,6 +65,7 @@
                         @if (AnimAlerte.Controllers.HomeController.usersession == null)
                         {
 
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer'</a>
                             </li>
@@ -91,7 +83,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Animal_ert - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - AnimAlerte<a asp-area="" asp-controller="Home" asp-action="Privacy"></a>
+
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,79 @@
+﻿@model AnimAlerte.ViewModels.ImageAnimalViewModel
+
+@{
+    ViewData["Title"] = "Ajouter un animal";
+}
+
+<h1>Ajouter un animal</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Animals" asp-action="AjoutAnimal" enctype="multipart/form-data">
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+            <div class="form-group">
+                <label asp-for="NomAnimal" class="control-label"></label>
+                <input asp-for="NomAnimal" class="form-control" />
+                <span asp-validation-for="NomAnimal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescriptionAnimal" class="control-label"></label>
+                <textarea asp-for="DescriptionAnimal" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="DescriptionAnimal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Espece" class="control-label"></label>
+                <select asp-for="Espece" class="form-control">
+                    <option selected disabled>-- Sélectionner --</option>
+                    <option value="Chien">Chien</option>
+                    <option value="Chat">Chat</option>
+                    <option value="Autres">Autres</option>
+                </select>
+                <span asp-validation-for="Espece" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Photo" class="custom-file-input" id="customFile" accept="image/*"/>
+                    <label class="custom-file-label" for="customFile">Choisissez votre fichier...</label>
+                </div>
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                </div>
+            </div>
+            @*<div class="text text-danger" asp-validation-summary="All"></div>*@
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="MesAnimaux">Retour à la liste</a>
+</div>
+
+
+@section CreateSectionJS{
+    <script type="text/javascript">//pour une seule photo
+    $(document).ready(function () {
+        $("#customFile").on("change", function () {
+            var inputPhoto = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(inputPhoto);
+        });
+
+
+    })
+    /*$(document).ready(function () {
+        //pour plusieurs photos
+        $("#inputGroupeFile01").on("change", function () {
+            var inputPhoto = $(this)[0].files;
+            if (inputPhoto.length == 1) {
+                $(this).next(".custom-file-label").html(inputPhoto.length+" files selected");
+            } else {
+
+            }
+           // $(this).next(".custom-file-label").html(inputPhoto);
+        });*/</script>
+}

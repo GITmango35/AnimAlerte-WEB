@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Liste des annonces";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Créer une annonce</a>
 </p>
 <table class="table">
     <thead>
@@ -24,9 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ville)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnnonceActive)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.TypeAnnonce)
             </th>
@@ -34,12 +32,8 @@
                 @Html.DisplayNameFor(model => model.IdAnimalNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NomUtilisateurNavigation)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -58,24 +52,13 @@
                 @Html.DisplayFor(modelItem => item.Ville)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnnonceActive)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.TypeAnnonce)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdAnimalNavigation.DescriptionAnimal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.NomUtilisateurNavigation.NomUtilisateur)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdAnnonce">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdAnnonce">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdAnnonce">Delete</a>
             </td>
         </tr>
 }
