@@ -67,7 +67,15 @@ namespace AnimAlerte.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(utilisateur);
+                try
+                {
+                    _context.Add(utilisateur);
+                }
+                catch (Exception)
+                {
+                    _context.C
+                    throw;
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
