@@ -31,7 +31,7 @@ namespace AnimAlerte.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -84,7 +84,7 @@ namespace AnimAlerte.Controllers
         [HttpPost]
         public IActionResult AjoutAnimal(ImageAnimalViewModel model)
         {
-            // string proprietaire = UtilisateursController.usersession;
+            string proprietaire = UtilisateursController.usersession;
             Animal animal = new Animal();
             Image image = new Image();
 
@@ -108,7 +108,7 @@ namespace AnimAlerte.Controllers
                 animal.DateInscription = DateTime.Today;
                 animal.AnimalActif = 1;
                 animal.Espece = model.Espece;
-                //animal.Proprietaire = proprietaire;
+                animal.Proprietaire = proprietaire;
 
                 _context.Animals.Add(animal);
                 _context.SaveChanges();
@@ -197,7 +197,7 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Animals1/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {

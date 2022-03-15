@@ -59,14 +59,14 @@ namespace AnimAlerte.Controllers
         [ValidateAntiForgeryToken]
         // [ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
+        public IActionResult Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
 
 
             Utilisateur obj = new Utilisateur();
             try
             {
-                obj.NomUtilisateur= utilisateur.NomUtilisateur ;
+                obj.NomUtilisateur = utilisateur.NomUtilisateur;
                 obj.Nom = utilisateur.Nom;
                 obj.Prenom = utilisateur.Prenom;
                 obj.Courriel = utilisateur.Courriel;
@@ -82,7 +82,7 @@ namespace AnimAlerte.Controllers
                 admin.DateCreation = DateTime.Today;
                 _context.Administrateurs.Add(admin);
                 _context.SaveChanges();
-               // return RedirectToAction("AllAnnoncesAdmin", "Annonce");
+                // return RedirectToAction("AllAnnoncesAdmin", "Annonce");
                 return RedirectToAction("Index", "Administrateurs");
             }
             catch
