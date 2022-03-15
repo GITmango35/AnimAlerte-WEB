@@ -73,7 +73,7 @@ namespace AnimAlerte.Controllers
                 annonce.NomUtilisateur = session.GetString("NomUtilisateur");
                 _context.Add(annonce);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(TousMesAnnonces));
             }
             catch
             {

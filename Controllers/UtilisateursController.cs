@@ -25,11 +25,13 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Utilisateur
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+
+            //session.SetString("NomUtilisateur", nomuser);
             //var user = UtilisateursController.usersession;
-            var user = "eli";// HARD-CODED -> TO BE MODIFIED
-            var profil = _context.Utilisateurs.Where(u => u.NomUtilisateur == user).ToList();
+            //var user = "eli";// HARD-CODED -> TO BE MODIFIED
+            var profil = _context.Utilisateurs.Where(u => u.NomUtilisateur == session.GetString("NomUtilisateur")).ToList();
             return View(profil);
         }
 
@@ -59,7 +61,7 @@ namespace AnimAlerte.Controllers
             return View();
         }
 
-      // POST: Utilisateurs/Create
+        // POST: Utilisateurs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,8 +69,8 @@ namespace AnimAlerte.Controllers
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
             var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
-            
-                ViewBag.Message = "";
+
+            ViewBag.Message = "";
             try
             {
 
@@ -76,11 +78,11 @@ namespace AnimAlerte.Controllers
                 {
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
-                  
+
                     ViewBag.Message = "Vous etes bien enregistré";
-                    return RedirectToAction("Index", "Home", new { msg = ViewBag.Message });
+                    return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
-                else 
+                else
                 {
                     ViewBag.Message = "Le nom d'utilisateur existe deja!";
                     return View(utilisateur);
@@ -170,6 +172,65 @@ namespace AnimAlerte.Controllers
         private bool UtilisateurExists(string id)
         {
             return _context.Utilisateurs.Any(e => e.NomUtilisateur == id);
+        }
+        //Get Login
+        public IActionResult Login(string msg)
+        {
+            ViewBag.Message = msg;
+            return View();
+        }
+
+        //---Methode Login
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Login(string nomuser, string mdp)
+        {
+            ViewBag.Message = "";
+
+            Utilisateur utilisateur = _context.Utilisateurs.Find(nomuser);
+            try
+            {
+                if (utilisateur != null && utilisateur.MotDePasse == mdp)
+
+                {
+                    session.SetString("NomUtilisateur", nomuser);
+                    usersession = nomuser;
+                    if (utilisateur.IsAdmin == 0)
+                    {
+                        admin = 0;
+                        // return RedirectToAction("Index", "Utilisateurs");
+                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
+                    }
+                    else
+                    {
+                        admin = 1;
+                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
+                        // return RedirectToAction("Index", "Utilisaieurs");
+                    }
+                }
+
+                else
+                {
+                    ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
+                    return RedirectToAction("Login", new { msg = ViewBag.Message });
+                }
+            }
+            catch (Exception)
+            {
+                //return View();
+                return RedirectToAction("Index", "Utilisateurs");
+            }
+
+
+
+        }
+        //Deconnexion
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            session.Clear();
+            usersession = "";
+            return RedirectToAction("Login","Utilisateurs");
         }
     }
 }

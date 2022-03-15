@@ -1,0 +1,23 @@
+﻿@model AnimAlerte.Models.Utilisateur
+@{
+    ViewData["Title"] = "Login";
+}
+
+<img src="~/images/logo.png" />
+<h1>Connexion</h1>
+<p class="alert-danger">@ViewBag.Message</p>
+<form action="/Utilisateurs/Login" method="post">
+   
+    <div class="mb-3">
+        <label for="nomuser" class="form-label">Nom Utilisateur</label>
+        <input type="text" class="form-control" id="nomuser" name="nomuser" />
+    </div>
+    <div class="mb-3">
+        <label for="mdp" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="mdp" name="mdp">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+    <p>Vous n'avez pas de compte? <a href="/Utilisateurs/Create">S'enregistrer</a></p>
+</form>

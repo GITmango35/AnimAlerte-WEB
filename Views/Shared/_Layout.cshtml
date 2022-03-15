@@ -22,7 +22,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
                     <ul class="navbar-nav flex-grow-1" id="menu">
-                        @if ((AnimAlerte.Controllers.HomeController.usersession != null) && (AnimAlerte.Controllers.HomeController.admin == 0))
+                        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 0))
                         {
                                         
                         <li class="nav-item">
@@ -35,19 +35,26 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">Administrateur</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="Index">Animal</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="MesAnimaux">Animal</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="Index">Annonce</a>
                         </li>
                         <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="TousMesAnnonces">Mes annonces</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="DetailsContacts" asp-action="Index">Contact Favoris</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Logout">Se deconnecter</a>
+                            <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
+                                <button type="submit" class="btn btn-primary text-white">
+                                    Se déconnecter  @AnimAlerte.Controllers.UtilisateursController.usersession
+                                </button>
+                            </form>
                         </li>
                         }
-                        @if ((AnimAlerte.Controllers.HomeController.usersession != null) && (AnimAlerte.Controllers.HomeController.admin == 1))
+                        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 1))
                         {
 
                             <li class="nav-item">
@@ -55,19 +62,17 @@
                             </li>
 
                             <li class="nav-item">
-                                <form asp-action="Logout" asp-controller="Home" method="post">
+                                <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
                                     <button type="submit" class="btn btn-primary text-white">
-                                        Se déconnecter  @AnimAlerte.Controllers.HomeController.usersession
+                                        Se déconnecter  @AnimAlerte.Controllers.UtilisateursController.usersession
                                     </button>
                                 </form>
                             </li>
                         }
-                        @if (AnimAlerte.Controllers.HomeController.usersession == null)
+                        @if (AnimAlerte.Controllers.UtilisateursController.usersession == null)
                         {
-
-
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer'</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
                             </li>
                         }
                     </ul>
