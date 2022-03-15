@@ -59,7 +59,7 @@ namespace AnimAlerte.Controllers
             return View();
         }
 
-        // POST: Utilisateurs/Create
+      // POST: Utilisateurs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,8 +67,8 @@ namespace AnimAlerte.Controllers
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
             var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
-
-            ViewBag.Message = "";
+            
+                ViewBag.Message = "";
             try
             {
 
@@ -76,11 +76,11 @@ namespace AnimAlerte.Controllers
                 {
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
-
+                  
                     ViewBag.Message = "Vous etes bien enregistré";
                     return RedirectToAction("Index", "Home", new { msg = ViewBag.Message });
                 }
-                else
+                else 
                 {
                     ViewBag.Message = "Le nom d'utilisateur existe deja!";
                     return View(utilisateur);
