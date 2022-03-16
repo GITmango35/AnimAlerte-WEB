@@ -23,6 +23,8 @@ namespace AnimAlerte.Models
         [Required]
         [Display(Name = "Type Annonce")]
         public string TypeAnnonce { get; set; }
+        
+        [Required(ErrorMessage = "SVP, Veuillez créer un nouvel animal!")]
         public int? IdAnimal { get; set; }
         public string NomUtilisateur { get; set; }
         public string NomAdminDesactivateur { get; set; }
