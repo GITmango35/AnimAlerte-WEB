@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Liste Contact Favoris</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Rajouter un Contact(X)</a>
 </p>
 <table class="table">
     <thead>
@@ -15,9 +15,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateAjout)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.NomUtilisateurCreateurNavigation)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.NomUtilisateurFavorisNavigation)
             </th>
@@ -30,16 +30,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateAjout)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.NomUtilisateurCreateurNavigation.NomUtilisateur)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.NomUtilisateurFavorisNavigation.NomUtilisateur)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Details" asp-route-id="@item.NomUtilisateurFavorisNavigation">Détails(X)</a> |
+                <a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavorisNavigation">Supprimer(X)</a>
+
+
+
+                @*Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @item.IdAnimal }) |
+                <a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavoris">Supprimer</a> |
+                @Html.ActionLink("Supprimer", "Delete", new { NomUtilisateursFavoris = @item.NomUtilisateurFavoris })*@
+               
             </td>
         </tr>
 }
