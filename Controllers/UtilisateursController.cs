@@ -198,14 +198,14 @@ namespace AnimAlerte.Controllers
                     if (utilisateur.IsAdmin == 0)
                     {
                         admin = 0;
-                        // return RedirectToAction("Index", "Utilisateurs");
+                        
                         return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
                         admin = 1;
                         return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
-                        // return RedirectToAction("Index", "Utilisaieurs");
+                       
                     }
                 }
 
@@ -217,7 +217,7 @@ namespace AnimAlerte.Controllers
             }
             catch (Exception)
             {
-                //return View();
+                
                 return RedirectToAction("Index", "Utilisateurs");
             }
 
