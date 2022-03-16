@@ -21,8 +21,18 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts
         public async Task<IActionResult> Index()
         {
-            var animAlerteContext = _context.DetailsContacts.Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
+            //Must return only the user's favorite contacts
+
+            //var animAlerteContext = _context.DetailsContacts.Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
+            //return View(await animAlerteContext.ToListAsync());
+
+
+
+
+            var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
             return View(await animAlerteContext.ToListAsync());
+
+
         }
 
         // GET: DetailsContacts/Details/5

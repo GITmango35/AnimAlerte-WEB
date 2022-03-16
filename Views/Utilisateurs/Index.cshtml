@@ -66,11 +66,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
             </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">Modifier</a> |
-                <!--<a asp-action="Details" asp-route-id="@item.NomUtilisateur">Details</a> |-->
-                <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>
-            </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">Modifier</a> |
+            <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>
+        </td>
         </tr>
 }
     </tbody>

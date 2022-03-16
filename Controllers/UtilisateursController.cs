@@ -98,6 +98,23 @@ namespace AnimAlerte.Controllers
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
             return View(utilisateur);
         }
+        // GET: Utilisateurs/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Utilisateurs = await _context.Utilisateurs.FindAsync(id);
+            if (Utilisateurs == null)
+            {
+                return NotFound();
+            }
+            // Verify this 
+            // ViewData["NomAdmin"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", Utilisateurs.NomUtilisateur);
+            return View(Utilisateurs);
+        }
         // POST: Utilisateurs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
