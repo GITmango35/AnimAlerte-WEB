@@ -11,8 +11,11 @@ namespace AnimAlerte.Models
         [Display(Name = "Numéro d'annonce")]
         public int IdAnnonce { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+
         [Display(Name = "Date création")]
         public DateTime? DateCreation { get; set; }
+
         [Required]
         [Display(Name = "Titre Annonce")]
         public string Titre { get; set; }

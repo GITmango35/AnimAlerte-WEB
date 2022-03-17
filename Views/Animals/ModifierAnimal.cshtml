@@ -1,4 +1,4 @@
-﻿@model AnimAlerte.ViewModels.ModifImageAnimalViewModel
+﻿@model AnimAlerte.ViewModels.ImageAnimalModifViewModel
 
 @{ ViewBag.Title = "Modifier Animal";
     var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg"); 
@@ -49,7 +49,7 @@
                 <div class="input-group">
                     @if (Model.PhotoPath != null)
                     {
-                        <img src="@ExistingPhotoPath" asp-append-version="true" width="80" height="80" alt="@Model.NomAnimal" /> 
+                        <img src="@ExistingPhotoPath" asp-append-version="true" height="100" width="100" alt="@Model.NomAnimal" class="img-thumbnail"/> 
                     }
                     else
                     {
