@@ -28,7 +28,7 @@
     <tbody>
 
         @foreach (var item in Model)
-         {
+        {
             <tr scope="row">
                 <td scope="col">
                     @Html.DisplayFor(modelItem => item.NomAnimal)
@@ -43,27 +43,27 @@
                     @Html.DisplayFor(modelItem => item.Espece)
                 </td>
 
-               @foreach (var i in ViewBag.images)
+                @foreach (var i in ViewBag.images)
                 {
                     if (i.IdAnimal == item.IdAnimal)
                     {
                         <td>
-                           @if (i.PathImage != null)
-                            { 
-                                <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" /> 
-                            }
-                            else
-                            {
-                                <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
-                            }
+                            <a asp-action="Details" asp-route-id="@item.IdAnimal">
+                                @if (i.PathImage != null)
+                                {
+                                    <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+                                }
+                            </a>
                         </td>
                     }
                 }
             <td>
                 @Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @item.IdAnimal }) |
-                <a asp-action="Details" asp-route-id="@item.IdAnimal">Details</a> |
                 @Html.ActionLink("Supprimer", "Delete", new { idAnimal = @item.IdAnimal })
-                @*<a asp-action="Delete" asp-route-id="@item.IdAnimal">Delete</a>*@
             </td>
             </tr>
          }
@@ -71,78 +71,11 @@
 </table>
 
 @section DTListAnimals{
-            
+
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable();});
+            $('#myTable').DataTable();
+        });
     </script>
-        }
+}
 
-
-        @*@model IEnumerable<AnimAlerte.Models.Animal>
-
-            @{
-                ViewData["Title"] = "Mes Animaux";
-            }
-
-            <h1>Mes Animaux</h1>
-            <hr />
-            <p>
-                <a asp-action="AjoutAnimal">Ajouter un animal</a>
-            </p>
-
-            <table class="table" id="myTable">
-                <thead class="thead-dark table-hover table-dark">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NomAnimal)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DescriptionAnimal)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DateInscription)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.AnimalActif)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Espece)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProprietaireNavigation)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NomAnimal)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DescriptionAnimal)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateInscription)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AnimalActif)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Espece)
-                            </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProprietaireNavigation.NomUtilisateur)
-                    </td>
-                    <td>
-                        <a asp-action="ModifierAnimal" asp-route-id="@item.IdAnimal">Modifier</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdAnimal">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.IdAnimal">Supprimer</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@

@@ -1,12 +1,14 @@
 ﻿@model AnimAlerte.ViewModels.ModifImageAnimalViewModel
+
 @{ ViewBag.Title = "Modifier Animal";
-    var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg"); }
+    var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg"); 
+ }
+
 @if (ViewBag.Error != null)
 {
 <h4 class="alert alert-danger">@ViewBag.Error</h4>}
-<h2 class="my-5 text-center">Modifier Animal</h2>
+<h2 class="">Modifier Animal</h2>
 <hr />
-
 <div class="my-5">
     <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="ModifierAnimal">
         <input hidden asp-for="IdAnimal" />
@@ -47,10 +49,12 @@
                 <div class="input-group">
                     @if (Model.PhotoPath != null)
                     {
-        <img src="@ExistingPhotoPath" asp-append-version="true" width="20%" height="20%" alt="@Model.NomAnimal" /> }
-    else
-    {
-<span class="alert alert-info">Aucune image n'est ajouté</span>}
+                        <img src="@ExistingPhotoPath" asp-append-version="true" width="80" height="80" alt="@Model.NomAnimal" /> 
+                    }
+                    else
+                    {
+                        <span class="alert alert-info">Aucune image n'est ajouté</span>
+                    }
                 </div>
             </div>
         </div>

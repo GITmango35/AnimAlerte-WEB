@@ -32,7 +32,7 @@ namespace AnimAlerte.Models
         // Récuperer tous les animaux d`un utilisateur
         public List<Animal> getAnimalsForUser(string nomuser)
         {
-            return Animals.Where(a => a.Proprietaire == nomuser).ToList();
+            return Animals.Where(a => a.Proprietaire == nomuser && a.AnimalActif == 1).ToList();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,6 +41,7 @@ namespace AnimAlerte.Models
 
             modelBuilder.Entity<Administrateur>(entity =>
             {
+
                 entity.HasKey(e => e.NomAdmin)
                     .HasName("PK__Administ__47462F6F59BA6D00");
 
@@ -65,6 +66,7 @@ namespace AnimAlerte.Models
 
             modelBuilder.Entity<Animal>(entity =>
             {
+              
                 entity.HasKey(e => e.IdAnimal)
                     .HasName("PK__Animal__0276B50397F0158D");
 

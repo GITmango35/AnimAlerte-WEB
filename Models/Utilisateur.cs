@@ -25,7 +25,7 @@ namespace AnimAlerte.Models
         public string Nom { get; set; }
         [StringLength(25)]
         [Required(ErrorMessage = "SVP ENTREZ VOTRE PRENOM")]
-        [Display(Name = "Prénon")]
+        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         [StringLength(25)]
         [Required(ErrorMessage = "SVP ENTREZ UN COURRIEL VALIDE")]
@@ -38,6 +38,7 @@ namespace AnimAlerte.Models
         [StringLength(10)]
         [Display(Name = "Téléphone")]
         [Required(ErrorMessage = "SVP ENTREZ VOTRE TELEPHONE")]
+        //[RegularExpression()*$", ErrorMessage = "FORMAT DE TELEPHONE NON VALIDE")]
         public string NumTel { get; set; }
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }
