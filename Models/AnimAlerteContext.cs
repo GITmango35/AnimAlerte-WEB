@@ -32,7 +32,7 @@ namespace AnimAlerte.Models
         // Récuperer tous les animaux d`un utilisateur
         public List<Animal> getAnimalsForUser(string nomuser)
         {
-            return Animals.Where(a => a.Proprietaire == nomuser).ToList();
+            return Animals.Where(a => a.Proprietaire == nomuser && a.AnimalActif == 1).ToList();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

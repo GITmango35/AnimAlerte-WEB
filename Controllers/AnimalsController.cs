@@ -26,9 +26,15 @@ namespace AnimAlerte.Controllers
 
         public IActionResult Index()
         {
-
             ViewBag.us = UtilisateursController.usersession;
             return View();
+        }
+
+        public IActionResult MesAnimaux()
+        {
+            var animaux = _context.getAnimalsForUser(UtilisateursController.usersession).ToList();
+            ViewBag.images = _context.Images.ToList();
+            return View(animaux);
         }
 
 
@@ -50,45 +56,9 @@ namespace AnimAlerte.Controllers
 
             return View(animal);
         }
+        
 
-        //public IActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-
-        //    Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
-        //    Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
-
-        //    ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
-        //    {
-        //        IdAnimal = animal.IdAnimal,
-        //        NomAnimal = animal.NomAnimal,
-        //        DescriptionAnimal = animal.DescriptionAnimal,
-        //        DateInscription = animal.DateInscription,
-        //        AnimalActif = animal.AnimalActif,
-        //        Espece = animal.Espece,
-        //        Proprietaire = animal.Proprietaire,
-        //        PhotoPath = image.PathImage
-        //    };
-
-
-        //    if (animal == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(model);
-        //}
-
-        public IActionResult MesAnimaux()
-        {
-            var animaux = _context.getAnimalsForUser(UtilisateursController.usersession).ToList();
-            ViewBag.images = _context.Images.ToList();
-            return View(animaux);
-        }
+        // GET: Animals/Create
         public IActionResult AjoutAnimal()
         {
 
@@ -145,10 +115,12 @@ namespace AnimAlerte.Controllers
 
                 return RedirectToAction(nameof(MesAnimaux));
             }
+
             return View(model);
         }
 
 
+        // GET: Animals/ModifierAnimal
         public IActionResult ModifierAnimal(int idAnimal)
         {
             Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == idAnimal);
@@ -169,6 +141,8 @@ namespace AnimAlerte.Controllers
             return View(model);
         }
 
+
+        // POST: Animals/ModifierAnimal
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ModifierAnimal(ModifImageAnimalViewModel model)
@@ -216,40 +190,6 @@ namespace AnimAlerte.Controllers
             return View(model);
         }
 
-        //// GET: Animals1/Delete/5
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
-        //    Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
-
-        //    ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
-        //    {
-        //        IdAnimal = animal.IdAnimal,
-        //        NomAnimal = animal.NomAnimal,
-        //        DescriptionAnimal = animal.DescriptionAnimal,
-        //        DateInscription = animal.DateInscription,
-        //        AnimalActif = animal.AnimalActif,
-        //        Espece = animal.Espece,
-        //        Proprietaire = animal.Proprietaire,
-        //        PhotoPath = image.PathImage
-        //    };
-
-        //    if (animal == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(model);
-        //}
-
-
-
-
 
         // GET: Animals/Delete/5
         public async Task<IActionResult> Delete(int? idAnimal)
@@ -269,7 +209,7 @@ namespace AnimAlerte.Controllers
             return View(animal);
         }
 
-        // POST: Annonces/Delete/5
+        // POST: Animals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int idAnimal)
@@ -278,11 +218,11 @@ namespace AnimAlerte.Controllers
             animal.AnimalActif = 0;
             var animalModif = _context.Animals.Attach(animal);
             animalModif.State = EntityState.Modified;
+            
             _context.SaveChanges();
 
             return RedirectToAction(nameof(MesAnimaux));
         }
-
 
     }
 }

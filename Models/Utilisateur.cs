@@ -25,7 +25,7 @@ namespace AnimAlerte.Models
         public string Nom { get; set; }
         [StringLength(25)]
         [Required(ErrorMessage = "SVP ENTREZ VOTRE PRENOM")]
-        [Display(Name = "Prénon")]
+        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         [StringLength(25)]
         [Required(ErrorMessage = "SVP ENTREZ UN COURRIEL VALIDE")]
