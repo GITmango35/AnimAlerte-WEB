@@ -1,9 +1,5 @@
 ﻿@model AnimAlerte.ViewModels.ModifImageAnimalViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
-
 <h1>Détails</h1>
 
 <div>
@@ -29,28 +25,13 @@
             @Html.DisplayFor(model => model.DateInscription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalActif)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnimalActif)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Espece)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Espece)
         </dd>
-        @*<dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ProprietaireNavigation)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ProprietaireNavigation.NomUtilisateur)
-            </dd>*@
     </dl>
 </div>
 <div>
-   
-
-    <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-id="@Model.IdAnimal">Modifier</a> |
-    <a asp-action="Mes Animaux">Retour à la liste<</a>
+    <a asp-action="MesAnimaux">Retour à la liste</a>
 </div>
