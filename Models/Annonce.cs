@@ -8,9 +8,12 @@ namespace AnimAlerte.Models
 {
     public partial class Annonce
     {
+        [Display(Name = "Numéro d'annonce")]
         public int IdAnnonce { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+
+        [Display(Name = "Date création")]
         public DateTime? DateCreation { get; set; }
 
         [Required]
@@ -29,6 +32,7 @@ namespace AnimAlerte.Models
         
         [Required(ErrorMessage = "SVP, Veuillez créer un nouvel animal!")]
         public int? IdAnimal { get; set; }
+        [Display(Name = "Nom Utilisateur")]
         public string NomUtilisateur { get; set; }
         public string NomAdminDesactivateur { get; set; }
 
