@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 
-@{
-    ViewData["Title"] = "Liste des annonces";
-}
+@{ ViewData["Title"] = "Liste Annonces"; }
 
-<h1>Index</h1>
+<h1>Liste des annonces</h1>
 
-<p>
-    <a asp-action="Create">Créer une annonce</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -38,8 +34,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateCreation)
             </th>
-
-            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -99,10 +93,6 @@ else
         @Html.DisplayFor(modelItem => item.DateCreation)
     </td>
 
-    <td>
-
-        @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })
-    </td>
 </tr>}
     </tbody>
 </table>

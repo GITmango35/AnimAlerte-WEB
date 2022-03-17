@@ -216,12 +216,12 @@ namespace AnimAlerte.Controllers
                     {
                         admin = 0;
                         
-                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("AllAnnonces", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
                         admin = 1;
-                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { nomuser = nomuser });
                        
                     }
                 }
