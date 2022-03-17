@@ -38,6 +38,7 @@ namespace AnimAlerte.Models
         [StringLength(10)]
         [Display(Name = "Téléphone")]
         [Required(ErrorMessage = "SVP ENTREZ VOTRE TELEPHONE")]
+        //[RegularExpression()*$", ErrorMessage = "FORMAT DE TELEPHONE NON VALIDE")]
         public string NumTel { get; set; }
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }
