@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimAlerte.ViewModels
 {
-    public class ModifImageAnimalViewModel : ImageAnimalViewModel
+    public class ImageAnimalModifViewModel : ImageAnimalViewModel
     {
         public string PhotoPath { get; set; }
     }

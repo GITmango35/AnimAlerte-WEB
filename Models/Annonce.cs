@@ -9,7 +9,10 @@ namespace AnimAlerte.Models
     public partial class Annonce
     {
         public int IdAnnonce { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateCreation { get; set; }
+
         [Required]
         [Display(Name = "Titre Annonce")]
         public string Titre { get; set; }

@@ -38,6 +38,7 @@ namespace AnimAlerte.Models
         public virtual Utilisateur ProprietaireNavigation { get; set; }
         public virtual ICollection<Annonce> Annonces { get; set; }
         public virtual ICollection<Image> Images { get; set; }
+       
 
     }
 }
