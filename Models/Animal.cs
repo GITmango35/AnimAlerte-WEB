@@ -14,15 +14,18 @@ namespace AnimAlerte.Models
             Annonces = new HashSet<Annonce>();
             Images = new HashSet<Image>();
         }
+       
+        public int IdAnimal { get; set; }
+
         [Display(Name = "Nom Animal ")]
         [Required(ErrorMessage = "Entrer le nom de votre animal")]
-        public int IdAnimal { get; set; }
         public string NomAnimal { get; set; }
 
         [Display(Name = "Description")]
         public string DescriptionAnimal { get; set; }
 
         [Display(Name = "Date d'inscription")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateInscription { get; set; }
 
         public byte? AnimalActif { get; set; }

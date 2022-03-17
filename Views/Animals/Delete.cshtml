@@ -1,12 +1,13 @@
-﻿@model AnimAlerte.ViewModels.ModifImageAnimalViewModel
+﻿@model AnimAlerte.Models.Animal
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Supprimer</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<hr />
+<h3>Vous êtes sur de vouloir supprimer cet animal?</h3>
 <div>
     <h4>Animal</h4>
     <hr />
@@ -30,18 +31,11 @@
             @Html.DisplayFor(model => model.DateInscription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalActif)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnimalActif)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Espece)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Espece)
         </dd>
-
     </dl>
 
     <form asp-action="Delete">

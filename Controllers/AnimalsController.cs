@@ -31,37 +31,57 @@ namespace AnimAlerte.Controllers
             return View();
         }
 
-        public IActionResult Details(int? id)
+
+        // GET: Animals2/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-
-            Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
-            Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
-
-            ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
-            {
-                IdAnimal = animal.IdAnimal,
-                NomAnimal = animal.NomAnimal,
-                DescriptionAnimal = animal.DescriptionAnimal,
-                DateInscription = animal.DateInscription,
-                AnimalActif = animal.AnimalActif,
-                Espece = animal.Espece,
-                Proprietaire = animal.Proprietaire,
-                PhotoPath = image.PathImage
-            };
-
-
+            var animal = await _context.Animals
+                .Include(a => a.ProprietaireNavigation)
+                .FirstOrDefaultAsync(m => m.IdAnimal == id);
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return View(model);
+            return View(animal);
         }
+
+        //public IActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+        //    Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
+        //    Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
+
+        //    ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
+        //    {
+        //        IdAnimal = animal.IdAnimal,
+        //        NomAnimal = animal.NomAnimal,
+        //        DescriptionAnimal = animal.DescriptionAnimal,
+        //        DateInscription = animal.DateInscription,
+        //        AnimalActif = animal.AnimalActif,
+        //        Espece = animal.Espece,
+        //        Proprietaire = animal.Proprietaire,
+        //        PhotoPath = image.PathImage
+        //    };
+
+
+        //    if (animal == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(model);
+        //}
 
         public IActionResult MesAnimaux()
         {
@@ -150,7 +170,7 @@ namespace AnimAlerte.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult ModifierAnimal(ModifImageAnimalViewModel model)
         {
 
@@ -196,97 +216,72 @@ namespace AnimAlerte.Controllers
             return View(model);
         }
 
-        // GET: Animals1/Delete/5
-        public IActionResult Delete(int? id)
+        //// GET: Animals1/Delete/5
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
+        //    Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
+
+        //    ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
+        //    {
+        //        IdAnimal = animal.IdAnimal,
+        //        NomAnimal = animal.NomAnimal,
+        //        DescriptionAnimal = animal.DescriptionAnimal,
+        //        DateInscription = animal.DateInscription,
+        //        AnimalActif = animal.AnimalActif,
+        //        Espece = animal.Espece,
+        //        Proprietaire = animal.Proprietaire,
+        //        PhotoPath = image.PathImage
+        //    };
+
+        //    if (animal == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(model);
+        //}
+
+
+
+
+
+        // GET: Animals/Delete/5
+        public async Task<IActionResult> Delete(int? idAnimal)
         {
-            if (id == null)
+            if (idAnimal == null)
             {
                 return NotFound();
             }
 
-            Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == id);
-            Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == id);
-
-            ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
-            {
-                IdAnimal = animal.IdAnimal,
-                NomAnimal = animal.NomAnimal,
-                DescriptionAnimal = animal.DescriptionAnimal,
-                DateInscription = animal.DateInscription,
-                AnimalActif = animal.AnimalActif,
-                Espece = animal.Espece,
-                Proprietaire = animal.Proprietaire,
-                PhotoPath = image.PathImage
-            };
-
+            var animal = await _context.Animals.FindAsync(idAnimal);
+            ViewBag.image = await _context.Images.FindAsync(animal.IdAnimal);
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return View(model);
+            return View(animal);
         }
 
-        // POST: Animals1/Delete/5
-
-
-        // POST: Utilisateurs/Delete/5
+        // POST: Annonces/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public IActionResult DeleteConfirmed(int idAnimal)
         {
-            var animal = await _context.Animals.FindAsync(id);
+            var animal = _context.Animals.Find(idAnimal);
             animal.AnimalActif = 0;
-            _context.Animals.Update(animal);
-            //_context.Utilisateurs.Remove(utilisateur);
-            await _context.SaveChangesAsync();
-            // session.Clear();
-            //  usersession = "";
-            return RedirectToAction("MesAnimaux");
-            //return RedirectToAction(nameof(Index));
+            var animalModif = _context.Animals.Attach(animal);
+            animalModif.State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(MesAnimaux));
         }
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var animal = await _context.Animals.FindAsync(id);
-        //    var image = await _context.Images.FindAsync(id);
-        //    var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", image.PathImage);
-
-        //    _context.Animals.Remove(animal);
-        //    if (await _context.SaveChangesAsync() > 0)
-        //    {
-        //        if (System.IO.File.Exists(CurrentImage))
-        //        {
-        //            System.IO.File.Delete(CurrentImage);
-        //        }
-        //    }
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool AnimalExists(int id)
-        //{
-        //    return _context.Animals.Any(e => e.IdAnimal == id);
-        //}
-
-        //private string FichierUpload(ImageAnimalViewModel model)
-        //{
-        //    string nomFichier = null;
-
-        //    if (model.Image != null)
-        //    {
-        //        string uploadsFolder = Path.Combine(hosting.WebRootPath, "uploads");
-        //        nomFichier = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-        //        string filePath = Path.Combine(uploadsFolder, nomFichier);
-        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            model.Photo.CopyTo(fileStream);
-
-        //        }
-        //    }
-
-        //    return nomFichier;
-        //}
 
 
     }
