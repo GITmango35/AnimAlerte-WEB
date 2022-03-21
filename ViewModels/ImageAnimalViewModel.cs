@@ -37,7 +37,6 @@ namespace AnimAlerte.ViewModels
 
         public Image Image { get; set; }
 
-
         [Display(Name = "Photo ")]
         public IFormFile Photo { get; set; }
        
