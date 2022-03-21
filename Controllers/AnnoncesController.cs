@@ -157,8 +157,8 @@ namespace AnimAlerte.Controllers
 
         [HttpPost]
         public ActionResult RechercheAnnonce(int idAnnonce)
-        {
-            var annonce = _context.Annonces.Find(idAnnonce);
+        {            
+            var annonce = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1);
             ViewBag.animals = _context.Animals.ToList();
             return View(annonce); //recuperer les infos d'annonce
         }
@@ -168,7 +168,7 @@ namespace AnimAlerte.Controllers
         //la désactivation d'annonce par un admin
         public ActionResult DesactiverAnnonce(int idAnnonce)
         {
-            var annonce = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce);
+            var annonce = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1);
             ViewBag.admin = UtilisateursController.usersession;
             return View(annonce);
         }
@@ -178,20 +178,15 @@ namespace AnimAlerte.Controllers
         [HttpPost]
         public ActionResult DesactiverAnnonce(int idAnnonce, Annonce annonce)
         {
-            var annonce1 = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce);
+            var annonce1 = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1);
             if (annonce1 != null)
             {
-
-
-
                 annonce1.AnnonceActive = 0;
                 _context.Entry(annonce1).State = EntityState.Modified;
                 _context.SaveChanges();
             }
 
-
-
-            return RedirectToAction("Index", "Annonces");
+            return RedirectToAction("AllAnnoncesAdmin", "Annonces");
         }
 
         //Affichage de toute les annonces pour admin

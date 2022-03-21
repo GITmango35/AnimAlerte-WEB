@@ -215,14 +215,14 @@ namespace AnimAlerte.Controllers
                     if (utilisateur.IsAdmin == 0)
                     {
                         admin = 0;
-                        
+
                         return RedirectToAction("AllAnnonces", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
                         admin = 1;
                         return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { nomuser = nomuser });
-                       
+
                     }
                 }
 
@@ -234,7 +234,7 @@ namespace AnimAlerte.Controllers
             }
             catch (Exception)
             {
-                
+
                 return RedirectToAction("Index", "Utilisateurs");
             }
 
@@ -247,7 +247,75 @@ namespace AnimAlerte.Controllers
         {
             session.Clear();
             usersession = "";
-            return RedirectToAction("Login","Utilisateurs");
+            return RedirectToAction("Login", "Utilisateurs");
+        }
+
+        //------un administrateur peut rechercher un utilisateur afin de le désactiver 
+        public ActionResult RechercheUtilisateur()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RechercheUtilisateur(string nomuser)
+        {
+            var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+            if (utilisateur != null)
+            {
+                ViewBag.userA = "";
+                if (utilisateur.IsAdmin == 1)
+                {
+                    ViewBag.userA = "Administrateur";
+                }
+                else
+                {
+                    ViewBag.userA = "Utilisateur";
+                }
+                return View(utilisateur); //recuperer les infos d'User
+            }
+            return View(); 
+        }
+
+
+        //la désactivation d'un utilisateur par un admin
+        public ActionResult DesactiverUtilisateur(string nomuser)
+        {
+            var utilisateur = _context.Utilisateurs.SingleOrDefault(u=>u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+            ViewBag.admin = session.GetString("NomUtilisateur");
+            return View(utilisateur);
+        }
+
+
+        [HttpPost]
+        public ActionResult DesactiverUtilisateur( Utilisateur utilisateur)
+        {
+             var utilisateur1 = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur && u.UtilisateurActive == 1);
+
+            if (utilisateur1 != null)
+            {
+                //avant de désactiver l'utilisateur, on doit tt d'abord désactiver ses annonces et ses animaux
+                    //-1---Désactivation de ses annonces
+                    var annoncesUtilisateurs = _context.Annonces.Where(a => a.NomUtilisateur == utilisateur1.NomUtilisateur).ToList();
+                    foreach (var annonce in annoncesUtilisateurs)
+                    {
+                        annonce.AnnonceActive = 0;
+                        _context.Entry(annonce).State = EntityState.Modified;
+                        _context.SaveChanges();
+                    }
+                    //-2---Désactivation de ses animaux
+                    var animauxUtilisateurs = _context.Animals.Where(a => a.Proprietaire == utilisateur1.NomUtilisateur).ToList();
+                    foreach (var animal in animauxUtilisateurs)
+                    {
+                        animal.AnimalActif = 0;
+                        _context.Entry(animal).State = EntityState.Modified;
+                        _context.SaveChanges();
+                    }
+                //--désactivation de l'utilisateur
+                utilisateur1.UtilisateurActive = 0;        
+                _context.Entry(utilisateur1).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("AllAnnoncesAdmin", "Annonces");
         }
     }
 }
