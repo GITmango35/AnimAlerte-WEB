@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using Microsoft.AspNetCore.Http;
-//test2
+using AnimAlerte.ViewModels;
+
 namespace AnimAlerte.Controllers
 {
     public class AnnoncesController : Controller
@@ -22,19 +23,64 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces
-        public async Task<IActionResult> Index()
+        // Index retour la liste des annonces et une barre de recherche par ville
+        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString)
         {
-            var animAlerteContext = _context.Annonces.Include(a => a.IdAnimalNavigation).Include(a => a.NomAdminDesactivateurNavigation).Include(a => a.NomUtilisateurNavigation);
-            
-            return View(await animAlerteContext.ToListAsync());
+            ViewData["VilleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "ville_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            ViewBag.userSession = nomuser;
+            ViewBag.allAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == session.GetString("NomUtilisateur") && a.AnnonceActive == 1).ToList();
+            ViewBag.animaux = _context.Animals.ToList();
+            ViewBag.images = _context.Images.ToList();
+            var annonces = from a in _context.Annonces
+                           select a;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper())
+                                               && a.AnnonceActive == 1);
+            }
+
+
+
+
+/*            annonces = sortOrder switch
+            {
+                "ville_desc" => annonces.OrderByDescending(a => a.Ville),
+                "Date" => annonces.OrderBy(a => a.DateCreation),
+                "date_desc" => annonces.OrderByDescending(a => a.DateCreation),
+                _ => annonces.OrderBy(a => a.Ville)
+            };*/
+
+            switch (sortOrder)
+            {
+                case "ville_desc":
+                    annonces = annonces.OrderByDescending(a => a.Ville);
+                    break;
+                case "Date":
+                    annonces = annonces.OrderBy(a => a.DateCreation);
+                    break;
+                case "date_desc":
+                    annonces = annonces.OrderByDescending(a => a.DateCreation);
+                    break;
+                default:
+                    annonces = annonces.OrderBy(a => a.Ville);
+                    break;
+            }
+
+            return View(await annonces.ToListAsync());
         }
+
 
         public IActionResult TousMesAnnonces()
         {
-            var nomuser = session.GetString("NomUtilisateur");
-            var mesAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == nomuser && a.AnnonceActive == 1).ToList();
+            var nomUser = session.GetString("NomUtilisateur");
+            var mesAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == nomUser && a.AnnonceActive == 1).ToList();
             return View(mesAnnonces);
         }
+
         // GET: Annonces/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,19 +94,48 @@ namespace AnimAlerte.Controllers
                 .Include(a => a.NomAdminDesactivateurNavigation)
                 .Include(a => a.NomUtilisateurNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnnonce == id);
-            if (annonce == null)
+
+            var animal = await _context.Animals
+               .Include(a => a.ProprietaireNavigation)
+              .FirstOrDefaultAsync(m => m.IdAnimal == id);
+
+            var image = await _context.Images
+               .Include(i => i.IdAnimalNavigation)
+               .FirstOrDefaultAsync(m => m.IdImage == id);
+
+            var model = new AnnonceModifViewModel()
+            {
+                IdAnnonce = annonce.IdAnnonce,
+                Titre = annonce.Titre,
+                DescriptionAnnonce = annonce.DescriptionAnnonce,
+                Ville = annonce.Ville,
+                DateCreation = annonce.DateCreation,
+                AnnonceActive = 1,
+                TypeAnnonce = annonce.TypeAnnonce,
+                NomUtilisateur = annonce.NomUtilisateur,
+                IdAnimal = animal.IdAnimal,
+                NomAnimal = animal.NomAnimal,
+                DescriptionAnimal = animal.DescriptionAnimal,
+                DateInscription = animal.DateInscription,
+                AnimalActif = 1,
+                Espece = animal.Espece,
+                Proprietaire = animal.Proprietaire,
+                PhotoPath = image.PathImage
+            };
+
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(annonce);
+            return View(model);
         }
 
         // GET: Annonces/Create
         public IActionResult Create()
         {
             ViewBag.userSession = session.GetString("NomUtilisateur");
-            ViewBag.animaux_User = _context.Animals.Where(a => a.Proprietaire == session.GetString("NomUtilisateur")).ToList();
+            ViewBag.animaux_User = _context.Animals.Where(a => a.Proprietaire == session.GetString("NomUtilisateur") && a.AnimalActif == 1).ToList();
             return View();
         }
 
@@ -147,13 +222,12 @@ namespace AnimAlerte.Controllers
 
             return RedirectToAction(nameof(TousMesAnnonces));
         }
-        //l'administrateur peut rechercher une annonce afin de la desactiver
+
+        //L'administrateur peut rechercher une annonce afin de la desactiver
         public ActionResult RechercheAnnonce()
         {
             return View();
         }
-
-
 
         [HttpPost]
         public ActionResult RechercheAnnonce(int idAnnonce)
@@ -164,61 +238,47 @@ namespace AnimAlerte.Controllers
         }
 
 
-
-        //la désactivation d'annonce par un admin
-        public ActionResult DesactiverAnnonce(int idAnnonce)
+        //Désactivation d'annonce par un admin
+        public ActionResult DesactiverUnAnnonceParAdmin(int idAnnonce)
         {
             var annonce = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce);
             ViewBag.admin = UtilisateursController.usersession;
             return View(annonce);
         }
 
-
-
         [HttpPost]
-        public ActionResult DesactiverAnnonce(int idAnnonce, Annonce annonce)
+        public ActionResult DesactiverUnAnnonceParAdmin(int idAnnonce, Annonce annonce)
         {
             var annonce1 = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce);
             if (annonce1 != null)
             {
-
-
-
                 annonce1.AnnonceActive = 0;
                 _context.Entry(annonce1).State = EntityState.Modified;
                 _context.SaveChanges();
             }
 
-
-
             return RedirectToAction("Index", "Annonces");
         }
 
         //Affichage de toute les annonces pour admin
-        public IActionResult AllAnnoncesAdmin(string nomuser)
+        public IActionResult AllAnnoncesAdmin(string nomAdmin)
         {
-            ViewBag.userSession = nomuser;
-            var annonces = _context.Annonces.ToList();
-            ViewBag.animaux = _context.Animals.ToList();
-            ViewBag.images = _context.Images.ToList();
-            return View(annonces);
-        }
-        // afficher toutes les annonces
-        public IActionResult AllAnnonces(string nomuser)
-        {
-            ViewBag.userSession = nomuser;
+            ViewBag.userSession = nomAdmin;
             var annonces = _context.Annonces.ToList();
             ViewBag.animaux = _context.Animals.ToList();
             ViewBag.images = _context.Images.ToList();
             return View(annonces);
         }
 
-
-
-
-
-
-
+        // Affichage de toutes les annonces pour utilisateur
+        public IActionResult AllAnnoncesUser(string nomUser)
+        {
+            ViewBag.userSession = nomUser;
+            var annonces = _context.Annonces.ToList();
+            ViewBag.animaux = _context.Animals.ToList();
+            ViewBag.images = _context.Images.ToList();
+            return View(annonces);
+        }
 
     }
 }

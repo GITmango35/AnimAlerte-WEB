@@ -1,0 +1,94 @@
+﻿@model IEnumerable<AnimAlerte.Models.Annonce>
+
+@{ ViewData["Title"] = "Liste Annonces"; }
+
+<h1>Liste des annonces</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IdAnnonce)
+            </th>
+            <th>
+                Nom Animal
+            </th>
+            <th>
+                Proprietaire
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeAnnonce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ville)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @foreach (var i in ViewBag.images)
+                {
+                    if (i.IdAnimal == item.IdAnimal)
+                    {
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.IdAnimal">
+                                @if (i.PathImage != null)
+                                {
+                                    <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+                                }
+                            </a>
+                        </td>
+                    }
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAnnonce)
+                </td>
+
+                @foreach (var a in ViewBag.animaux)
+                {
+                    if (a.IdAnimal == item.IdAnimal)
+                    {
+                        <td>@a.NomAnimal </td>
+                    }
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomUtilisateur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ville)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreation)
+                </td>
+
+            </tr>
+}
+    </tbody>
+</table>

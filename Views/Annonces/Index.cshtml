@@ -1,108 +1,197 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{
-    ViewData["Title"] = "Liste des annonces";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Animals perdus ou trouvés</h1>
+<hr />
+@*<p>
+        <a asp-action="Create">Créer une annonce</a>
+    </p>*@
 
-<p>
-    <a asp-action="Create">Créer une annonce</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Photo</th>
+<form asp-action="Index" method="get">
+    <div class="input-group mb-3">
+        <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Rechercher par lieu..." aria-label="Ville">
+        <div class="input-group-append">
+            <button class="btn btn-primary rounded-right" type="submit">Rechercher</button> 
+        </div>
+    </div>
 
-            <th>
-                @Html.DisplayNameFor(model => model.IdAnnonce)
-            </th>
-            <th>
-                Nom Animal
-            </th>
-            <th>
-                Proprietaire
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Titre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeAnnonce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ville)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreation)
-            </th>
-
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
+    <a asp-action="Index">Retour à la liste complète</a> |
+    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Trier par date</a>
+</form>
 
 
+@*TODO : filter by type d'annonce(trouve ou perdu)*@
+
+@foreach (var item in Model)
+{
     @foreach (var i in ViewBag.images)
     {
-
         if (i.IdAnimal == item.IdAnimal)
         {
-<td>
-    @if (i.PathImage != null)
-    {
-<img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" /> }
-else
-{
-<img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />}
-</td>
+            <div class="container mt-5">
+                <div class="card mt-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a asp-action="Details" asp-controller="Annonces" asp-route-id="@i.IdAnimal">
+                                @if (i.PathImage != null)
+                                {
+                                    <img src="~/uploads/@i.PathImage" class="card-img img-fluid" style="width:200px" />
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/Noimg.jpg" class=" card-img img-fluid" style="width:200px" />
+                                }
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <h3 class="card-header">@item.Titre</h3>
+                            <dl class="row">
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.IdAnnonce)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(modelItem => item.IdAnnonce)
+                                </dd>
+                                <dt class="col-sm-4">
+                                    Nom d'animal
+                                </dt>
+                                @foreach (var a in ViewBag.animaux)
+                                {
+                                    if (a.IdAnimal == item.IdAnimal)
+                                    {
+                                        <dd class="col-sm-8">
+                                            @a.NomAnimal
+                                        </dd>
+                                    }
+                                }
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.DateCreation)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(modelItem => item.DateCreation)
+                                </dd>
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.Ville)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(modelItem => item.Ville)
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.TypeAnnonce)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(modelItem => item.TypeAnnonce)
+                                </dd>
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                                </dt>
+                                <dd class="col-sm-8 text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                                </dd>
+                            </dl>
+                            @*<a asp-controller="Annonces" asp-action="Details" asp-route-id="@i.IdAnnonce" class="btn btn-primary">Voir Détails</a>*@
+                            @*<button class="btn btn-primary"></button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }
-}
 
 
+@*<table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Photo</th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.IdAnnonce)
+                </th>
+                <th>
+                    Nom Animal
+                </th>
+                <th>
+                    Proprietaire
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeAnnonce)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["VilleSortParm"]">@Html.DisplayNameFor(model => model.Ville)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DateCreation)</a>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @foreach (var i in ViewBag.images)
+                    {
+                        if (i.IdAnimal == item.IdAnimal)
+                        {
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.IdAnimal">
+                                    @if (i.PathImage != null)
+                                    {
+
+                                        <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+
+                                    }
+                                </a>
+                            </td>
+                        }
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdAnnonce)
+                    </td>
+
+                    @foreach (var a in ViewBag.animaux)
+                    {
+
+                        if (a.IdAnimal == item.IdAnimal)
+                        {
+                            <td>@a.NomAnimal </td>
+                        }
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomUtilisateur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeAnnonce)
+                    </td>
+                    <td class="d-inline-block text-truncate" style="max-width: 150px;">
+                        @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ville)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreation)
+                    </td>
+
+                </tr>
 
 
-
-    <td>
-        @Html.DisplayFor(modelItem => item.IdAnnonce)
-    </td>
-
-    @foreach (var a in ViewBag.animaux)
-    {
-
-        if (a.IdAnimal == item.IdAnimal)
-        {
-<td>@a.NomAnimal </td>
-}
-}
-    <td>
-        @Html.DisplayFor(modelItem => item.NomUtilisateur)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Titre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TypeAnnonce)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Ville)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DateCreation)
-    </td>
-
-    <td>
-
-        @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })
-    </td>
-</tr>}
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>*@

@@ -3,9 +3,8 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
-<h1>Supprimer</h1>
-<h3>Vous êtes sur de vouloir supprimer cet animal?</h3>
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+<h3>Vous êtes sur de vouloir supprimer  @Html.DisplayFor(model => model.NomAnimal) sur votre liste?</h3>
 <hr />
 
 <div>
@@ -38,7 +37,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdAnimal" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
         <a asp-action="MesAnimaux">Retour à la liste</a>
     </form>
 </div>
