@@ -264,32 +264,46 @@ namespace AnimAlerte.Controllers
 
             return RedirectToAction("Index", "Annonces");
         }
-        public IActionResult AllAnnoncesAdmin(string nomuser)
+        //public IActionResult AllAnnoncesAdmin(string nomuser)
+        //{
+        // //Affichage de toute les annonces pour admin
+        //            ViewBag.userSession = nomuser;
+        //    ViewBag.userSession = nomuser;
+        //    var annonces = _context.Annonces.ToList();
+        //    ViewBag.animaux = _context.Animals.ToList();
+        //    ViewBag.images = _context.Images.ToList();
+        //    return View(annonces);
+        //    {
+
+        //// afficher toutes les annonces
+        //public IActionResult AllAnnonces(string nomuser)
+        //// Affichage de toutes les annonces pour utilisateur
+        //    ViewBag.userSession = nomuser;
+        //{
+        //    ViewBag.userSession = nomuser;
+        //    var annonces = _context.Annonces.ToList();
+        //    ViewBag.animaux = _context.Animals.ToList();
+        //    ViewBag.images = _context.Images.ToList();
+        //    return View(annonces);
         //Affichage de toute les annonces pour admin
-            ViewBag.userSession = nomuser;
+        public IActionResult AllAnnoncesAdmin(string nomuser)
         {
-            ViewBag.userSession = nomAdmin;
-            var annonces = _context.Annonces.ToList();
-            ViewBag.animaux = _context.Animals.ToList();
-            ViewBag.images = _context.Images.ToList();
-        // afficher toutes les annonces
-        public IActionResult AllAnnonces(string nomuser)
-        // Affichage de toutes les annonces pour utilisateur
             ViewBag.userSession = nomuser;
-        {
-            ViewBag.userSession = nomUser;
             var annonces = _context.Annonces.ToList();
             ViewBag.animaux = _context.Animals.ToList();
             ViewBag.images = _context.Images.ToList();
             return View(annonces);
-
-
-
-
-
-
-
         }
+        // afficher toutes les annonces
+        public IActionResult AllAnnonces(string nomuser)
+        {
+            ViewBag.userSession = nomuser;
+            var annonces = _context.Annonces.ToList();
+            ViewBag.animaux = _context.Animals.ToList();
+            ViewBag.images = _context.Images.ToList();
+            return View(annonces);
+        }
+
 
     }
 }
