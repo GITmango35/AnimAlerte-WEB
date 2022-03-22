@@ -9,6 +9,7 @@
 <table class="table" id="myTable">
     <thead class="thead-dark table-hover table-dark">
         <tr>
+            <td scope="col">Photo</td>
             <td scope="col">
                 @Html.DisplayNameFor(model => model.NomAnimal)
             </td>
@@ -21,7 +22,6 @@
             <td scope="col">
                 @Html.DisplayNameFor(model => model.Espece)
             </td>
-            <td scope="col">Photo</td>
             <td scope="col">Opérations</td>
         </tr>
     </thead>
@@ -30,43 +30,42 @@
         @foreach (var item in Model)
         {
             <tr scope="row">
-                <td scope="col">
-                    @Html.DisplayFor(modelItem => item.NomAnimal)
-                </td>
-                <td scope="col">
-                    @Html.DisplayFor(modelItem => item.DescriptionAnimal)
-                </td>
-                <td scope="col">
-                    @Html.DisplayFor(modelItem => item.DateInscription, "{yyyy-MM-dd}")
-                </td>
-                <td scope="col">
-                    @Html.DisplayFor(modelItem => item.Espece)
-                </td>
-
                 @foreach (var i in ViewBag.images)
                 {
                     if (i.IdAnimal == item.IdAnimal)
                     {
-                        <td>
+                        <td scope="col">
                             <a asp-action="Details" asp-route-id="@item.IdAnimal">
                                 @if (i.PathImage != null)
                                 {
-                                    <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                                    <img src="~/uploads/@i.PathImage" style="width:150px;" class="img-thumbnail" />
                                 }
                                 else
                                 {
-                                    <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+                                    <img src="~/uploads/Noimg.jpg" style="width:150px;" class="img-thumbnail" />
                                 }
                             </a>
                         </td>
+                        <td scope="col">
+                            @Html.DisplayFor(modelItem => item.NomAnimal)
+                        </td>
+                        <td scope="col">
+                            @Html.DisplayFor(modelItem => item.DescriptionAnimal)
+                        </td>
+                        <td scope="col">
+                            @Html.DisplayFor(modelItem => item.DateInscription, "{yyyy-MM-dd}")
+                        </td>
+                        <td scope="col">
+                            @Html.DisplayFor(modelItem => item.Espece)
+                        </td>
                     }
                 }
-            <td>
-                @Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @item.IdAnimal }) |
-                @Html.ActionLink("Supprimer", "Delete", new { idAnimal = @item.IdAnimal })
-            </td>
+                <td>
+                    @Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @item.IdAnimal }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { idAnimal = @item.IdAnimal })
+                </td>
             </tr>
-         }
+        }
     </tbody>
 </table>
 

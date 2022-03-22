@@ -1,4 +1,4 @@
-﻿@model AnimAlerte.ViewModels.ImageAnimalViewModel
+﻿@model AnimAlerte.ViewModels.AnimalViewModel
 
 @{
     ViewData["Title"] = "Ajouter un animal";
@@ -54,12 +54,13 @@
 
 
 @section CreateSectionJS{
-    <script type="text/javascript">//pour une seule photo
-    $(document).ready(function () {
-        $("#customFile").on("change", function () {
-            var inputPhoto = $(this).val().split("\\").pop();
-            $(this).next(".custom-file-label").html(inputPhoto);
-        });
-    })
-   </script>
+    <script type="text/javascript">
+    //pour une seule photo
+        $(document).ready(function () {
+            $("#customFile").on("change", function () {
+                var inputPhoto = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").html(inputPhoto);
+            });
+        })
+    </script>
 }

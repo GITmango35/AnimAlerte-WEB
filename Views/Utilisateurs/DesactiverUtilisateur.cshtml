@@ -1,0 +1,64 @@
+﻿@model AnimAlerte.Models.Utilisateur
+
+@{
+    ViewData["Title"] = "Désactiver Utilisateur";
+}
+
+<h1>Désactiver Utilisateur</h1>
+
+<h3>Voulez-vous vraiment désactiver cet Utilisateur?</h3>
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomUtilisateur)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomUtilisateur)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Courriel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Courriel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MotDePasse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MotDePasse)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumTel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumTel)
+        </dd>
+    </dl>
+    <form asp-action="DesactiverUtilisateur" asp-route-id="@Model.NomUtilisateur">
+        <input type="hidden" asp-for="NomUtilisateur" />
+        <input type="hidden" asp-for="Nom" />
+        <input type="hidden" asp-for="Prenom" />
+        <input type="hidden" asp-for="Courriel" />
+        <input type="hidden" asp-for="MotDePasse" />
+        <input type="hidden" asp-for="NumTel" />
+        <input type="hidden" asp-for="IsAdmin" />
+        <input type="hidden" asp-for="NomAdminDesactivateur" value=@ViewBag.admin />
+        <input type="submit" value="Désactiver" class="btn btn-danger" /> |
+        @*@Html.ActionLink("Désactiver", "DesactiverUtilisateur", new { nomuser = @Model.NomUtilisateur })*@
+        <a asp-action="Index">Back to List</a>
+    </form>
+
+</div>

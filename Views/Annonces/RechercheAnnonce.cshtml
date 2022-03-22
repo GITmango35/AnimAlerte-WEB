@@ -3,7 +3,7 @@
 
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce'">
+        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce...">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Rechercher</button>
@@ -73,7 +73,8 @@
                 @Model.DateCreation
             </td>
             <td>
-                <a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>
+                @*<a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>*@
+                @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @Model.IdAnnonce })
             </td>
         </tr>
         }

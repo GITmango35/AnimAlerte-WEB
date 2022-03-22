@@ -24,24 +24,25 @@ namespace AnimAlerte.Controllers
             this.hosting = hosting;
         }
 
+        // L'affiché initial des animaux pour utilisateur connecté
         public IActionResult Index()
         {
-            var animaux = _context.getAnimalsForUser(UtilisateursController.usersession).ToList();
+            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(animaux);
         }
 
+        // Récuperé des animaux par proprietaire
         public IActionResult MesAnimaux()
         {
-            var animaux = _context.getAnimalsForUser(UtilisateursController.usersession).ToList();
+            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(animaux);
-           
+
         }
 
-
+        // Affiché de l'info d'un animal selectionné
         // GET: Animals2/Details/5
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,12 +52,12 @@ namespace AnimAlerte.Controllers
 
             var animal = await _context.Animals
                 .Include(a => a.ProprietaireNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnimal == id);
+               .FirstOrDefaultAsync(m => m.IdAnimal == id);
             var image = await _context.Images
                 .Include(a => a.IdAnimalNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnimal == id);
 
-            var model = new ImageAnimalModifViewModel()
+            var model = new AnimalModifViewModel()
             {
                 IdAnimal = animal.IdAnimal,
                 NomAnimal = animal.NomAnimal,
@@ -76,89 +77,70 @@ namespace AnimAlerte.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var animal = await _context.Animals
-        //        .Include(a => a.ProprietaireNavigation)
-        //        .FirstOrDefaultAsync(m => m.IdAnimal == id);
-        //    if (animal == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(animal);
-        //}
-
-
+        // Crée un profil d'un animal
         // GET: Animals/Create
-        public IActionResult AjoutAnimal()
+        public IActionResult AjoutAnimal(int idAnimal)
         {
-
+          
             ViewBag.us = UtilisateursController.usersession;
-            var model = new ImageAnimalViewModel
+            var model = new AnimalViewModel
             {
-
+                IdAnimal = idAnimal
             };
             return View(model);
         }
 
         // POST: Animals/Create
         [HttpPost]
-        public IActionResult AjoutAnimal(ImageAnimalViewModel model)
+        public async Task<IActionResult> AjoutAnimal(AnimalViewModel model)
         {
-            string proprietaire = UtilisateursController.usersession;
-            Animal animal = new Animal();
-            Image image = new Image();
 
-            if (ModelState.IsValid)
+          /*  Si une exception dérivée de DbUpdateException est interceptée pendant l'enregistrement des modifications, 
+                un message d'erreur générique s'affiche.*/
+            try
             {
-                string fileName = null;
+                string proprietaire = UtilisateursController.usersession;
+                string fileName = ImageUpload(model);
+                Animal animal = new();                // Animal animal = new Animal()
+                Image image = new();                  // Image image = new Image();
 
-                if (model.Photo != null)
+                if (ModelState.IsValid)
                 {
+                    animal.NomAnimal = model.NomAnimal;
+                    animal.DescriptionAnimal = model.DescriptionAnimal;
+                    animal.DateInscription = DateTime.Today;
+                    animal.AnimalActif = 1;
+                    animal.Espece = model.Espece;
+                    animal.Proprietaire = proprietaire;
+                    _context.Animals.Add(animal);
+                    await _context.SaveChangesAsync();
 
-                    string extFile = Path.GetExtension(model.Photo.FileName);
-                    string uploads = Path.Combine(hosting.WebRootPath, "uploads");
-                    fileName = Guid.NewGuid() + "_" + model.Photo.FileName;
-                    string fullPath = Path.Combine(uploads, fileName);
-                    model.Photo.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    image.TitreImage = model.NomAnimal;
 
+                    if (fileName != null)
+                    {
+                        image.PathImage = fileName;
+                    }
+
+                    image.IdAnimal = animal.IdAnimal;
+                     _context.Images.Add(image);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(MesAnimaux));
                 }
-
-                animal.NomAnimal = model.NomAnimal;
-                animal.DescriptionAnimal = model.DescriptionAnimal;
-                animal.DateInscription = DateTime.Today;
-                animal.AnimalActif = 1;
-                animal.Espece = model.Espece;
-                animal.Proprietaire = proprietaire;
-
-                _context.Animals.Add(animal);
-                _context.SaveChanges();
-
-                image.TitreImage = model.NomAnimal;
-                if (fileName != null)
-                {
-                    image.PathImage = fileName;
-                }
-
-                image.IdAnimal = animal.IdAnimal;
-                _context.Images.Add(image);
-                _context.SaveChanges();
-
-                return RedirectToAction(nameof(MesAnimaux));
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Impossible d'enregistrer les modifications. " +
+                    "Réessayez, et si le problème persiste, "  +  
+                    "consultez votre administrateur système.");
             }
 
             return View(model);
         }
 
-
+        // Modifié un animal selectionné
         // GET: Animals/ModifierAnimal
-
         public async Task<IActionResult> ModifierAnimal(int? idAnimal)
         {
             if (idAnimal == null)
@@ -166,22 +148,21 @@ namespace AnimAlerte.Controllers
                 return NotFound();
             }
 
-            Animal animal = await _context.Animals.SingleOrDefaultAsync(ani => ani.IdAnimal == idAnimal);
-            Image image = await _context.Images.SingleOrDefaultAsync(i => i.IdAnimal == idAnimal);
-
-            ImageAnimalModifViewModel model = new ImageAnimalModifViewModel()
+            var animalToUpdate= await _context.Animals.FindAsync(idAnimal);
+            var imageToUpdate = await _context.Images.FindAsync(idAnimal);
+            var model = new AnimalModifViewModel()
             {
-                IdAnimal = animal.IdAnimal,
-                NomAnimal = animal.NomAnimal,
-                DescriptionAnimal = animal.DescriptionAnimal,
-                DateInscription = animal.DateInscription,
-                AnimalActif = animal.AnimalActif,
-                Espece = animal.Espece,
-                Proprietaire = animal.Proprietaire,
-                PhotoPath = image.PathImage
+                IdAnimal = animalToUpdate.IdAnimal,
+                NomAnimal = animalToUpdate.NomAnimal,
+                DescriptionAnimal = animalToUpdate.DescriptionAnimal,
+                DateInscription = animalToUpdate.DateInscription,
+                AnimalActif = 1,
+                Espece = animalToUpdate.Espece,
+                Proprietaire = animalToUpdate.Proprietaire,
+                PhotoPath = imageToUpdate.PathImage
             };
 
-            if (animal == null)
+            if (model == null)
             {
                 return NotFound();
             }
@@ -193,129 +174,58 @@ namespace AnimAlerte.Controllers
         // POST: Animals/ModifierAnimal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifierAnimal(ImageAnimalModifViewModel model)
+        public async Task<IActionResult> ModifierAnimal(int id, AnimalModifViewModel model)
         {
-
-
             if (ModelState.IsValid)
             {
-                Animal animal = await _context.Animals.SingleOrDefaultAsync(ani => ani.IdAnimal == model.IdAnimal);
-                animal.NomAnimal = model.NomAnimal;
-                animal.DescriptionAnimal = model.DescriptionAnimal;
-                animal.DateInscription = model.DateInscription;
-                animal.AnimalActif = 1;
-                animal.Espece = model.Espece;
-                animal.Proprietaire = model.Proprietaire;
-
-                Image image = await _context.Images.SingleOrDefaultAsync(i => i.IdAnimal == model.IdAnimal);
-                string fileName = null;
-
-                if (model.Photo != null)
+                try
                 {
-                    if (model.PhotoPath != null)
+                    var animalToUpdate = await _context.Animals.FindAsync(model.IdAnimal);
+                    animalToUpdate.NomAnimal = model.NomAnimal;
+                    animalToUpdate.DescriptionAnimal = model.DescriptionAnimal;
+                    animalToUpdate.DateInscription = model.DateInscription;
+                    animalToUpdate.AnimalActif = 1;
+                    animalToUpdate.Espece = model.Espece;
+                    animalToUpdate.Proprietaire = model.Proprietaire;
+
+                    var imageToUpdate = await _context.Images.FindAsync(model.IdAnimal);
+
+                    if (model.Photo != null)
                     {
-                        string filePath = Path.Combine(hosting.WebRootPath, "uploads", model.PhotoPath);
-                        System.IO.File.Delete(filePath);
+                        if (model.PhotoPath != null)
+                        {
+                            string filePath = Path.Combine(hosting.WebRootPath, "uploads", model.PhotoPath);
+                            System.IO.File.Delete(filePath);
+                        }
+                   
+                        imageToUpdate.TitreImage = model.NomAnimal;
+                        imageToUpdate.PathImage = ImageUpload(model);
+                        imageToUpdate.IdAnimal = model.IdAnimal;
                     }
 
-                    string extFile = Path.GetExtension(model.Photo.FileName);
+                    var animalmodif = _context.Animals.Attach(animalToUpdate);
+                    animalmodif.State = EntityState.Modified;
+                    _context.SaveChanges();
 
-                    string uploads = Path.Combine(hosting.WebRootPath, "uploads");
-                    fileName = Guid.NewGuid() + "_" + model.Photo.FileName;
-                    string fullPath = Path.Combine(uploads, fileName);
-                    model.Photo.CopyTo(new FileStream(fullPath, FileMode.Create));
-                    image.TitreImage = model.NomAnimal;
-                    image.PathImage = fileName;
-                    image.IdAnimal = model.IdAnimal;
+                    var imageModif = _context.Images.Attach(imageToUpdate);
+                    imageModif.State = EntityState.Modified;
+                    _context.SaveChanges();
+
+                    return RedirectToAction(nameof(MesAnimaux));
                 }
-
-                var animalmodif = _context.Animals.Attach(animal);
-                animalmodif.State = EntityState.Modified;
-                _context.SaveChanges();
-
-
-                var imageModif = _context.Images.Attach(image);
-                imageModif.State = EntityState.Modified;
-                _context.SaveChanges();
-
-                return RedirectToAction(nameof(MesAnimaux));
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Impossible d'enregistrer les modifications. " +
+                        "Réessayez, et si le problème persiste, " +
+                        "consultez votre administrateur système.");
+                }
             }
             return View(model);
         }
 
-
-
-        //public IActionResult ModifierAnimal(int idAnimal)
-        //{
-        //    Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == idAnimal);
-        //    Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == idAnimal);
-
-        //    ModifImageAnimalViewModel model = new ModifImageAnimalViewModel()
-        //    {
-        //        IdAnimal = animal.IdAnimal,
-        //        NomAnimal = animal.NomAnimal,
-        //        DescriptionAnimal = animal.DescriptionAnimal,
-        //        DateInscription = animal.DateInscription,
-        //        AnimalActif = animal.AnimalActif,
-        //        Espece = animal.Espece,
-        //        Proprietaire = animal.Proprietaire,
-        //        PhotoPath = image.PathImage
-        //    };
-
-        //    return View(model);
-        //}
-
-
-        //// POST: Animals/ModifierAnimal
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult ModifierAnimal(ModifImageAnimalViewModel model)
-        //{
-
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        Animal animal = _context.Animals.SingleOrDefault(ani => ani.IdAnimal == model.IdAnimal);
-        //        animal.NomAnimal = model.NomAnimal;
-        //        animal.DescriptionAnimal = model.DescriptionAnimal;
-        //        animal.DateInscription = model.DateInscription;
-        //        animal.AnimalActif = 1;
-        //        animal.Espece = model.Espece;
-        //        animal.Proprietaire = model.Proprietaire;
-
-        //        Image image = _context.Images.SingleOrDefault(i => i.IdAnimal == model.IdAnimal);
-        //        string fileName = null;
-
-        //        if (model.Photo != null)
-        //        {
-        //            string extFile = Path.GetExtension(model.Photo.FileName);
-
-        //            string uploads = Path.Combine(hosting.WebRootPath, "uploads");
-        //            fileName = Guid.NewGuid() + "_" + model.Photo.FileName;
-        //            string fullPath = Path.Combine(uploads, fileName);
-        //            model.Photo.CopyTo(new FileStream(fullPath, FileMode.Create));
-        //            image.TitreImage = model.NomAnimal;
-        //            image.PathImage = fileName;
-        //            image.IdAnimal = model.IdAnimal;
-        //        }
-
-        //        var animalmodif = _context.Animals.Attach(animal);
-        //        animalmodif.State = EntityState.Modified;
-        //        _context.SaveChanges();
-
-
-        //        var imageModif = _context.Images.Attach(image);
-        //        imageModif.State = EntityState.Modified;
-        //        _context.SaveChanges();
-
-        //        return RedirectToAction(nameof(MesAnimaux));
-        //    }
-        //    return View(model);
-        //}
-
-
+        // L'utilisateur désactive son annonce selectionné (Soft delete)
         // GET: Animals/Delete/5
-        public async Task<IActionResult> Delete(int? idAnimal)
+        public async Task<IActionResult> Delete(int? idAnimal, bool? saveChangesError = false )
         {
             if (idAnimal == null)
             {
@@ -323,10 +233,30 @@ namespace AnimAlerte.Controllers
             }
 
             var animal = await _context.Animals.FindAsync(idAnimal);
-            ViewBag.image = await _context.Images.FindAsync(animal.IdAnimal);
-            if (animal == null)
+            var image = await _context.Images.FindAsync(idAnimal);
+
+            var model = new AnimalModifViewModel()
+            {
+                IdAnimal = animal.IdAnimal,
+                NomAnimal = animal.NomAnimal,
+                DescriptionAnimal = animal.DescriptionAnimal,
+                DateInscription = animal.DateInscription,
+                AnimalActif = 1,
+                Espece = animal.Espece,
+                Proprietaire = animal.Proprietaire,
+                PhotoPath = image.PathImage
+            };
+
+            if (model == null)
             {
                 return NotFound();
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Echec de la suppression. Réessayez, et si le problème persiste " +
+                    "consultez votre administrateur système.";
             }
 
             return View(animal);
@@ -335,16 +265,39 @@ namespace AnimAlerte.Controllers
         // POST: Animals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int idAnimal)
+        public async Task<IActionResult> DeleteConfirmed(int idAnimal)
         {
-            var animal = _context.Animals.Find(idAnimal);
-            animal.AnimalActif = 0;
-            var animalModif = _context.Animals.Attach(animal);
-            animalModif.State = EntityState.Modified;
-            
-            _context.SaveChanges();
+            try
+            {
+                var animal = await _context.Animals.FindAsync(idAnimal);
+                animal.AnimalActif = 0;
+                var animalModif = _context.Animals.Attach(animal);
+                animalModif.State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(MesAnimaux));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Delete), new { idAnimal = idAnimal, saveChangesError = true });
+            }
+        }
 
-            return RedirectToAction(nameof(MesAnimaux));
+
+        //Méthode pour télécharger une image d'un animal
+        private string ImageUpload(AnimalViewModel model)
+        {
+            string nomFichier = null;
+
+            if (model.Photo != null)
+            {
+                string extFile = Path.GetExtension(model.Photo.FileName);
+                string uploadsFolder = Path.Combine(hosting.WebRootPath, "uploads");
+                nomFichier = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, nomFichier);
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return nomFichier;
         }
 
     }

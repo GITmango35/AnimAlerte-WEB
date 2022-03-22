@@ -6,6 +6,15 @@
 
 <h1>Liste des annonces</h1>
 
+<form action="/Annonces/RechercheAnnonce" method="post">
+    <div class="mb-3">
+        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce'">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </div>
+</form>
+
 
 <table class="table">
     <thead>
@@ -36,69 +45,62 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateCreation)
             </th>
-           
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-
-            @foreach (var i in ViewBag.images)
-            {
-
-                if (i.IdAnimal == item.IdAnimal)
+        @foreach (var item in Model)
+        {
+            <tr>
+                @foreach (var i in ViewBag.images)
                 {
-        <td>
-            @if (i.PathImage != null)
-            {
-        <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" /> }
-                                else
-                                {
-        <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />                        }
-        </td>}
-                        }
+                    if (i.IdAnimal == item.IdAnimal)
+                    {
+                        <td>
+                            @if (i.PathImage != null)
+                            {
+                                <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" /> }
+                            else
+                            {
+                                <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />}
+                        </td>
+                    }
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAnnonce)
+                </td>
 
-
-
-
-
-            <td>
-                @Html.DisplayFor(modelItem => item.IdAnnonce)
-            </td>
-
-            @foreach (var a in ViewBag.animaux)
-            {
-
-                if (a.IdAnimal == item.IdAnimal)
+                @foreach (var a in ViewBag.animaux)
                 {
-        <td>@a.NomAnimal </td>}
-                        }
-            <td>
-                @Html.DisplayFor(modelItem => item.NomUtilisateur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeAnnonce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ville)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreation)
-            </td>
+                    if (a.IdAnimal == item.IdAnimal)
+                    {
+                        <td>@a.NomAnimal </td>
+                    }
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomUtilisateur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ville)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreation)
+                </td>
 
-            <td>
+                <td>
 
-                @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })
-            </td>
-        </tr>
-}
+                    @Html.ActionLink("Désactiver", "DesactiverUnAnnonceParAdmin", new { idAnnonce = item.IdAnnonce })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

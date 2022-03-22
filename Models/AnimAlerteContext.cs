@@ -29,8 +29,8 @@ namespace AnimAlerte.Models
 
         //-------METHODES DE MANIPULATION DE LA BD ---------
 
-        // Récuperer tous les animaux d`un utilisateur
-        public List<Animal> getAnimalsForUser(string nomuser)
+        // Récuperer tous les animaux d`utilisateur connecté
+        public List<Animal> GetAnimalsForUser(string nomuser)
         {
             return Animals.Where(a => a.Proprietaire == nomuser && a.AnimalActif == 1).ToList();
 
@@ -39,6 +39,23 @@ namespace AnimAlerte.Models
         {
             return Utilisateurs.Where(a => a.NomUtilisateur == nomUser && a.UtilisateurActive == 1).ToList();
         }
+
+        // Récuperer les annonces active par type(trouvé ou perdu)
+       /* public List<Annonce> GetAnnoncesParType(string trouve)
+        {
+           return annonces = Annonces.Where(a => a.TypeAnnonce.ToUpper() == trouve  && a.AnnonceActive == 1).ToList();
+
+
+            //annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper())
+            //                                 && a.AnnonceActive == 1);
+        }*/
+
+        // Récuperer tous les annonces active (trouvé ou perdu)
+        public List<Annonce> GetAllAnnonces(string typeAnnonce)
+        {
+            return Annonces.Where(a => a.TypeAnnonce == typeAnnonce && a.AnnonceActive == 1).ToList();
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -307,11 +324,6 @@ namespace AnimAlerte.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
-        }
-
-        internal object getAnimalsForUser(object usersession)
-        {
-            throw new NotImplementedException();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

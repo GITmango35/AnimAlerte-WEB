@@ -4,60 +4,108 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Utilisateur</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NomUtilisateur" class="control-label"></label>
-                <input asp-for="NomUtilisateur" class="form-control" />
-                <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Se Connecter</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>
+                <div class="navbar-nav flex-grow-1 justify-content-end">
+                    <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
+                    <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
+                </div>
             </div>
-            <label class="alert-danger">@ViewBag.Message</label>
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+        </nav>
+    </header>
+
+    <section class="h-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">S'enregistrer</h2>
+
+                                <form asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="NomUtilisateur" class="form-label"></label>
+                                        <input asp-for="NomUtilisateur" class="form-control form-control-lg" />
+                                        <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="Nom" class="form-label"></label>
+                                        <input asp-for="Nom" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Nom" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="Prenom" class="control-label"></label>
+                                        <input asp-for="Prenom" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Prenom" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="Courriel" class="form-label"></label>
+                                        <input asp-for="Courriel" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Courriel" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="MotDePasse" class="form-label"></label>
+                                        <input asp-for="MotDePasse" class="form-control form-control-lg" />
+                                        <span asp-validation-for="MotDePasse" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label asp-for="NumTel" class="form-label"></label>
+                                        <input asp-for="NumTel" class="form-control form-control-lg" />
+                                        <span asp-validation-for="NumTel" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-2 text-body">S'enregistrer</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0">Vous avez déjà un compte? <a href="/Utilisateurs/Login" class="fw-bold text-body"><u>Se connecter! </u></a></p>
+                 
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Prenom" class="control-label"></label>
-                <input asp-for="Prenom" class="form-control" />
-                <span asp-validation-for="Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Courriel" class="control-label"></label>
-                <input asp-for="Courriel" class="form-control" />
-                <span asp-validation-for="Courriel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MotDePasse" class="control-label"></label>
-                <input asp-for="MotDePasse" class="form-control" />
-                <span asp-validation-for="MotDePasse" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumTel" class="control-label"></label>
-                <input asp-for="NumTel" placeholder="5145551234" class="form-control" />
-                <span asp-validation-for="NumTel" class="text-danger"></span>
-            </div>
-            <!--
-    <div class="form-group">
-        <label asp-for="NomAdminDesactivateur" class="control-label"></label>
-        <select asp-for="NomAdminDesactivateur" class ="form-control" asp-items="ViewBag.NomAdminDesactivateur"></select>
-    </div>-->
-            <div class="form-group">
-                <input type="submit" value="S'enregistrer" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </section>
+
+
+
+
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
+</html>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
