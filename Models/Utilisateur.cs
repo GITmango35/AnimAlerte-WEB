@@ -18,27 +18,27 @@ namespace AnimAlerte.Models
 
         [StringLength(50)]
         [Display(Name="Nom d'utilisateur")]
-        [Required(ErrorMessage = "SVP ENTREZ UN NOM D'UTILISATEUR")]
+        [Required(ErrorMessage = "Entrez un nom d'utilisateur")]
         public string NomUtilisateur { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "SVP ENTREZ VOTRE NOM")]
+        [Required(ErrorMessage = "Entrez votre nom")]
         public string Nom { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "SVP ENTREZ VOTRE PRENOM")]
+        [Required(ErrorMessage = "Entrez votre prénom")]
         [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "SVP ENTREZ UN COURRIEL VALIDE")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "COURRIEL NON VALIDE")]
+        [Required(ErrorMessage = "Entrez un courriel valide")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Courriel non valide")]
         public string Courriel { get; set; }
         [StringLength(25)]
         [Display(Name = "Mot de passe")]
-        [Required(ErrorMessage = "SVP ENTREZ UN MOT DE PASSE")]
+        [Required(ErrorMessage = "Entrez un mot de passe")]
         public string MotDePasse { get; set; }
         [StringLength(10)]
         [Display(Name = "Téléphone")]
-        [Required(ErrorMessage = "SVP ENTREZ VOTRE TELEPHONE")]
-        //[RegularExpression()*$", ErrorMessage = "FORMAT DE TELEPHONE NON VALIDE")]
+        [Required(ErrorMessage = "Entrez votre téléphone")]
+        [RegularExpression(@"[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$", ErrorMessage = "Format de téléphone non valide")]
         public string NumTel { get; set; }
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }

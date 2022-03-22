@@ -27,10 +27,6 @@ namespace AnimAlerte.Controllers
         // GET: Utilisateur
         public IActionResult Index()
         {
-
-            //session.SetString("NomUtilisateur", nomuser);
-            //var user = UtilisateursController.usersession;
-            //var user = "eli";// HARD-CODED -> TO BE MODIFIED
             var profil = _context.Utilisateurs.Where(u => u.NomUtilisateur == session.GetString("NomUtilisateur")).ToList();
             return View(profil);
         }
@@ -62,8 +58,6 @@ namespace AnimAlerte.Controllers
         }
 
         // POST: Utilisateurs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
@@ -111,13 +105,9 @@ namespace AnimAlerte.Controllers
             {
                 return NotFound();
             }
-            // Verify this 
-            // ViewData["NomAdmin"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", Utilisateurs.NomUtilisateur);
-            return View(Utilisateurs);
+               return View(Utilisateurs);
         }
         // POST: Utilisateurs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
@@ -197,7 +187,7 @@ namespace AnimAlerte.Controllers
             return View();
         }
 
-        //---Methode Login
+        //SE CONNECTER
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public IActionResult Login(string nomuser, string mdp)
@@ -238,10 +228,8 @@ namespace AnimAlerte.Controllers
                 return RedirectToAction("Index", "Utilisateurs");
             }
 
-
-
         }
-        //Deconnexion
+        //DECONEXION
         [HttpPost]
         public IActionResult Logout()
         {
