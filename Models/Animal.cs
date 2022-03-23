@@ -22,6 +22,7 @@ namespace AnimAlerte.Models
         public string NomAnimal { get; set; }
 
         [Display(Name = "Description")]
+        [Required(ErrorMessage = "Entrez le description de votre animal")]
         public string DescriptionAnimal { get; set; }
 
         [Display(Name = "Date d'inscription")]
@@ -33,6 +34,8 @@ namespace AnimAlerte.Models
 
         [Display(Name = "Espéce")]
         public string Espece { get; set; }
+
+        [Display(Name = "Proprietaire")]
         public string Proprietaire { get; set; }
 
         [Display(Name = "Proprietaire")]
