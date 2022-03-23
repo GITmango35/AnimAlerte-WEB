@@ -23,12 +23,14 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces
-        // Index retour la liste des annonces et une barre de recherche par ville
-        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString)
+        // Index retour la liste des annonces, une barre de recherche par ville, Trier par Date de création, filtrer par type d'annonce (perdu ou trouvé)
+        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString, string annoncePerdu, string annonceTrouve)
         {
-            ViewData["VilleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "ville_desc" : "";
+            ViewData["IdAnnonceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
+            ViewData["LostAnimalFilter"] = annoncePerdu == "perdu" ? "trouve" : "perdu";
+            ViewData["FoundAnimalFilter"] = annonceTrouve == "trouve" ? "perdu" : "trouve";
 
             ViewBag.userSession = nomuser;
             ViewBag.allAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == session.GetString("NomUtilisateur") && a.AnnonceActive == 1).ToList();
@@ -39,25 +41,23 @@ namespace AnimAlerte.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper())
-                                               && a.AnnonceActive == 1);
+                annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper()) && a.AnnonceActive == 1);
             }
 
-
-
-
-/*            annonces = sortOrder switch
+            if (!String.IsNullOrEmpty(annoncePerdu))
             {
-                "ville_desc" => annonces.OrderByDescending(a => a.Ville),
-                "Date" => annonces.OrderBy(a => a.DateCreation),
-                "date_desc" => annonces.OrderByDescending(a => a.DateCreation),
-                _ => annonces.OrderBy(a => a.Ville)
-            };*/
+                annonces = annonces.Where(a => a.TypeAnnonce == "perdu" && a.AnnonceActive == 1);
+            }
+
+            if (!String.IsNullOrEmpty(annonceTrouve))
+            {
+                annonces = annonces.Where(a => a.TypeAnnonce == "trouve" && a.AnnonceActive == 1);
+            }
 
             switch (sortOrder)
             {
-                case "ville_desc":
-                    annonces = annonces.OrderByDescending(a => a.Ville);
+                case "id_desc":
+                    annonces = annonces.OrderByDescending(a => a.IdAnnonce);
                     break;
                 case "Date":
                     annonces = annonces.OrderBy(a => a.DateCreation);
@@ -66,7 +66,7 @@ namespace AnimAlerte.Controllers
                     annonces = annonces.OrderByDescending(a => a.DateCreation);
                     break;
                 default:
-                    annonces = annonces.OrderBy(a => a.Ville);
+                    annonces = annonces.OrderBy(a => a.IdAnnonce);
                     break;
             }
 
