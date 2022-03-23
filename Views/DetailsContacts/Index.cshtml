@@ -16,11 +16,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateAjout)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.NomUtilisateurCreateurNavigation)
-            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.NomUtilisateurFavorisNavigation)
+                @Html.DisplayNameFor(model => model.NomUtilisateurFavoris)
             </th>
             <th></th>
         </tr>
@@ -32,11 +29,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateAjout)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.NomUtilisateurCreateurNavigation.NomUtilisateur)
-            </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.NomUtilisateurFavorisNavigation.NomUtilisateur)
+                @Html.DisplayFor(modelItem => item.NomUtilisateurFavoris)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris })

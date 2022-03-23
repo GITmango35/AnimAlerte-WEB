@@ -23,24 +23,37 @@ namespace AnimAlerte.Controllers
         public static string usersession;
         public static int admin = 0;
 
-        public DetailsContactsController(AnimAlerteContext context)
+        public DetailsContactsController(AnimAlerteContext context, IHttpContextAccessor accessor)
         {
             _context = context;
+            this.session = accessor.HttpContext.Session;
         }
 
         // GET: DetailsContacts
         public IActionResult Index()
         {
-            //var detailContext = _context.DetailsContacts.SingleOrDefault(u => u.NomUtilisateurCreateur == nomuser);
-            var animAlerteContext = _context.DetailsContacts
-                .Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
-                //.Include(d => d.NomUtilisateurCreateurNavigation)
-                //.Include(d => d.NomUtilisateurFavorisNavigation);
-            //ViewBag.contactActif = _context.Utilisateurs
-              //  .Where(u => u.NomUtilisateur == animAlerteContext.NomUtilisateurFavoris && u.UtilisateurActive == 1).ToList();
+            //on recupere la liste des contacts favoris de l'utilisateur connecté
+            var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
+            //on recuepere la liste de tous les users
+            var listeUsers = _context.Utilisateurs.ToList();
 
-            return View(animAlerteContext.ToList());
+            List<DetailsContact> detailsContactsFavoris = new List<DetailsContact>();
+            if (listeContactsFavoris != null && listeUsers!=null)
+            {
+                foreach (var contact in listeContactsFavoris)
+                {
+                    foreach (var user in listeUsers)
+                    {
+                        if(contact.NomUtilisateurFavoris==user.NomUtilisateur && user.UtilisateurActive == 1)
+                        {
+                            detailsContactsFavoris.Add(contact);
+                        }
+                    }
+                }
+                return View(detailsContactsFavoris);
+            }
 
+            return View();
         }
         
         // GET: DetailsContacts
@@ -59,15 +72,8 @@ namespace AnimAlerte.Controllers
             {
                 return NotFound();
             }
-            /*var detailsContact = _context.DetailsContacts
-                .Include(d => d.NomUtilisateurCreateurNavigation)
-                .Include(d => d.NomUtilisateurFavorisNavigation)
-                .FirstOrDefaultAsync(m => m.NomUtilisateurCreateur == id);*/
-            var detailsContact = _context.DetailsContacts.SingleOrDefault(a => a.NomUtilisateurCreateur == id);
-            if (detailsContact == null)
-            {
-                return NotFound();
-            }
+
+            var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
 
             return View(detailsContact);
         }
