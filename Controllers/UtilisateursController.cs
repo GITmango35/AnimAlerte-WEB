@@ -92,6 +92,7 @@ namespace AnimAlerte.Controllers
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
             return View(utilisateur);
         }
+
         // GET: Utilisateurs/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
@@ -107,6 +108,7 @@ namespace AnimAlerte.Controllers
             }
                return View(Utilisateurs);
         }
+
         // POST: Utilisateurs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -180,6 +182,7 @@ namespace AnimAlerte.Controllers
         {
             return _context.Utilisateurs.Any(e => e.NomUtilisateur == id);
         }
+
         //Get Login
         public IActionResult Login(string msg)
         {
@@ -206,7 +209,7 @@ namespace AnimAlerte.Controllers
                     {
                         admin = 0;
 
-                        return RedirectToAction("AllAnnonces", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("AllAnnoncesUser", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
@@ -229,6 +232,7 @@ namespace AnimAlerte.Controllers
             }
 
         }
+
         //DECONEXION
         [HttpPost]
         public IActionResult Logout()
@@ -264,7 +268,6 @@ namespace AnimAlerte.Controllers
             return View(); 
         }
 
-
         //la désactivation d'un utilisateur par un admin
         public ActionResult DesactiverUtilisateur(string nomuser)
         {
@@ -272,7 +275,6 @@ namespace AnimAlerte.Controllers
             ViewBag.admin = session.GetString("NomUtilisateur");
             return View(utilisateur);
         }
-
 
         [HttpPost]
         public ActionResult DesactiverUtilisateur( Utilisateur utilisateur)

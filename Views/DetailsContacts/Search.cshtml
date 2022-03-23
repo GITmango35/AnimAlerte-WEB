@@ -4,14 +4,15 @@
 
 <h1>Rechercher Un Contact</h1>
 
-<center>
-    <p>
-        @using (Html.BeginForm("Search", "DetailsContacts", FormMethod.Get))
-        {
-<input type="text" name="utilisateursSearch" />
-                <input class="btn btn-primary btn-sm text-white" type="submit" value="Rechercher" name="submit" />}
-    </p>
-</center>
+
+<p>
+    @using (Html.BeginForm("Search", "DetailsContacts", FormMethod.Get))
+    {
+            <input type="text" name="utilisateursSearch" />
+            <input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />
+    }
+</p>
+
 
 <table class="table">
     <thead>

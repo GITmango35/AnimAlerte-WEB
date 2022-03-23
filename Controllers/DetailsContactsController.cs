@@ -19,48 +19,51 @@ namespace AnimAlerte.Controllers
     public class DetailsContactsController : Controller
     {
         private readonly AnimAlerteContext _context;
-        private readonly IWebHostEnvironment hosting;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public DetailsContactsController(AnimAlerteContext context, IWebHostEnvironment hosting)
+        public DetailsContactsController(AnimAlerteContext context)
         {
             _context = context;
-            this.hosting = hosting;
         }
 
         // GET: DetailsContacts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //var favoris = _context.getFavUser(UtilisateursController.usersession).ToList();
-            //return View(favoris);
-            //var estActif = _context.Utilisateurs.Where(a => a.UtilisateurActive == 1);
+            //var detailContext = _context.DetailsContacts.SingleOrDefault(u => u.NomUtilisateurCreateur == nomuser);
+            var animAlerteContext = _context.DetailsContacts
+                .Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
+                //.Include(d => d.NomUtilisateurCreateurNavigation)
+                //.Include(d => d.NomUtilisateurFavorisNavigation);
+            //ViewBag.contactActif = _context.Utilisateurs
+              //  .Where(u => u.NomUtilisateur == animAlerteContext.NomUtilisateurFavoris && u.UtilisateurActive == 1).ToList();
 
-            var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
-            return View(await animAlerteContext.ToListAsync());
+            return View(animAlerteContext.ToList());
 
-        }// GET: DetailsContacts
+        }
+        
+        // GET: DetailsContacts
         public IActionResult Search(string utilisateursSearch)
         {
-            //var animAlerteContext = _context.Utilisateurs.Where(a => a.NomUtilisateur == UtilisateursController.usersession);
-            //return View(await animAlerteContext.ToListAsync());
-            var animAlerteContext = _context.Utilisateurs.Where(a => a.NomUtilisateur.Contains(utilisateursSearch)|| a.Nom.Contains(utilisateursSearch)|| a.Prenom.Contains(utilisateursSearch));
+            var animAlerteContext = _context.Utilisateurs
+                .Where((a => a.NomUtilisateur.Contains(utilisateursSearch) || a.Nom.Contains(utilisateursSearch) || a.Prenom.Contains(utilisateursSearch)));
             return View(animAlerteContext.ToList());
+                       
         }
 
         // GET: DetailsContacts/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var detailsContact = await _context.DetailsContacts
+            /*var detailsContact = _context.DetailsContacts
                 .Include(d => d.NomUtilisateurCreateurNavigation)
                 .Include(d => d.NomUtilisateurFavorisNavigation)
-                .FirstOrDefaultAsync(m => m.NomUtilisateurCreateur == id);
+                .FirstOrDefaultAsync(m => m.NomUtilisateurCreateur == id);*/
+            var detailsContact = _context.DetailsContacts.SingleOrDefault(a => a.NomUtilisateurCreateur == id);
             if (detailsContact == null)
             {
                 return NotFound();
@@ -70,8 +73,11 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: DetailsContacts/Create
+        [HttpGet]
         public IActionResult Create()
         {
+            //var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
+            //return View();
             ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
             ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
             return View();
@@ -182,15 +188,18 @@ namespace AnimAlerte.Controllers
             return _context.DetailsContacts.Any(e => e.NomUtilisateurCreateur == id);
         }
 
-        // GET: Recherche Contacts
-
-        //work in progress 
+        // GET: Recherche Contacts -> work in progress 
         public async Task<IActionResult> SearchForContact()
         {
             var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
             return View(await animAlerteContext.ToListAsync());
 
-
         }
+       
     }
 }
+
+
+//44-47  //var utilisateur = _context.Utilisateurs.SingleOrDefault(a => a.NomUtilisateur == UtilisateursController.usersession && a.UtilisateurActive == 1);
+//var animAlerteContext = _context.Utilisateurs.Where(a => a.NomUtilisateur == UtilisateursController.usersession);
+//return View(await animAlerteContext.ToListAsync());

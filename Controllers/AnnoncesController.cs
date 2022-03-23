@@ -261,6 +261,7 @@ namespace AnimAlerte.Controllers
             }
 
             return RedirectToAction("AllAnnoncesAdmin", "Annonces");
+            //return RedirectToAction("Index", "Annonces");
 
             
         }
@@ -295,7 +296,7 @@ namespace AnimAlerte.Controllers
             return View(annonces);
         }
         // afficher toutes les annonces
-        public IActionResult AllAnnonces(string nomuser)
+        public IActionResult AllAnnoncesUser(string nomuser)
         {
             ViewBag.userSession = nomuser;
             var annonces = _context.Annonces.ToList();
