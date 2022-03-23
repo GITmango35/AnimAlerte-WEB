@@ -1,0 +1,97 @@
+﻿@model IEnumerable<AnimAlerte.Models.Utilisateur>
+
+@{ ViewData["Title"] = "Search"; }
+
+<h1>Rechercher Un Contact</h1>
+
+
+<p>
+    @using (Html.BeginForm("Search", "DetailsContacts", FormMethod.Get))
+    {
+            <input type="text" name="utilisateursSearch" />
+            <input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />
+    }
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomUtilisateur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Courriel)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.MotDePasse)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.NumTel)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.UtilisateurActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAdmin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NomUtilisateur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nom)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Prenom)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.Courriel)
+        </td>*@
+    @*<td>
+            @Html.DisplayFor(modelItem => item.MotDePasse)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.NumTel)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.UtilisateurActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAdmin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
+        </td>*@
+    <td>
+        <a asp-action="Create" asp-route-id="@item.NomUtilisateur">Ajouter</a>
+        @*<a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>*@
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+
+
+<div>
+    <a asp-action="Index">Retour a la Liste</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -33,6 +33,11 @@ namespace AnimAlerte.Models
         public List<Animal> GetAnimalsForUser(string nomuser)
         {
             return Animals.Where(a => a.Proprietaire == nomuser && a.AnimalActif == 1).ToList();
+
+        // Liste des utilisateurs actifs
+        }public List<Utilisateur> getFavUser(string nomUser)
+        {
+            return Utilisateurs.Where(a => a.NomUtilisateur == nomUser && a.UtilisateurActive == 1).ToList();
         }
 
         // Récuperer les annonces active par type(trouvé ou perdu)
