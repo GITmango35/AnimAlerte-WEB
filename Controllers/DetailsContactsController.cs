@@ -88,13 +88,14 @@ namespace AnimAlerte.Controllers
             //    .Include(d => d.NomUtilisateurCreateurNavigation)
             //    .Include(d => d.NomUtilisateurFavorisNavigation)
             //    .SingleOrDefault(m => m.NomUtilisateurCreateur == id);
-            var detailsContact = _context.DetailsContacts.Where(a => a.NomUtilisateurFavoris == id);
+            var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
             
-            if (detailsContact == null)
+            // ??? remove this?
+            /*if (detailsContact == null)
             {
                 return NotFound();
             }
-
+            */
             return View(detailsContact);
         }
 
@@ -179,17 +180,17 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: DetailsContacts/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public IActionResult Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var detailsContact = await _context.DetailsContacts
-                .Include(d => d.NomUtilisateurCreateurNavigation)
-                .Include(d => d.NomUtilisateurFavorisNavigation)
-                .FirstOrDefaultAsync(m => m.NomUtilisateurCreateur == id);
+            var detailsContact = _context.DetailsContacts
+                //.Include(d => d.NomUtilisateurCreateur)
+                //.Include(d => d.NomUtilisateurFavoris)
+                .FirstOrDefault(m => m.NomUtilisateurCreateur == id);
             if (detailsContact == null)
             {
                 return NotFound();
@@ -201,11 +202,11 @@ namespace AnimAlerte.Controllers
         // POST: DetailsContacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public IActionResult DeleteConfirmed(string id)
         {
-            var detailsContact = await _context.DetailsContacts.FindAsync(id);
+            var detailsContact = _context.DetailsContacts.Find(id);
             _context.DetailsContacts.Remove(detailsContact);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
