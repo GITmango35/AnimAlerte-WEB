@@ -52,12 +52,12 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se déconnecter</a>
                             </li>
                             @*<li class="nav navbar-nav navbar-right">
-                        <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
-                            <button type="submit" class="btn btn-primary text-white">
-                                Se déconnecter  @AnimAlerte.Controllers.UtilisateursController.usersession
-                            </button>
-                        </form>
-                    </li>*@
+                <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
+                    <button type="submit" class="btn btn-primary text-white">
+                        Se déconnecter  @AnimAlerte.Controllers.UtilisateursController.usersession
+                    </button>
+                </form>
+            </li>*@
 
                         }
                         @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 1))
@@ -74,7 +74,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="RechercheAnnonce">Rechercher Une Annonce</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="RechercheUtilisateur">Rechercher Utilisateur</a>
+                            </li>
                             <li class="nav-item">
                                 <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
                                     <button type="submit" class="btn btn-primary text-white">
