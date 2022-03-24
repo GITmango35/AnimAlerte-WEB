@@ -34,6 +34,7 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris })
+                @Html.ActionLink("Delete", "Delete", new { id = item.NomUtilisateurFavoris })
                 @*<a asp-action="Details" asp-route-id="@item.NomUtilisateurFavoris">Détails</a> |*@
                 <a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavoris">Supprimer</a>
             </td>

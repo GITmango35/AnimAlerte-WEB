@@ -15,7 +15,7 @@ using System.IO;
 
 namespace AnimAlerte.Controllers
 {
-
+//tout est beau
     public class DetailsContactsController : Controller
     {
         private readonly AnimAlerteContext _context;
@@ -36,15 +36,23 @@ namespace AnimAlerte.Controllers
             var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
             //on recuepere la liste de tous les users
             var listeUsers = _context.Utilisateurs.ToList();
+//<<<<<<< HEAD
 
             List<DetailsContact> detailsContactsFavoris = new List<DetailsContact>();
             if (listeContactsFavoris != null && listeUsers!=null)
+//=======
+          
+//>>>>>>> 91ff52831d23ff4607152239a5c3a540582a7409
             {
                 foreach (var contact in listeContactsFavoris)
                 {
                     foreach (var user in listeUsers)
                     {
-                        if(contact.NomUtilisateurFavoris==user.NomUtilisateur && user.UtilisateurActive == 1)
+///<<<<<<< HEAD
+                        //if(contact.NomUtilisateurFavoris==user.NomUtilisateur && user.UtilisateurActive == 1)
+
+                        if (contact.NomUtilisateurFavoris == user.NomUtilisateur && user.UtilisateurActive == 1 && user.NomUtilisateur != UtilisateursController.usersession)
+//>>>>>>> 91ff52831d23ff4607152239a5c3a540582a7409
                         {
                             detailsContactsFavoris.Add(contact);
                         }
@@ -55,26 +63,54 @@ namespace AnimAlerte.Controllers
 
             return View();
         }
-        
-        // GET: DetailsContacts
+
+        // GET: DetailsContacts Resultats Recherche
         public IActionResult Search(string utilisateursSearch)
         {
-            var animAlerteContext = _context.Utilisateurs
-                .Where((a => a.NomUtilisateur.Contains(utilisateursSearch) || a.Nom.Contains(utilisateursSearch) || a.Prenom.Contains(utilisateursSearch)));
-            return View(animAlerteContext.ToList());
-                       
+            var listeTrouveUtilisateur = _context.Utilisateurs
+                .Where(a => a.NomUtilisateur.Contains(utilisateursSearch) || 
+                a.Nom.Contains(utilisateursSearch) || 
+                a.Prenom.Contains(utilisateursSearch)).ToList();
+
+            List<Utilisateur> liste = new List<Utilisateur>();
+
+            foreach (var users in listeTrouveUtilisateur)
+            {
+                if(users.UtilisateurActive == 1 && users.NomUtilisateur != UtilisateursController.usersession)
+                {
+                    liste.Add(users);
+                }
+            }
+                           
+            return View(liste);
+                                   
         }
 
         // GET: DetailsContacts/Details/5
         public IActionResult Details(string id)
         {
+            
             if (id == null)
             {
                 return NotFound();
             }
+//<<<<<<< HEAD
 
             var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
 
+//=======
+            //var detailsContact = _context.DetailsContacts
+            //    .Include(d => d.NomUtilisateurCreateurNavigation)
+            //    .Include(d => d.NomUtilisateurFavorisNavigation)
+            //    .SingleOrDefault(m => m.NomUtilisateurCreateur == id);
+           /* var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
+            
+            // ??? remove this?
+            /*if (detailsContact == null)
+            {
+                return NotFound();
+            }
+            */
             return View(detailsContact);
         }
 
@@ -159,17 +195,17 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: DetailsContacts/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public IActionResult Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var detailsContact = await _context.DetailsContacts
-                .Include(d => d.NomUtilisateurCreateurNavigation)
-                .Include(d => d.NomUtilisateurFavorisNavigation)
-                .FirstOrDefaultAsync(m => m.NomUtilisateurCreateur == id);
+            var detailsContact = _context.DetailsContacts
+                //.Include(d => d.NomUtilisateurCreateur)
+                //.Include(d => d.NomUtilisateurFavoris)
+                .FirstOrDefault(m => m.NomUtilisateurCreateur == id);
             if (detailsContact == null)
             {
                 return NotFound();
@@ -181,11 +217,11 @@ namespace AnimAlerte.Controllers
         // POST: DetailsContacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public IActionResult DeleteConfirmed(string id)
         {
-            var detailsContact = await _context.DetailsContacts.FindAsync(id);
+            var detailsContact = _context.DetailsContacts.Find(id);
             _context.DetailsContacts.Remove(detailsContact);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -194,14 +230,23 @@ namespace AnimAlerte.Controllers
             return _context.DetailsContacts.Any(e => e.NomUtilisateurCreateur == id);
         }
 
-        // GET: Recherche Contacts -> work in progress 
-        public async Task<IActionResult> SearchForContact()
+     
+        // POST: DetailsContacts/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Rajouter([Bind("NomUtilisateurCreateur,NomUtilisateurFavoris,DateAjout")] DetailsContact detailsContact)
         {
-            var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
-            return View(await animAlerteContext.ToListAsync());
-
+            if (ModelState.IsValid)
+            {
+                _context.Add(detailsContact);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurCreateur);
+            ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurFavoris);
+            return View(detailsContact);
         }
-       
+
     }
 }
 
@@ -209,3 +254,18 @@ namespace AnimAlerte.Controllers
 //44-47  //var utilisateur = _context.Utilisateurs.SingleOrDefault(a => a.NomUtilisateur == UtilisateursController.usersession && a.UtilisateurActive == 1);
 //var animAlerteContext = _context.Utilisateurs.Where(a => a.NomUtilisateur == UtilisateursController.usersession);
 //return View(await animAlerteContext.ToListAsync());
+
+// GET: DetailsContacts
+/*public IActionResult Index()
+{
+    //var detailContext = _context.DetailsContacts.SingleOrDefault(u => u.NomUtilisateurCreateur == nomuser);
+    var animAlerteContext = _context.DetailsContacts
+        .Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
+        //.Include(d => d.NomUtilisateurCreateurNavigation)
+        //.Include(d => d.NomUtilisateurFavorisNavigation);
+    //ViewBag.contactActif = _context.Utilisateurs
+      //  .Where(u => u.NomUtilisateur == animAlerteContext.NomUtilisateurFavoris && u.UtilisateurActive == 1).ToList();
+
+    return View(animAlerteContext.ToList());
+
+}*/

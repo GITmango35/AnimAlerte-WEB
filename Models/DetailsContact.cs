@@ -9,7 +9,9 @@ namespace AnimAlerte.Models
     public partial class DetailsContact
     {
 
+        [Display(Name="Utilisateur")]
         public string NomUtilisateurCreateur { get; set; }
+        [Display(Name="Contact Favoris")]
         public string NomUtilisateurFavoris { get; set; }
         [Display(Name="Date d'ajout")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
