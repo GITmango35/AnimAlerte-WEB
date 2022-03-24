@@ -89,11 +89,8 @@ namespace AnimAlerte.Controllers
                 return NotFound();
             }
 
-            var annonce = await _context.Annonces
-                .Include(a => a.IdAnimalNavigation)
-                .Include(a => a.NomAdminDesactivateurNavigation)
-                .Include(a => a.NomUtilisateurNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnnonce == id);
+       var annonce = await _context.Annonces.FindAsync(id);
+
 
             var animal = await _context.Animals
                .Include(a => a.ProprietaireNavigation)
