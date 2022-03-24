@@ -200,7 +200,7 @@ namespace AnimAlerte.Controllers
             Utilisateur utilisateur = _context.Utilisateurs.Find(nomuser);
             try
             {
-                if (utilisateur != null && utilisateur.MotDePasse == mdp)
+                if (utilisateur != null && utilisateur.MotDePasse == mdp && utilisateur.UtilisateurActive==1)
 
                 {
                     session.SetString("NomUtilisateur", nomuser);
