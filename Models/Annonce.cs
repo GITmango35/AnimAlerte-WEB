@@ -28,7 +28,7 @@ namespace AnimAlerte.Models
         public string Ville { get; set; }
 
         public byte? AnnonceActive { get; set; }
-        [Required(ErrorMessage = "Champ type d'annonce obligatoire!")]
+
         [Display(Name = "Type d'annonce")]
         public string TypeAnnonce { get; set; }
         
