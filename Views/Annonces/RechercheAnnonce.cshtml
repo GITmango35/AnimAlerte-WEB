@@ -73,8 +73,7 @@
                 @Model.DateCreation
             </td>
             <td>
-                @*<a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>*@
-                @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @Model.IdAnnonce })
+                <a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>        
             </td>
         </tr>
         }
