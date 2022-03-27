@@ -116,10 +116,8 @@ namespace AnimAlerte.Controllers
                     animal.Espece = model.Espece;
                     animal.Proprietaire = proprietaire;
                     _context.Animals.Add(animal);
-                    await _context.SaveChangesAsync();
 
                     image.TitreImage = model.NomAnimal;
-
                     if (fileName != null)
                     {
                         image.PathImage = fileName;
@@ -129,7 +127,8 @@ namespace AnimAlerte.Controllers
                     _context.Images.Add(image);
                     await _context.SaveChangesAsync();
 
-                    //ViewBag.Message = "Votre animal " + model.NomAnimal + " est bien enregistré !";
+                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien enregistré !";
+
                     return RedirectToAction(nameof(MesAnimaux), new { msg = ViewBag.Message });
                 }
             }
@@ -214,6 +213,7 @@ namespace AnimAlerte.Controllers
                     var imageModif = _context.Images.Attach(imageToUpdate);
                     imageModif.State = EntityState.Modified;
                     _context.SaveChanges();
+                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien modifié !";
 
                     return RedirectToAction(nameof(MesAnimaux));
                 }
@@ -238,7 +238,6 @@ namespace AnimAlerte.Controllers
 
             var animal = await _context.Animals.FindAsync(idAnimal);
             var image = await _context.Images.FindAsync(idAnimal);
-
             var model = new AnimalModifViewModel()
             {
                 IdAnimal = animal.IdAnimal,
@@ -262,7 +261,6 @@ namespace AnimAlerte.Controllers
                     "Echec de la suppression. Réessayez, et si le problème persiste " +
                     "consultez votre administrateur système.";
             }
-
             return View(animal);
         }
 
@@ -275,9 +273,12 @@ namespace AnimAlerte.Controllers
             {
                 var animal = await _context.Animals.FindAsync(idAnimal);
                 animal.AnimalActif = 0;
+
                 var animalModif = _context.Animals.Attach(animal);
                 animalModif.State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+
+                TempData["AlertMessage"] = "Votre animal est bien supprimé !";
                 return RedirectToAction(nameof(MesAnimaux));
             }
             catch (DbUpdateException)
@@ -285,7 +286,6 @@ namespace AnimAlerte.Controllers
                 return RedirectToAction(nameof(Delete), new { idAnimal = idAnimal, saveChangesError = true });
             }
         }
-
 
         //Méthode pour télécharger une image d'un animal
         private string ImageUpload(AnimalViewModel model)
@@ -303,6 +303,8 @@ namespace AnimAlerte.Controllers
 
             return nomFichier;
         }
+
+
 
     }
 }

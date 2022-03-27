@@ -6,10 +6,10 @@
 
 <h1>Animaux perdus ou trouvés</h1>
 <hr />
-@*<p>
-        <a asp-action="Create">Créer une annonce</a>
-    </p>*@
-
+<p>
+    <a asp-action="Create">Créer une annonce</a>
+</p>
+<br />
 <form asp-action="Index" method="get">
     <div class="input-group mb-3">
         <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Rechercher par lieu..." aria-label="Ville">
@@ -19,14 +19,14 @@
     </div>
 
     <a asp-action="Index">Retour à la liste complète</a> |
-    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Trier par date</a> 
+    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Trier par date</a>
 
-        <a asp-action="Index" asp-route-annoncePerdu="@ViewData["LostAnimalFilter"]">
-            <input type="button" class="btn btn-danger rounded" value="Animaux Perdus" />
-        </a>
+    <a asp-action="Index" asp-route-annoncePerdu="@ViewData["LostAnimalFilter"]">
+        <input type="button" class="btn btn-danger rounded" value="Animaux Perdus" />
+    </a>
 
     <a asp-action="Index" asp-route-annonceTrouve="@ViewData["FoundAnimalFilter"]">
-        <input type="button" class="btn btn-success rounded" value="Animaux Trouves"/>
+        <input type="button" class="btn btn-success rounded" value="Animaux Trouves" />
     </a>
 </form>
 
@@ -91,14 +91,14 @@
                                     @Html.DisplayFor(modelItem => item.TypeAnnonce)
                                 </dd>
                                 @*<dt class="col-sm-4">
-                                    @Html.DisplayNameFor(model => model.DescriptionAnnonce)
-                                </dt>
-                                <dd class="col-sm-8 text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-                                </dd>*@
+                                        @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                                    </dt>
+                                    <dd class="col-sm-8 text-truncate" style="max-width: 300px;">
+                                        @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
+                                    </dd>*@
                             </dl>
                             <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce" class="btn btn-primary">Voir Détails</a>
-                          
+
                         </div>
                     </div>
                 </div>

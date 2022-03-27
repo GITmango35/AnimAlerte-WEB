@@ -7,7 +7,14 @@
     <a asp-action="AjoutAnimal">Ajouter un animal</a>
 </p>
 <hr />
-<p class="alert-danger">@ViewBag.Message</p>
+@*@if (TempData["AlertMessage"] != null)
+{
+    <div class=" alert alert-success">
+        <strong>Succes ! </strong> @TempData["AlertMessage"]
+    </div>
+}*@
+<br />
+<p class="alert alert-success">@ViewBag.Message</p>
 <table class="table" id="myTable">
     <thead class="thead-dark table-hover table-dark">
         <tr>

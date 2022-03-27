@@ -17,8 +17,8 @@
 </head>
 <body>
     <h1>Ajouter un animal</h1>
-
     <hr />
+    
     <div class="row">
         <div class="col-md-4">
             <form method="post" asp-controller="Animals" asp-action="AjoutAnimal" enctype="multipart/form-data">
@@ -49,13 +49,17 @@
                         <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" type="file" />
                         <label class="custom-file-label" for="photoUpload">Choisissez votre fichier...</label>
                     </div>
-                    <div class="img-fluid">
-                        <div id="photoPreview"></div>
+                    <div class="card m-2" style="width: 18rem;">
+                        <div class="d-md-table-row">
+                            <div id="photoPreview" class="card-img-top"></div>
+                        </div>
                     </div>
+                    <p id="uploadMessage"></p>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <input type="submit" value="Enregistrer" class="btn btn-primary" />
+
                     </div>
                 </div>
             </form>
@@ -84,14 +88,15 @@
                         var reader = new FileReader();
                         reader.onload = function (e) {
                             $("#photoPreview img").attr("src", e.target.result);
-                            $("#photoPreview img").attr("style", "height:200px;width: 200px");
+                            $("#photoPreview img").attr("style", "height:200px; width: 180px");
                         }
                         reader.readAsDataURL($(this)[0].files[0]);
                     } else {
                         alert("This browser does not support FileReader.");
                     }
                 } else {
-                    alert("Please upload a valid image file.");
+                    $("#uploadMessage").html(data);
+                    // alert("Please upload a valid image file.");
                 }
             });
 
@@ -107,10 +112,10 @@
 @section CreateSectionJS{
     <script type="text/javascript">
         //pour une seule photo
-        $(document).ready(function () {    
+        $(document).ready(function () {
             $("#customFile").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
-               $(this).next(".custom-file-label").html(inputPhoto);
+                $(this).next(".custom-file-label").html(inputPhoto);
             });
         })
     </script>
