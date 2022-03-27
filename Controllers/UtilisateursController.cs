@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using System.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
     {
         private readonly AnimAlerteContext _context;
+        private readonly ISession session;
+        public static string usersession;
+        public static int admin = 0;
 
-        public UtilisateursController(AnimAlerteContext context)
+        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor)
         {
             _context = context;
+            this.session = accessor.HttpContext.Session;
         }
 
-        // GET: Utilisateurs
+        // GET: Utilisateur
         public async Task<IActionResult> Index()
         {
-            var animAlerteContext = _context.Utilisateurs.Include(u => u.NomAdminDesactivateurNavigation);
-            return View(await animAlerteContext.ToListAsync());
+            //var user = UtilisateursController.usersession;
+            var user = "eli";// HARD-CODED -> TO BE MODIFIED
+            var profil = _context.Utilisateurs.Where(u => u.NomUtilisateur == user).ToList();
+            return View(profil);
         }
 
         // GET: Utilisateurs/Details/5
@@ -64,6 +71,7 @@ namespace AnimAlerte.Controllers
                 ViewBag.Message = "";
             try
             {
+
                 if (u == null && ModelState.IsValid)
                 {
                     _context.Add(utilisateur);
@@ -82,6 +90,7 @@ namespace AnimAlerte.Controllers
             catch (DataException)
             {
                 ModelState.AddModelError("", "On ne peut pas enregistrer");
+
 
             }
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
@@ -166,9 +175,14 @@ namespace AnimAlerte.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            _context.Utilisateurs.Remove(utilisateur);
+            utilisateur.UtilisateurActive = 0;
+            _context.Utilisateurs.Update(utilisateur);
+            //_context.Utilisateurs.Remove(utilisateur);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            session.Clear();
+            usersession = "";
+            return RedirectToAction("Login");
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool UtilisateurExists(string id)

@@ -1,0 +1,60 @@
+﻿@model AnimAlerte.Models.Annonce
+
+@{
+    ViewData["Title"] = "Suppression Annonce";
+}
+
+<h1>Supprimer annonce</h1>
+
+<h3>Vous êtes sur de vouloir supprimer cette annonce?</h3>
+<div>
+
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Titre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Titre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DescriptionAnnonce)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateCreation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ville)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ville)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeAnnonce)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeAnnonce)
+        </dd>
+        <dt class="col-sm-2">
+            Nom Animal
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.animal.NomAnimal
+        </dd>
+    </dl>
+    
+    <form asp-action="DesactiverMonAnnonce">
+        <input type="hidden" asp-for="IdAnnonce" />
+        <input type="hidden" asp-for="NomUtilisateur" />
+        <input type="hidden" asp-for="NomAdminDesactivateur" />
+        <input type="hidden" asp-for="IdAnimal" />
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-action="TousMesAnnonces">Mes annonces</a>
+    </form>
+</div>
