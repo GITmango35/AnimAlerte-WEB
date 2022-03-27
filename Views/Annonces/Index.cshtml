@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Accueil";
 }
 
-<h1>Animals perdus ou trouvés</h1>
+<h1>Animaux perdus ou trouvés</h1>
 <hr />
 @*<p>
         <a asp-action="Create">Créer une annonce</a>
@@ -14,14 +14,21 @@
     <div class="input-group mb-3">
         <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Rechercher par lieu..." aria-label="Ville">
         <div class="input-group-append">
-            <button class="btn btn-primary rounded-right" type="submit">Rechercher</button> 
+            <button class="btn btn-primary rounded-right" type="submit">Rechercher</button>
         </div>
     </div>
 
     <a asp-action="Index">Retour à la liste complète</a> |
-    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Trier par date</a>
-</form>
+    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Trier par date</a> 
 
+        <a asp-action="Index" asp-route-annoncePerdu="@ViewData["LostAnimalFilter"]">
+            <input type="button" class="btn btn-danger rounded" value="Animaux Perdus" />
+        </a>
+
+    <a asp-action="Index" asp-route-annonceTrouve="@ViewData["FoundAnimalFilter"]">
+        <input type="button" class="btn btn-success rounded" value="Animaux Trouves"/>
+    </a>
+</form>
 
 @*TODO : filter by type d'annonce(trouve ou perdu)*@
 
@@ -34,7 +41,7 @@
             <div class="container mt-5">
                 <div class="card mt-4">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 ">
                             <a asp-action="Details" asp-controller="Annonces" asp-route-id="@i.IdAnimal">
                                 @if (i.PathImage != null)
                                 {
@@ -46,7 +53,7 @@
                                 }
                             </a>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 ">
                             <h3 class="card-header">@item.Titre</h3>
                             <dl class="row">
                                 <dt class="col-sm-4">
@@ -90,6 +97,7 @@
                                 <dd class="col-sm-8 text-truncate" style="max-width: 300px;">
                                     @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
                                 </dd>
+                                <td>  <a asp-action="Details2" asp-route-id="@item.IdAnnonce">Details</a> </td>
                             </dl>
                             @*<a asp-controller="Annonces" asp-action="Details" asp-route-id="@i.IdAnnonce" class="btn btn-primary">Voir Détails</a>*@
                             @*<button class="btn btn-primary"></button>*@
@@ -102,96 +110,4 @@
 }
 
 
-@*<table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Photo</th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.IdAnnonce)
-                </th>
-                <th>
-                    Nom Animal
-                </th>
-                <th>
-                    Proprietaire
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Titre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TypeAnnonce)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DescriptionAnnonce)
-                </th>
-                <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["VilleSortParm"]">@Html.DisplayNameFor(model => model.Ville)</a>
-                </th>
-                <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DateCreation)</a>
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    @foreach (var i in ViewBag.images)
-                    {
-                        if (i.IdAnimal == item.IdAnimal)
-                        {
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.IdAnimal">
-                                    @if (i.PathImage != null)
-                                    {
-
-                                        <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
-
-                                    }
-                                </a>
-                            </td>
-                        }
-                    }
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdAnnonce)
-                    </td>
-
-                    @foreach (var a in ViewBag.animaux)
-                    {
-
-                        if (a.IdAnimal == item.IdAnimal)
-                        {
-                            <td>@a.NomAnimal </td>
-                        }
-                    }
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomUtilisateur)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeAnnonce)
-                    </td>
-                    <td class="d-inline-block text-truncate" style="max-width: 150px;">
-                        @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ville)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreation)
-                    </td>
-
-                </tr>
-
-
-            }
-        </tbody>
-    </table>*@

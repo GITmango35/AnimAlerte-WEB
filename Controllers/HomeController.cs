@@ -1,6 +1,8 @@
 ﻿using AnimAlerte.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,17 +15,29 @@ namespace AnimAlerte.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public HomeController(ILogger<HomeController> logger, AnimAlerteContext context, IHttpContextAccessor accessor)
+        public HomeController(ILogger<HomeController> logger, AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<HomeController> localizer)
         {
             _logger = logger;
             _context = context;
+            _localizer = localizer;
             this.session = accessor.HttpContext.Session;
+        }
+
+        //Methode pour les cookies pour le langues
+        [HttpPost]
+        public IActionResult CultureManagement(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+            //return RedirectToAction("Login","Utilisateurs");
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult Index()

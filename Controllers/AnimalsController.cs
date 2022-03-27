@@ -24,7 +24,7 @@ namespace AnimAlerte.Controllers
             this.hosting = hosting;
         }
 
-        // L'affiché initial des animaux pour utilisateur connecté
+        // L'affiche initial des animaux pour utilisateur connecté
         public IActionResult Index()
         {
             var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession).ToList();

@@ -97,7 +97,7 @@
                 </td>
 
                 <td>
-
+                     <a asp-action="DesactiverAnnonce" asp-route-id="@item.IdAnnonce">Désactiver</a>
                     @Html.ActionLink("Désactiver", "DesactiverUnAnnonceParAdmin", new { idAnnonce = item.IdAnnonce })
                 </td>
             </tr>

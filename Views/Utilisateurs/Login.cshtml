@@ -1,6 +1,7 @@
-﻿@model AnimAlerte.Models.Utilisateur
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.Utilisateur
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Se connecter";
 }
 
 
@@ -11,10 +12,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Se Connecter</title>
+    <title>@ViewData["Title"] - AnimAlerte</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/login.css" />
+
 </head>
 <body>
 
@@ -22,17 +24,18 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>
-                <div class="navbar-nav flex-grow-1 justify-content-end">
-                    <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
-                    <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
-                </div>
+                @*<div class="navbar-nav flex-grow-1 justify-content-end">
+                        <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
+                        <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
+                    </div>*@
             </div>
+            <partial name="_Culture" />
         </nav>
     </header>
 
 
     <section style="background-color: #eee;">
-        <div class="container py-5 h-100">
+        <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
@@ -47,7 +50,7 @@
                                     <p class="alert-danger">@ViewBag.Message</p>
                                     <form action="/Utilisateurs/Login" method="post">
                                         <h4 class="mt-1 mb-5 pb-1">Connexion à votre compte</h4>
-
+                                        <h4 class="mt-1 mb-5 pb-1">@ViewData["LoginError"]</h4>
                                         <div class="form-outline mb-4">
                                             <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="Nom utilisateur" />
                                             <label for="nomuser" class="form-label"></label>
@@ -59,9 +62,9 @@
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Se connecter</button>
+                                            <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">@localizer["Login"]</button>
                                         </div>
-                                        <p class="text-center text-muted mt-5 mb-0">Vous n'avez pas de compte? <a href="/Utilisateurs/Create" class="fw-bold text-body"> S'enregistrer! </a></p>
+                                        <p class="text-center text-muted mt-5 mb-0">@localizer["NoAccount"] <a href="/Utilisateurs/Create" class="fw-bold text-body"> S'enregistrer! </a></p>
                                     </form>
 
                                 </div>
@@ -87,36 +90,18 @@
     </section>
 
 
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - AnimAlerte<a asp-area="" asp-controller="Home" asp-action="Privacy"></a>
+
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 </body>
 </html>
 
 
 
-@*<img src="~/images/logo.png" />
-    <div class="jumbotron">
-        <h1>Bievenue sur le site AnimAlerte!</h1>
-        <hr />
-        <p class="lead">
-            Animalerte permet aux propriétaires d’animaux de diffuser auprès de milliers de personnes des avis de recherche pour leurs compagnons disparus. Si vous trouvez un animal perdu, vous pouvez aussi créer une annonce afin de trouver son propriétaire.
-        </p>
-        <p>
-            Animalerte est le site le plus fiable au Canada, vous pouvez enregistrer vos animaux afin de créer facilement et rapidement une annonce en cas de perte de votre compagnon. Une liste de contact favori vous permet de les contacter rapidement.
-        </p>
-    </div>
-
-    <p class="alert-danger">@ViewBag.Message</p>
-    <form action="/Utilisateurs/Login" method="post">
-
-        <div class="mb-3">
-            <label for="nomuser" class="form-label">Nom Utilisateur</label>
-            <input type="text" class="form-control" id="nomuser" name="nomuser" />
-        </div>
-        <div class="mb-3">
-            <label for="mdp" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="mdp" name="mdp">
-        </div>
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-        <p>Vous n'avez pas de compte? <a href="/Utilisateurs/Create">S'enregistrer</a></p>
-    </form>*@

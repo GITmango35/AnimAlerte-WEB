@@ -23,12 +23,14 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces
-        // Index retour la liste des annonces et une barre de recherche par ville
-        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString)
+        // Index retour la liste des annonces, une barre de recherche par ville, Trier par Date de création, filtrer par type d'annonce (perdu ou trouvé)
+        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString, string annoncePerdu, string annonceTrouve)
         {
-            ViewData["VilleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "ville_desc" : "";
+            ViewData["IdAnnonceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
+            ViewData["LostAnimalFilter"] = annoncePerdu == "perdu" ? "trouve" : "perdu";
+            ViewData["FoundAnimalFilter"] = annonceTrouve == "trouve" ? "perdu" : "trouve";
 
             ViewBag.userSession = nomuser;
             ViewBag.allAnnonces = _context.Annonces.Where(a => a.NomUtilisateur == session.GetString("NomUtilisateur") && a.AnnonceActive == 1).ToList();
@@ -39,25 +41,23 @@ namespace AnimAlerte.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper())
-                                               && a.AnnonceActive == 1);
+                annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper()) && a.AnnonceActive == 1);
             }
 
-
-
-
-/*            annonces = sortOrder switch
+            if (!String.IsNullOrEmpty(annoncePerdu))
             {
-                "ville_desc" => annonces.OrderByDescending(a => a.Ville),
-                "Date" => annonces.OrderBy(a => a.DateCreation),
-                "date_desc" => annonces.OrderByDescending(a => a.DateCreation),
-                _ => annonces.OrderBy(a => a.Ville)
-            };*/
+                annonces = annonces.Where(a => a.TypeAnnonce == "perdu" && a.AnnonceActive == 1);
+            }
+
+            if (!String.IsNullOrEmpty(annonceTrouve))
+            {
+                annonces = annonces.Where(a => a.TypeAnnonce == "trouve" && a.AnnonceActive == 1);
+            }
 
             switch (sortOrder)
             {
-                case "ville_desc":
-                    annonces = annonces.OrderByDescending(a => a.Ville);
+                case "id_desc":
+                    annonces = annonces.OrderByDescending(a => a.IdAnnonce);
                     break;
                 case "Date":
                     annonces = annonces.OrderBy(a => a.DateCreation);
@@ -66,7 +66,7 @@ namespace AnimAlerte.Controllers
                     annonces = annonces.OrderByDescending(a => a.DateCreation);
                     break;
                 default:
-                    annonces = annonces.OrderBy(a => a.Ville);
+                    annonces = annonces.OrderBy(a => a.IdAnnonce);
                     break;
             }
 
@@ -82,54 +82,88 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+        //public IActionResult Details(int? id, string nomuser)
+        //{
+           
+public async Task<IActionResult> Details2(int? id)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var annonce = await _context.Annonces
+
+
+                var annonce = await _context.Annonces
                 .Include(a => a.IdAnimalNavigation)
                 .Include(a => a.NomAdminDesactivateurNavigation)
                 .Include(a => a.NomUtilisateurNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnnonce == id);
+                if (annonce == null)
+                {
+                    return NotFound();
+                }
 
-            var animal = await _context.Animals
-               .Include(a => a.ProprietaireNavigation)
-              .FirstOrDefaultAsync(m => m.IdAnimal == id);
 
-            var image = await _context.Images
-               .Include(i => i.IdAnimalNavigation)
-               .FirstOrDefaultAsync(m => m.IdImage == id);
 
-            var model = new AnnonceModifViewModel()
-            {
-                IdAnnonce = annonce.IdAnnonce,
-                Titre = annonce.Titre,
-                DescriptionAnnonce = annonce.DescriptionAnnonce,
-                Ville = annonce.Ville,
-                DateCreation = annonce.DateCreation,
-                AnnonceActive = 1,
-                TypeAnnonce = annonce.TypeAnnonce,
-                NomUtilisateur = annonce.NomUtilisateur,
-                IdAnimal = animal.IdAnimal,
-                NomAnimal = animal.NomAnimal,
-                DescriptionAnimal = animal.DescriptionAnimal,
-                DateInscription = animal.DateInscription,
-                AnimalActif = 1,
-                Espece = animal.Espece,
-                Proprietaire = animal.Proprietaire,
-                PhotoPath = image.PathImage
-            };
-
-            if (model == null)
-            {
-                return NotFound();
+                return View(annonce);
             }
 
-            return View(model);
-        }
+
+            /* ViewBag.userSession = nomuser;
+             var annonces = _context.Annonces.Find(id);
+             ViewBag.animaux = _context.Animals.ToList();
+             ViewBag.images = _context.Images.ToList();
+             return View(annonces);*/
+
+
+
+            /*   if (id == null)
+               {
+                   return NotFound();
+               }
+
+               var annonce = _context.Annonces.Find(id);
+
+               *//* var annonce = _context.Annonces
+
+                    .FirstOrDefault(m => m.IdAnnonce == id);*//*
+
+               var animal = _context.Animals
+
+                 .FirstOrDefault(m => m.IdAnimal == id);
+
+               var image = _context.Images
+
+                  .FirstOrDefault(m => m.IdImage == id);
+
+               var model = new AnnonceModifViewModel()
+               {
+                   IdAnnonce = annonce.IdAnnonce,
+                   Titre = annonce.Titre,
+                   DescriptionAnnonce = annonce.DescriptionAnnonce,
+                   Ville = annonce.Ville,
+                   DateCreation = annonce.DateCreation,
+                   AnnonceActive = 1,
+                   TypeAnnonce = annonce.TypeAnnonce,
+                   NomUtilisateur = annonce.NomUtilisateur,
+                   IdAnimal = animal.IdAnimal,
+                   NomAnimal = animal.NomAnimal,
+                   DescriptionAnimal = animal.DescriptionAnimal,
+                   DateInscription = animal.DateInscription,
+                   AnimalActif = 1,
+                   Espece = animal.Espece,
+                   Proprietaire = animal.Proprietaire,
+                   PhotoPath = image.PathImage
+               };
+
+               if (model == null)
+               {
+                   return NotFound();
+               }
+
+               return View(model);
+        }*/
 
         // GET: Annonces/Create
         public IActionResult Create()
@@ -290,7 +324,7 @@ namespace AnimAlerte.Controllers
         public IActionResult AllAnnoncesAdmin(string nomuser)
         {
             ViewBag.userSession = nomuser;
-            var annonces = _context.Annonces.ToList();
+            var annonces = _context.Annonces.Where(a => a.AnnonceActive == 1).ToList();
             ViewBag.animaux = _context.Animals.ToList();
             ViewBag.images = _context.Images.ToList();
             return View(annonces);

@@ -1,4 +1,4 @@
-﻿@model AnimAlerte.ViewModels.AnnonceModifViewModel
+﻿@model AnimAlerte.Models.Annonce
 @{
     ViewData["Title"] = "Details";
 }
@@ -11,14 +11,16 @@
     <div class="card">
         <div class="row">
             <div class="col-md-4">
-                @if (Model.PhotoPath != null)
+                @*@if (Model.PhotoPath != null)*@
+
+                @*@if (Model.PhotoPath != null)
                 {
                     <img src="~/uploads/@Model.PhotoPath" style="width:300px;" class="img-thumbnail" asp-append-version="true" />
                 }
                 else
                 {
                     <img src="~/uploads/Noimg.jpg" style="width:300px;" class="img-thumbnail" asp-append-version="true" />
-                }
+                }*@
             </div>
             <div class="col-md-8">
                 <h4 class="card-title mt-3"> @Html.DisplayFor(model => model.Titre)</h4>
@@ -30,11 +32,13 @@
                         @Html.DisplayFor(model => model.IdAnnonce)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.NomAnimal)
+                        @*@Model.NomAnimal*@
+                       @* @Html.DisplayNameFor(model => model.NomAnimal)*@
                     </dt>
                     <dd class="col-sm-8">
-                        @Html.DisplayFor(model => model.NomAnimal)
+                        @*@Html.DisplayFor(model => model.NomAnimal)*@
                     </dd>
+
                     <dt class="col-sm-4">
                         @Html.DisplayNameFor(model => model.DateCreation)
                     </dt>
@@ -74,9 +78,9 @@
                 <dt class="col-sm-2">
                     Nom :
                 </dt>
-                <dd class="col-sm-10">
+                @*<dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Proprietaire)
-                </dd>
+                </dd*@>
             </dl>
         </div>
     </div>
