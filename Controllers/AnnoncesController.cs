@@ -295,9 +295,8 @@ public async Task<IActionResult> Details2(int? id)
             }
 
             return RedirectToAction("AllAnnoncesAdmin", "Annonces");
-            //return RedirectToAction("Index", "Annonces");
 
-            
+           // return RedirectToAction("Index", "Annonces");
         }
         //public IActionResult AllAnnoncesAdmin(string nomuser)
         //{
