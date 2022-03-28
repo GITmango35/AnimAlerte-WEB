@@ -350,8 +350,9 @@ public async Task<IActionResult> Details2(int? id)
         public IActionResult AllAnnoncesUser(string nomuser)
         {
             ViewBag.userSession = nomuser;
-            var annonces = _context.Annonces.ToList();
-            ViewBag.animaux = _context.Animals.ToList();
+            var annonces = _context.Annonces.Where(a => a.AnnonceActive == 1).ToList();
+       
+           ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(annonces);
         }

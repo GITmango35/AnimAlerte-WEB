@@ -46,6 +46,7 @@
                                         <label asp-for="NomUtilisateur" class="form-label"></label>
                                         <input asp-for="NomUtilisateur" class="form-control form-control-lg" />
                                         <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+                                        <p class="alert-danger">@ViewBag.Message</p>
                                     </div>
                                     <p class="alert-danger">@ViewBag.Message</p>
                                     <div class="form-outline mb-4">

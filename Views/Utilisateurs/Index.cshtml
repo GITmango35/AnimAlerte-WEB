@@ -7,11 +7,14 @@
 <h1>Profil</h1>
 
 <p>
-    <a asp-action="Create">Create New(to be removed)</a>
+    @*<a asp-action="Create">Create New(to be removed)</a>*@
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomUtilisateur)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nom)
             </th>
@@ -43,6 +46,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.NomUtilisateur)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nom)
             </td>
             <td>
@@ -58,18 +64,18 @@
                 @Html.DisplayFor(modelItem => item.NumTel)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.UtilisateurActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
-            </td>*@
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">Modifier</a> |
-            <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>
+            @Html.DisplayFor(modelItem => item.UtilisateurActive)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAdmin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
+        </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">Modifier</a> |
+                <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>
+            </td>
         </tr>
 }
     </tbody>

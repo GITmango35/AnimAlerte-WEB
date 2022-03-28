@@ -8,19 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
-    {
+    { private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor)
+        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<UtilisateursController> localizer)
         {
             _context = context;
+            _localizer = localizer;
             this.session = accessor.HttpContext.Session;
         }
 
@@ -207,7 +209,7 @@ namespace AnimAlerte.Controllers
                     {
                         admin = 0;
 
-                        return RedirectToAction("AllAnnoncesUser", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
@@ -219,7 +221,9 @@ namespace AnimAlerte.Controllers
 
                 else
                 {
-                    ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
+                    // ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
+                    ViewBag.Message = _localizer["LoginError"];
+                    //  ViewData["LoginError"] = test;
                     return RedirectToAction("Login", new { msg = ViewBag.Message });
                 }
             }
@@ -230,7 +234,6 @@ namespace AnimAlerte.Controllers
             }
 
         }
-
         //DECONEXION
         [HttpPost]
         public IActionResult Logout()
