@@ -1,4 +1,4 @@
-﻿@model  AnimAlerte.Models.Utilisateur
+﻿@model  IEnumerable<AnimAlerte.Models.Utilisateur>
 <h1>Recherche Utilisateur</h1>
 
 <form action="/Utilisateurs/RechercheUtilisateur" method="post">
@@ -27,40 +27,57 @@
                 <th>
                     @Html.DisplayNameFor(model => model.NumTel)
                 </th>
-                <th> 
+                <th>
                     Administrateur ou Utilisateur
                 </th>
                 <th>Opérations</th>
             </tr>
         </thead>
         <tbody>
-           @if (Model != null) {
-        
-            <tr>
-                <td>
-                    @Model.NomUtilisateur
-                </td>
-                <td>
-                    @Model.Nom
-                </td>
-                <td>
-                    @Model.Prenom
-                </td>
-                <td>
-                    @Model.Courriel
-                </td>
-                <td>
-                    @Model.NumTel
-                </td>
-                <td>
-                    @ViewBag.userA
-                </td>
-                <td>
-                    @*<a asp-action="DesactiverUtilisateur" asp-route-id="@Model.NomUtilisateur">Désactiver</a>*@
-                    @Html.ActionLink("Désactiver", "DesactiverUtilisateur", new { nomuser = @Model.NomUtilisateur })
-                </td>
-            </tr>
+            @if (Model != null)
+            {
+              
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>
+                            @item.NomUtilisateur
+                        </td>
+                        <td>
+                            @item.Nom
+                        </td>
+                        <td>
+                            @item.Prenom
+                        </td>
+                        <td>
+                            @item.Courriel
+                        </td>
+                        <td>
+                            @item.NumTel
+                        </td>
+                        
+                            @if (item.IsAdmin == 1)
+                            {
+                               <td>
+                                    Administrateur
+                                </td>
+                             }
+                        else
+                        {   
+                            <td>
+                                Utilisateur
+                            </td>
+                        }
+
+                    
+                        <td>
+                            @*<a asp-action="DesactiverUtilisateur" asp-route-id="@Model.NomUtilisateur">Désactiver</a>*@
+                            @Html.ActionLink("Désactiver", "DesactiverUtilisateur", new { nomuser = @item.NomUtilisateur })
+                        </td>
+                    </tr>
+                }
             }
-            
-        </tbody>
+
+            </tbody>
     </table>

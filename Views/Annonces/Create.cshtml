@@ -5,6 +5,12 @@
 }
 
 <h1>Créer Annonce</h1>
+@if (TempData["AlertMessage"] != null)
+{ 
+<div class="alert alert-success">
+    <strong>Succès ! </strong> @TempData["AlertMessage"]
+</div>
+}
 
 <div class="row">
     <div class="col-md-4">
@@ -42,11 +48,14 @@
                 <label asp-for="IdAnimal" class="control-label">Choisissez l'animal</label>
 
                 <select asp-for="IdAnimal" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.animaux_User, "IdAnimal", "NomAnimal"))" >
-
+                        asp-items="@(new SelectList(ViewBag.animaux_User, "IdAnimal", "NomAnimal"))">
                 </select>
-               
-                <span asp-validation-for="IdAnimal" class="text-danger"></span>
+                <span asp-validation-for="IdAnimal" class="text-danger"></span><br />
+
+                <a asp-controller="Animals" asp-action="AjoutAnimal">
+                   <input type="button" class="btn btn-success rounded" value="Ajouter un animal" />
+               </a>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Afficher" class="btn btn-primary" />
