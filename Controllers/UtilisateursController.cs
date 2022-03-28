@@ -13,8 +13,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
-    {
-        private readonly IHtmlLocalizer<UtilisateursController> _localizer;
+    { private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
