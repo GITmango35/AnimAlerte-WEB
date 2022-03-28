@@ -69,11 +69,10 @@
                                 {
                                     if (a.IdAnimal == item.IdAnimal)
                                     {
-                                        <dd class="col-sm-8">
-                                            @a.NomAnimal
-                                        </dd>
-                                    }
-                                }
+                        <dd class="col-sm-8">
+                            @a.NomAnimal
+                        </dd>}
+                                                }
                                 <dt class="col-sm-4">
                                     @Html.DisplayNameFor(model => model.DateCreation)
                                 </dt>
@@ -99,6 +98,7 @@
                                 </dd>
                                 <td>  <a asp-action="Details2" asp-route-id="@item.IdAnnonce">Details</a> </td>
                             </dl>
+                            <a asp-controller="Annonces" asp-action="Details2" asp-route-id="@item.IdAnnonce" class="btn btn-primary">Voir Détails</a>
                             @*<a asp-controller="Annonces" asp-action="Details" asp-route-id="@i.IdAnnonce" class="btn btn-primary">Voir Détails</a>*@
                             @*<button class="btn btn-primary"></button>*@
                         </div>
