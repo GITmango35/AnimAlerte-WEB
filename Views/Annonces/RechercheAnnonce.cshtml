@@ -1,5 +1,8 @@
-﻿@model AnimAlerte.Models.Annonce
+﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 <h1>Recherche Annonce</h1>
+
+
+
 
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
@@ -8,27 +11,25 @@
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Rechercher</button>
     </div>
+
+
+
 </form>
+
+
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdAnnonce)
-            </th>
-            <th>
                 Nom Animal
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomUtilisateur)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Titre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TypeAnnonce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ville)
@@ -42,42 +43,44 @@
     <tbody>
         @if (Model != null)
         {
-
-        <tr>
-            <td>
-                @Model.IdAnnonce
-            </td>
-            @foreach (var a in ViewBag.animals)
+            @foreach (var item in Model)
             {
-                if (a.IdAnimal == Model.IdAnimal)
-                {
-                    <td>@a.NomAnimal</td>
-                }
-            }
-            <td>
-                @Model.NomUtilisateur
-            </td>
-            <td>
-                @Model.Titre
-            </td>
-            <td>
-                @Model.TypeAnnonce
-            </td>
-            <td>
-                @Model.DescriptionAnnonce
-            </td>
-            <td>
-                @Model.Ville
-            </td>
-            <td>
-                @Model.DateCreation
-            </td>
-            <td>
-                @*<a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>*@
-                @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @Model.IdAnnonce })
-            </td>
-        </tr>
-        }
 
+
+
+                <tr>
+                    @foreach (var a in ViewBag.animals)
+                    {
+                        if (a.IdAnimal == item.IdAnimal)
+                        {
+                            <td>@a.NomAnimal</td>
+                        }
+                    }
+                    <td>
+                        @item.Titre
+                    </td>
+                    <td>
+                        @item.TypeAnnonce
+                    </td>
+                    <td>
+                        @item.Ville
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreation, "{yyyy-MM-dd}")
+                        @*@item.DateCreation*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @item.IdAnnonce }) |
+                        @Html.ActionLink("Detail", "DetailAnnonce", new { idAnnonce = @item.IdAnnonce })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
+@*@if (TempData["AlertMessage"]!=null)
+    {
+        <div class="alert alert-danger">
+            @TempData["AlertMessage"]
+        </div>
+    }*@

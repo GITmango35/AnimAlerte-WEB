@@ -4,58 +4,114 @@
     ViewData["Title"] = "Ajouter un animal";
 }
 
-<h1>Ajouter un animal</h1>
+<!DOCTYPE html>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-controller="Animals" asp-action="AjoutAnimal" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NomAnimal" class="control-label"></label>
-                <input asp-for="NomAnimal" class="form-control" />
-                <span asp-validation-for="NomAnimal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DescriptionAnimal" class="control-label"></label>
-                <textarea asp-for="DescriptionAnimal" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="DescriptionAnimal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Espece" class="control-label"></label>
-                <select asp-for="Espece" class="form-control">
-                    <option selected disabled>-- Sélectionner --</option>
-                    <option value="Chien">Chien</option>
-                    <option value="Chat">Chat</option>
-                    <option value="Autres">Autres</option>
-                </select>
-                <span asp-validation-for="Espece" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="Photo" class="custom-file-input" id="customFile" accept="image/*" />
-                    <label class="custom-file-label" for="customFile">Choisissez votre fichier...</label>
-                </div>
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-            <div class="form-row">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AnimAlerte</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Ajouter un animal</h1>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" asp-controller="Animals" asp-action="AjoutAnimal" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                    <label asp-for="NomAnimal" class="control-label"></label>
+                    <input asp-for="NomAnimal" class="form-control" />
+                    <span asp-validation-for="NomAnimal" class="text-danger"></span>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
+                <div class="form-group">
+                    <label asp-for="DescriptionAnimal" class="control-label"></label>
+                    <textarea asp-for="DescriptionAnimal" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="DescriptionAnimal" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Espece" class="control-label"></label>
+                    <select asp-for="Espece" class="form-control">
+                        <option selected disabled>-- Sélectionner --</option>
+                        <option value="Chien">Chien</option>
+                        <option value="Chat">Chat</option>
+                        <option value="Autres">Autres</option>
+                    </select>
+                    <span asp-validation-for="Espece" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" type="file" />
+                        <label class="custom-file-label" for="photoUpload">Choisissez votre fichier...</label>
+                    </div>
+                    <div class="card m-2" style="width: 18rem;">
+                        <div class="d-md-table-row">
+                            <div id="photoPreview" class="card-img-top"></div>
+                        </div>
+                    </div>
+                    <p id="uploadMessage"></p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="submit" value="Enregistrer" class="btn btn-primary" />
 
-<div>
-    <a asp-action="MesAnimaux">Retour à la liste</a>
-</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="MesAnimaux">Retour à la liste</a>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#photoUpload").on("change", function () {
+                var inputPhoto = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").html(inputPhoto);
+            });
+
+            $("#photoUpload").change(function () {
+                $("#photoPreview").html("");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                if (regex.test($(this).val().toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        $("#photoPreview").show();
+                        $("#photoPreview").append("<img />");
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("#photoPreview img").attr("src", e.target.result);
+                            $("#photoPreview img").attr("style", "height:200px; width: 180px");
+                        }
+                        reader.readAsDataURL($(this)[0].files[0]);
+                    } else {
+                        alert("This browser does not support FileReader.");
+                    }
+                } else {
+                    $("#uploadMessage").html(data);
+                    // alert("Please upload a valid image file.");
+                }
+            });
+
+
+        });
+
+    </script>
+
+</body>
+</html>
 
 
 @section CreateSectionJS{
     <script type="text/javascript">
-    //pour une seule photo
+        //pour une seule photo
         $(document).ready(function () {
             $("#customFile").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();

@@ -18,6 +18,7 @@ namespace AnimAlerte.Controllers
         private readonly AnimAlerteContext _context;
         private readonly IWebHostEnvironment hosting;
 
+
         public AnimalsController(AnimAlerteContext context, IWebHostEnvironment hosting)
         {
             _context = context;
@@ -27,7 +28,8 @@ namespace AnimAlerte.Controllers
         // L'affiche initial des animaux pour utilisateur connecté
         public IActionResult Index()
         {
-            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession).ToList();
+            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession)
+                .OrderByDescending(a => a.DateInscription).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(animaux);
         }
@@ -35,7 +37,8 @@ namespace AnimAlerte.Controllers
         // Récuperé des animaux par proprietaire
         public IActionResult MesAnimaux()
         {
-            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession).ToList();
+            var animaux = _context.GetAnimalsForUser(UtilisateursController.usersession)
+             .OrderByDescending(a => a.DateInscription).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(animaux);
 
@@ -81,7 +84,7 @@ namespace AnimAlerte.Controllers
         // GET: Animals/Create
         public IActionResult AjoutAnimal(int idAnimal)
         {
-          
+
             ViewBag.us = UtilisateursController.usersession;
             var model = new AnimalViewModel
             {
@@ -95,8 +98,8 @@ namespace AnimAlerte.Controllers
         public async Task<IActionResult> AjoutAnimal(AnimalViewModel model)
         {
 
-          /*  Si une exception dérivée de DbUpdateException est interceptée pendant l'enregistrement des modifications, 
-                un message d'erreur générique s'affiche.*/
+            /*  Si une exception dérivée de DbUpdateException est interceptée pendant l'enregistrement des modifications, 
+                  un message d'erreur générique s'affiche.*/
             try
             {
                 string proprietaire = UtilisateursController.usersession;
@@ -113,26 +116,26 @@ namespace AnimAlerte.Controllers
                     animal.Espece = model.Espece;
                     animal.Proprietaire = proprietaire;
                     _context.Animals.Add(animal);
-                    await _context.SaveChangesAsync();
 
                     image.TitreImage = model.NomAnimal;
-
                     if (fileName != null)
                     {
                         image.PathImage = fileName;
                     }
 
                     image.IdAnimal = animal.IdAnimal;
-                     _context.Images.Add(image);
+                    _context.Images.Add(image);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction(nameof(MesAnimaux));
+                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien enregistré !";
+
+                    return RedirectToAction(nameof(MesAnimaux), new { msg = ViewBag.Message });
                 }
             }
             catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Impossible d'enregistrer les modifications. " +
-                    "Réessayez, et si le problème persiste, "  +  
+                    "Réessayez, et si le problème persiste, " +
                     "consultez votre administrateur système.");
             }
 
@@ -148,7 +151,7 @@ namespace AnimAlerte.Controllers
                 return NotFound();
             }
 
-            var animalToUpdate= await _context.Animals.FindAsync(idAnimal);
+            var animalToUpdate = await _context.Animals.FindAsync(idAnimal);
             var imageToUpdate = await _context.Images.FindAsync(idAnimal);
             var model = new AnimalModifViewModel()
             {
@@ -174,7 +177,7 @@ namespace AnimAlerte.Controllers
         // POST: Animals/ModifierAnimal
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifierAnimal(int id, AnimalModifViewModel model)
+        public async Task<IActionResult> ModifierAnimal(AnimalModifViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -197,7 +200,7 @@ namespace AnimAlerte.Controllers
                             string filePath = Path.Combine(hosting.WebRootPath, "uploads", model.PhotoPath);
                             System.IO.File.Delete(filePath);
                         }
-                   
+
                         imageToUpdate.TitreImage = model.NomAnimal;
                         imageToUpdate.PathImage = ImageUpload(model);
                         imageToUpdate.IdAnimal = model.IdAnimal;
@@ -210,6 +213,7 @@ namespace AnimAlerte.Controllers
                     var imageModif = _context.Images.Attach(imageToUpdate);
                     imageModif.State = EntityState.Modified;
                     _context.SaveChanges();
+                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien modifié !";
 
                     return RedirectToAction(nameof(MesAnimaux));
                 }
@@ -234,7 +238,6 @@ namespace AnimAlerte.Controllers
 
             var animal = await _context.Animals.FindAsync(idAnimal);
             var image = await _context.Images.FindAsync(idAnimal);
-
             var model = new AnimalModifViewModel()
             {
                 IdAnimal = animal.IdAnimal,
@@ -258,7 +261,6 @@ namespace AnimAlerte.Controllers
                     "Echec de la suppression. Réessayez, et si le problème persiste " +
                     "consultez votre administrateur système.";
             }
-
             return View(animal);
         }
 
@@ -271,9 +273,12 @@ namespace AnimAlerte.Controllers
             {
                 var animal = await _context.Animals.FindAsync(idAnimal);
                 animal.AnimalActif = 0;
+
                 var animalModif = _context.Animals.Attach(animal);
                 animalModif.State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+
+                TempData["AlertMessage"] = "Votre animal est bien supprimé !";
                 return RedirectToAction(nameof(MesAnimaux));
             }
             catch (DbUpdateException)
@@ -281,7 +286,6 @@ namespace AnimAlerte.Controllers
                 return RedirectToAction(nameof(Delete), new { idAnimal = idAnimal, saveChangesError = true });
             }
         }
-
 
         //Méthode pour télécharger une image d'un animal
         private string ImageUpload(AnimalViewModel model)
@@ -299,6 +303,8 @@ namespace AnimAlerte.Controllers
 
             return nomFichier;
         }
+
+
 
     }
 }

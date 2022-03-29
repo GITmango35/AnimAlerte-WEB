@@ -38,25 +38,29 @@
             <div class="form-group">
                 <label asp-for="Photo" class="form-label"></label>
                 <div class="custom-file">
-                    <input asp-for="Photo" class="custom-file-input" id="customFile" accept="image/*" />
-                    <label class="custom-file-label" for="customFile">Choisissez votre fichier...</label>
+                    <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" />
+                    <label class="custom-file-label" for="photoUpload">Choisissez votre fichier...</label>
                 </div>
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
-                <div class="input-group">
+                <div class="input-group" id="photoPreview">
                     @if (Model.PhotoPath != null)
                     {
                         <img src="@ExistingPhotoPath" asp-append-version="true" height="100" width="100" alt="@Model.NomAnimal" class="img-thumbnail" />
+
                     }
                     else
                     {
                         <span class="alert alert-info">Aucune image n'est ajouté</span>
                     }
+
+
                 </div>
             </div>
+            
         </div>
         <div class="form-row">
             <div class="form-group">
@@ -72,9 +76,30 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#customFile").on("change", function () {
+            $("#photoUpload").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
                 $(this).next(".custom-file-label").html(inputPhoto);
+            });
+
+            $("#photoUpload").change(function () {
+                $("#photoPreview").html("");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                if (regex.test($(this).val().toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        $("#photoPreview").show();
+                        $("#photoPreview").append("<img />");
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("#photoPreview img").attr("src", e.target.result);
+                            $("#photoPreview img").attr("style", "height:200px;width: 100px");
+                        }
+                        reader.readAsDataURL($(this)[0].files[0]);
+                    } else {
+                        alert("This browser does not support FileReader.");
+                    }
+                } else {
+                    alert("Please upload a valid image file.");
+                }
             });
         })
     </script>

@@ -40,6 +40,14 @@
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.Espece)
                     </dd>
+
+                    @* TO DELETE *@
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.AnimalActif)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.AnimalActif)
+                    </dd>
                 </dl>
             </div>
         </div>
@@ -48,9 +56,8 @@
 
 
 <div>
-
     <a asp-action="Create" asp-controller="Annonces" asp-route-id="@Model.IdAnimal">Publier un annonce</a> |
-    @Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @Model.IdAnimal }) |
-    @Html.ActionLink("Supprimer", "Delete", new { idAnimal = @Model.IdAnimal }) |
+    <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">Modifier</a> |
+    <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">Supprimer</a> |
     <a asp-action="MesAnimaux">Retour à la liste</a>
 </div>

@@ -76,7 +76,7 @@ namespace AnimAlerte.Controllers
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
 
-                    ViewBag.Message = "Vous etes bien enregistré";
+                    ViewBag.Message = "Vous êtes bien enregistré";
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
@@ -173,12 +173,10 @@ namespace AnimAlerte.Controllers
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
             utilisateur.UtilisateurActive = 0;
             _context.Utilisateurs.Update(utilisateur);
-            //_context.Utilisateurs.Remove(utilisateur);
             await _context.SaveChangesAsync();
             session.Clear();
             usersession = "";
             return RedirectToAction("Login");
-            //return RedirectToAction(nameof(Index));
         }
 
         private bool UtilisateurExists(string id)
