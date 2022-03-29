@@ -1,4 +1,6 @@
-﻿@model AnimAlerte.Models.Annonce
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.Annonce
+
 
 @{
     ViewData["Title"] = "Créer une annonce";
@@ -6,10 +8,10 @@
 
 <h1>Créer Annonce</h1>
 @if (TempData["AlertMessage"] != null)
-{ 
-<div class="alert alert-success">
-    <strong>Succès ! </strong> @TempData["AlertMessage"]
-</div>
+{
+    <div class="alert alert-success">
+        <strong>Succès ! </strong> @TempData["AlertMessage"]
+    </div>
 }
 
 <div class="row">
@@ -53,8 +55,8 @@
                 <span asp-validation-for="IdAnimal" class="text-danger"></span><br />
 
                 <a asp-controller="Animals" asp-action="AjoutAnimal">
-                   <input type="button" class="btn btn-success rounded" value="Ajouter un animal" />
-               </a>
+                    <input type="button" class="btn btn-success rounded" value="Ajouter un animal" />
+                </a>
 
             </div>
             <div class="form-group">
