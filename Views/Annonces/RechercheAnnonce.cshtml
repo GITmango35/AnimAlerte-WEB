@@ -2,6 +2,8 @@
 <h1>Recherche Annonce</h1>
 
 
+
+
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
         <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce...">
@@ -10,7 +12,11 @@
         <button type="submit" class="btn btn-primary">Rechercher</button>
     </div>
 
+
+
 </form>
+
+
 
 
 <table class="table">
@@ -40,46 +46,42 @@
             @foreach (var item in Model)
             {
 
-        <tr>
-            <td>
-                @Model.IdAnnonce
-            </td>
-            @foreach (var a in ViewBag.animals)
-            {
-                if (a.IdAnimal == Model.IdAnimal)
-                {
-                    <td>@a.NomAnimal</td>
-                }
-            }
-            <td>
-                @Model.NomUtilisateur
-            </td>
-            <td>
-                @Model.Titre
-            </td>
-            <td>
-                @Model.TypeAnnonce
-            </td>
-            <td>
-                @Model.DescriptionAnnonce
-            </td>
-            <td>
-                @Model.Ville
-            </td>
-            <td>
-                @Model.DateCreation
-            </td>
-            <td>
-                <a asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">Désactiver</a>        
-            </td>
-        </tr>
-        }
 
+
+                <tr>
+                    @foreach (var a in ViewBag.animals)
+                    {
+                        if (a.IdAnimal == item.IdAnimal)
+                        {
+                            <td>@a.NomAnimal</td>
+                        }
+                    }
+                    <td>
+                        @item.Titre
+                    </td>
+                    <td>
+                        @item.TypeAnnonce
+                    </td>
+                    <td>
+                        @item.Ville
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreation, "{yyyy-MM-dd}")
+                        @*@item.DateCreation*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @item.IdAnnonce }) |
+                        @Html.ActionLink("Detail", "DetailAnnonce", new { idAnnonce = @item.IdAnnonce })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
-@if (TempData["AlertMessage"] != null)
-{
+@*@if (TempData["AlertMessage"]!=null)
+    {
     <div class="alert alert-danger">
-        <strong>Alert! </strong> @TempData["AlertMessage"]
+    @TempData["AlertMessage"]
     </div>
-}
+    }*@
+
