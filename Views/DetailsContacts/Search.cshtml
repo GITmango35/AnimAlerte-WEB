@@ -79,13 +79,13 @@
             @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
         </td>*@
 <td>
-    @*<a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">Rajouter</a>*@
-    <a asp-action="Create" asp-route-id="@item.NomUtilisateur">Rajouter</a>
+    
+    @*<a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">Rajouter(X)</a>*@
     
     
     
     @*<a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>*@
-    @*@Html.ActionLink("Details", "Details", new { id = item.DetailsContactNomUtilisateurFavorisNavigations })*@
+    @Html.ActionLink("Rajouter(X)", "Rajouter", new { NomUtilisateurCreateur = item.DetailsContactNomUtilisateurCreateurNavigations, NomUtilisateurFavoris = item.DetailsContactNomUtilisateurFavorisNavigations })
 </td>
 </tr>
 }

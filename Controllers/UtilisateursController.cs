@@ -8,19 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
-    {
+    { private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor)
+        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<UtilisateursController> localizer)
         {
             _context = context;
+            _localizer = localizer;
             this.session = accessor.HttpContext.Session;
         }
 
@@ -73,7 +75,7 @@ namespace AnimAlerte.Controllers
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
 
-                    ViewBag.Message = "Vous etes bien enregistré";
+                    ViewBag.Message = "Vous êtes bien enregistré";
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
@@ -170,12 +172,10 @@ namespace AnimAlerte.Controllers
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
             utilisateur.UtilisateurActive = 0;
             _context.Utilisateurs.Update(utilisateur);
-            //_context.Utilisateurs.Remove(utilisateur);
             await _context.SaveChangesAsync();
             session.Clear();
             usersession = "";
             return RedirectToAction("Login");
-            //return RedirectToAction(nameof(Index));
         }
 
         private bool UtilisateurExists(string id)
@@ -221,7 +221,9 @@ namespace AnimAlerte.Controllers
 
                 else
                 {
-                    ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
+                    // ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
+                    ViewBag.Message = _localizer["LoginError"];
+                    //  ViewData["LoginError"] = test;
                     return RedirectToAction("Login", new { msg = ViewBag.Message });
                 }
             }
@@ -232,7 +234,6 @@ namespace AnimAlerte.Controllers
             }
 
         }
-
         //DECONEXION
         [HttpPost]
         public IActionResult Logout()
@@ -245,6 +246,12 @@ namespace AnimAlerte.Controllers
         //------un administrateur peut rechercher un utilisateur afin de le désactiver 
         public ActionResult RechercheUtilisateur()
         {
+            var listeUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
+            if (listeUtilisateurs != null)
+            {
+                return View(listeUtilisateurs);
+            }
+
             return View();
         }
 
@@ -254,6 +261,7 @@ namespace AnimAlerte.Controllers
             var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
             if (utilisateur != null)
             {
+                var utilisateur1 = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
                 ViewBag.userA = "";
                 if (utilisateur.IsAdmin == 1)
                 {
@@ -263,8 +271,9 @@ namespace AnimAlerte.Controllers
                 {
                     ViewBag.userA = "Utilisateur";
                 }
-                return View(utilisateur); //recuperer les infos d'User
+                return View(utilisateur1); //recuperer les infos d'User
             }
+            ViewData["Message"] = "Aucun utilisateur n'est trouvé.";
             return View(); 
         }
 

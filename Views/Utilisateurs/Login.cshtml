@@ -1,4 +1,5 @@
-﻿@model AnimAlerte.Models.Utilisateur
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.Utilisateur
 @{
     ViewData["Title"] = "Se connecter";
 }
@@ -15,18 +16,20 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/login.css" />
+
 </head>
 <body>
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs"asp-action="Login">AnimAlerte</a>
                 @*<div class="navbar-nav flex-grow-1 justify-content-end">
-                    <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
-                    <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
-                </div>*@
+                        <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
+                        <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
+                    </div>*@
             </div>
+            <partial name="_Culture" />
         </nav>
     </header>
 
@@ -47,7 +50,7 @@
                                     <p class="alert-success">@ViewBag.Message</p>
                                     <form action="/Utilisateurs/Login" method="post">
                                         <h4 class="mt-1 mb-5 pb-1">Connexion à votre compte</h4>
-
+                                        <h4 class="mt-1 mb-5 pb-1">@ViewData["LoginError"]</h4>
                                         <div class="form-outline mb-4">
                                             <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="Nom utilisateur" />
                                             <label for="nomuser" class="form-label"></label>
@@ -59,9 +62,9 @@
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Se connecter</button>
+                                            <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">@localizer["Login"]</button>
                                         </div>
-                                        <p class="text-center text-muted mt-5 mb-0">Vous n'avez pas de compte? <a href="/Utilisateurs/Create" class="fw-bold text-body"> S'enregistrer! </a></p>
+                                        <p class="text-center text-muted mt-5 mb-0">@localizer["NoAccount"] <a href="/Utilisateurs/Create" class="fw-bold text-body"> S'enregistrer! </a></p>
                                     </form>
 
                                 </div>

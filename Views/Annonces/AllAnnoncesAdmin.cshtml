@@ -8,13 +8,19 @@
 
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Rechercher par numéro d'annonce">
+        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Rechercher</button>
     </div>
 </form>
 
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Alert! </strong> @TempData["AlertMessage"]
+    </div>
+}
 
 <table class="table">
     <thead>
@@ -28,16 +34,10 @@
                 Nom Animal
             </th>
             <th>
-                Proprietaire
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Titre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TypeAnnonce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ville)
@@ -45,7 +45,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateCreation)
             </th>
-            <th>Action</th>
+            @*<th>Action</th>*@
         </tr>
     </thead>
     <tbody>
@@ -78,16 +78,10 @@
                     }
                 }
                 <td>
-                    @Html.DisplayFor(modelItem => item.NomUtilisateur)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Titre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TypeAnnonce)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Ville)
@@ -96,7 +90,7 @@
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
 
-                <td>
+                @*<td>
 
                     @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })
                 </td>

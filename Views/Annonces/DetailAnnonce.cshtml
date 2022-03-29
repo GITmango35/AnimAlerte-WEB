@@ -1,14 +1,12 @@
 ﻿@model AnimAlerte.Models.Annonce
 
 @{
-    ViewData["Title"] = "Désactiver Annonce";
+    ViewData["Title"] = "DetailAnnonce";
 }
 
-<h1>Désactiver Annonce</h1>
+<h1>Detail Annonce</h1>
 
-<h3>Vous voulez vraiment désactiver cette annonce?</h3>
 <div>
-
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Titre)
@@ -22,7 +20,6 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
-
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DescriptionAnnonce)
         </dt>
@@ -35,27 +32,20 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ville)
         </dd>
-      
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TypeAnnonce)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TypeAnnonce)
         </dd>
-
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomUtilisateurNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomUtilisateur)
+        </dd>
     </dl>
-    <form asp-action="DesactiverAnnonce" asp-route-id="@Model.IdAnnonce">
-        <input type="hidden" asp-for="IdAnnonce" />
-        <input type="hidden" asp-for="IdAnimal" />
-        <input type="hidden" asp-for="Titre" />
-        <input type="hidden" asp-for="TypeAnnonce" />
-        <input type="hidden" asp-for="DateCreation" />
-        <input type="hidden" asp-for="DescriptionAnnonce" />
-        <input type="hidden" asp-for="Ville" />
-        <input type="hidden" asp-for="NomUtilisateur" />
-        <input type="hidden" asp-for="NomAdminDesactivateur" value=@ViewBag.admin />
-        <input type="submit" value="Désactiver" class="btn btn-danger" /> |
-        <a asp-action="RechercheAnnonce">Back to List</a>
-    </form>
-
+</div>
+<div>
+    <a asp-action="RechercheAnnonce">Back to List</a>
 </div>
