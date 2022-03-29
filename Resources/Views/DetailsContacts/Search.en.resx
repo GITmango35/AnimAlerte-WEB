@@ -117,43 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accueil" xml:space="preserve">
-    <value>Home</value>
+  <data name="AddContact" xml:space="preserve">
+    <value>Add Contact</value>
   </data>
-  <data name="AjoutAnimal" xml:space="preserve">
-    <value>Add an Animal</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="AjouterAdmin" xml:space="preserve">
-    <value>Add an Admin</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
   </data>
-  <data name="ContactFavorit" xml:space="preserve">
-    <value>My Favorite Contacts</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="Deconnexion" xml:space="preserve">
-    <value>Log out</value>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
-  <data name="ListeAnnonces" xml:space="preserve">
-    <value>List of Ads</value>
+  <data name="SearchContact" xml:space="preserve">
+    <value>Search for a Contact</value>
   </data>
-  <data name="MesAnimaux" xml:space="preserve">
-    <value>My Animals</value>
+  <data name="Telephone" xml:space="preserve">
+    <value>Telephone</value>
   </data>
-  <data name="MesAnnonces" xml:space="preserve">
-    <value>My Ads</value>
-  </data>
-  <data name="Profil" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="PublierAnnonce" xml:space="preserve">
-    <value>Post an Ad</value>
-  </data>
-  <data name="RechercheAnnonce" xml:space="preserve">
-    <value>Find an Ad</value>
-  </data>
-  <data name="RechercheUtilisateur" xml:space="preserve">
-    <value>Find a User</value>
-  </data>
-  <data name="SeConnecter" xml:space="preserve">
-    <value>Log in</value>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

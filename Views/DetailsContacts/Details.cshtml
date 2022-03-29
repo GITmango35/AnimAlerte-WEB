@@ -1,25 +1,26 @@
-﻿@model AnimAlerte.Models.DetailsContact
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.DetailsContact
 
-@{
-    ViewData["Title"] = "Details";
-}
+@{ ViewData["Title"] = "Details"; }
 
-<h1>Détails</h1>
+<h1>@localizer["Details"]</h1>
 
 <div>
-    <h4>Contact Favoris</h4>
+    <h4>@localizer["FavContact"]</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateAjout)
+        <dt class="col-sm-2">
+            @*@Html.DisplayNameFor(model => model.DateAjout)*@
+            @localizer["AddDate"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateAjout)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomUtilisateurFavoris)
+        <dt class="col-sm-2">
+            @*@Html.DisplayNameFor(model => model.NomUtilisateurFavoris)*@
+            @localizer["FavContact"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NomUtilisateurFavoris)
         </dd>
     </dl>
@@ -27,5 +28,5 @@
 <div>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     @*@Html.ActionLink("Create", "Create", new { nomUtilisateurCreateur = @Model.NomUtilisateurCreateur }) *@
-    <a asp-action="Index">Retour a la liste</a>
+    <a asp-action="Index">@localizer["Back"]</a>
 </div>
