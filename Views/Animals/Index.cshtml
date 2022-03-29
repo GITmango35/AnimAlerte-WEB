@@ -16,24 +16,35 @@
     {
         if (i.IdAnimal == item.IdAnimal)
         {
-            <div class="card" style="width: 18rem;">
-                @if (i.PathImage != null)
-                {
-                    <img class="card-img-top img-fluid" src="~/uploads/@i.PathImage" asp-append-version="true" alt="@item.NomAnimal" />
-                    <div class="card-body">
-                        <h5 class="card-title">@i.TitreImage</h5>
-                        <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
+            <div class="card m-2" style="width: 18rem;">
+                    <div class="d-md-table-row">
+                        @if (i.PathImage != null)
+                        {
+                            <img class="card-img-top img-fluid" src="~/uploads/@i.PathImage" asp-append-version="true" alt="@item.NomAnimal" />
+                            <div class="card-body">
+                                <h5 class="card-title">@i.TitreImage</h5>
+                                <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img class="card-img-top img-fluid" src="~/uploads/Noimg.jpg" alt="@item.NomAnimal" />
+                            <div class="card-body">
+                                <h5 class="card-title">@i.TitreImage</h5>
+                                <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
+                            </div>
+                        }
                     </div>
-                }
-                else
-                {
-                    <img class="card-img-top img-fluid" src="~/uploads/Noimg.jpg" alt="@item.NomAnimal" />
-                    <div class="card-body">
-                        <h5 class="card-title">@i.TitreImage</h5>
-                        <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
-                    </div>
-                }
-            </div>
+                </div>
+
+
+
+
+
+
+
+           
+
         }
     }
 }

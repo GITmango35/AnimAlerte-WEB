@@ -31,18 +31,21 @@ namespace AnimAlerte.ViewModels
         public string Ville { get; set; }
 
         public byte? AnnonceActive { get; set; }
-        [Required(ErrorMessage = "Champ type d'annonce obligatoire!")]
+
         [Display(Name = "Type d'annonce")]
         public string TypeAnnonce { get; set; }
 
-        [Required(ErrorMessage = "SVP, Veuillez ajouter un nouvel animal!")]
         public int? IdAnimal { get; set; }
         [Display(Name = "Nom Utilisateur")]
         public string NomUtilisateur { get; set; }
 
+        [Display(Name = "Courriel")]
+        public string Courriel { get; set; }
+       
+        [Display(Name = "Téléphone")]
+        public string NumTel { get; set; }
 
         [Display(Name = "Nom Animal ")]
-        [Required(ErrorMessage = "Entrer le nom de votre animal")]
         public string NomAnimal { get; set; }
 
         [Display(Name = "Description")]
@@ -52,13 +55,13 @@ namespace AnimAlerte.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateInscription { get; set; }
 
-        public byte? AnimalActif { get; set; }
-
-        [Display(Name = "Espéce")]
-        public string Espece { get; set; }
+        public byte? AnimalActif { get; set; }    
 
         [Display(Name = "Proprietaire")]
         public string Proprietaire { get; set; }
+
+        [Display(Name = "Proprietaire")]
+        public virtual Utilisateur ProprietaireNavigation { get; set; }
 
         public string NomAdminDesactivateur { get; set; }
 

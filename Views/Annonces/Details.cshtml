@@ -1,4 +1,4 @@
-﻿@model AnimAlerte.Models.Annonce
+﻿@model AnimAlerte.ViewModels.AnnonceModifViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -11,16 +11,16 @@
     <div class="card">
         <div class="row">
             <div class="col-md-4">
-                @*@if (Model.PhotoPath != null)*@
+       
 
-                @*@if (Model.PhotoPath != null)
+                @if (Model.PhotoPath != null)
                 {
                     <img src="~/uploads/@Model.PhotoPath" style="width:300px;" class="img-thumbnail" asp-append-version="true" />
                 }
                 else
                 {
                     <img src="~/uploads/Noimg.jpg" style="width:300px;" class="img-thumbnail" asp-append-version="true" />
-                }*@
+                }
             </div>
             <div class="col-md-8">
                 <h4 class="card-title mt-3"> @Html.DisplayFor(model => model.Titre)</h4>
@@ -32,11 +32,10 @@
                         @Html.DisplayFor(model => model.IdAnnonce)
                     </dd>
                     <dt class="col-sm-4">
-                        @*@Model.NomAnimal*@
-                       @* @Html.DisplayNameFor(model => model.NomAnimal)*@
+                        @Html.DisplayNameFor(model => model.NomAnimal)
                     </dt>
                     <dd class="col-sm-8">
-                        @*@Html.DisplayFor(model => model.NomAnimal)*@
+                        @Html.DisplayFor(model => model.NomAnimal)
                     </dd>
 
                     <dt class="col-sm-4">
@@ -71,16 +70,22 @@
 </div>
 
 <div class="container mt-4">
-    <div class="card border border-info shadow-sm">
+    <div class="card border border-light shadow-sm">
         <div class="card-header">Contactez : </div>
         <div class="card-body">
-            <dl>
-                <dt class="col-sm-2">
-                    Nom :
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.NomUtilisateurNavigation)
                 </dt>
-                @*<dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Proprietaire)
-                </dd*@>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.NomUtilisateur)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Courriel)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Courriel)
+                </dd>
             </dl>
         </div>
     </div>

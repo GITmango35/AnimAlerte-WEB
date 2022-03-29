@@ -2,6 +2,8 @@
 <h1>Recherche Annonce</h1>
 
 
+
+
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
         <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce...">
@@ -10,7 +12,11 @@
         <button type="submit" class="btn btn-primary">Rechercher</button>
     </div>
 
+
+
 </form>
+
+
 
 
 <table class="table">
@@ -39,6 +45,8 @@
         {
             @foreach (var item in Model)
             {
+
+
 
                 <tr>
                     @foreach (var a in ViewBag.animals)

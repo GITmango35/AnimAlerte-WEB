@@ -6,9 +6,7 @@
 
   <ItemGroup>
     <None Include="Views\Annonces\Create.cshtml" />
-    <None Include="Views\Annonces\Delete.cshtml" />
     <None Include="Views\Annonces\Details.cshtml" />
-    <None Include="Views\Annonces\Edit.cshtml" />
     <None Include="Views\Annonces\Index.cshtml" />
   </ItemGroup>
 
