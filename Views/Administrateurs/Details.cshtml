@@ -1,4 +1,5 @@
-﻿@model AnimAlerte.Models.Administrateur
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.Administrateur
 
 @{
     ViewData["Title"] = "Details";
@@ -10,21 +11,23 @@
     <h4>Administrateur</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.DateCreation)*@
+            @localizer["DateCreation"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomAdminNavigation)
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.NomAdminNavigation)*@
+            @localizer["NomAdmin"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NomAdminNavigation.NomUtilisateur)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.NomAdmin">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.NomAdmin"> @localizer["Edit"]</a> |
+    <a asp-action="Index">@localizer["RetourListe"]</a>
 </div>

@@ -1,12 +1,14 @@
-﻿@model AnimAlerte.Models.Administrateur
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@model AnimAlerte.Models.Administrateur
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>@localizer["Edit"]</h1>
 
-<h4>Administrateur</h4>
+<h4>@localizer["Admin"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,19 +16,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="NomAdmin" />
             <div class="form-group">
-                <label asp-for="DateCreation" class="control-label"></label>
+                <label asp-for="DateCreation" class="control-label">@localizer["DateCreation"]</label>
                 <input asp-for="DateCreation" class="form-control" />
                 <span asp-validation-for="DateCreation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="@localizer["EnregistrerBtn"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@localizer["RetourListe"]</a>
 </div>
 
 @section Scripts {

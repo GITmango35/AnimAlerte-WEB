@@ -1,33 +1,36 @@
-﻿@model AnimAlerte.Models.Administrateur
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.Administrateur
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1> @localizer["Delete"]</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3> @localizer["Admin"]</h3>
 <div>
-    <h4>Administrateur</h4>
+    <h4> @localizer["DateCreation"]</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
+        <dt class="col-sm-2">
+            @*@Html.DisplayNameFor(model => model.DateCreation)*@
+            @localizer["DateCreation"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomAdminNavigation)
+        <dt class="col-sm-2">
+           @* @Html.DisplayNameFor(model => model.NomAdminNavigation)*@
+            @localizer["NomAdmin"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NomAdminNavigation.NomUtilisateur)
-        </dd class>
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="NomAdmin" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="@localizer["Delete"]" class="btn btn-danger" /> |
+        <a asp-action="Index">@localizer["RetourListe"]</a>
     </form>
 </div>
