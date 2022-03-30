@@ -22,14 +22,28 @@
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs"asp-action="Login">AnimAlerte</a>
-                @*<div class="navbar-nav flex-grow-1 justify-content-end">
-                        <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
-                        <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
-                    </div>*@
+            @*<div class="container">*@
+
+            <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @*   <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>*@
+            @*<div class="navbar-nav flex-grow-1 justify-content-end">
+                    <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
+                    <a class="nav-link active " asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
+                </div>*@
+            @*</div>*@
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1 justify-content-end" id="menu">
+                    <li class="nav-item form-inline">
+                        <partial name="_Culture" />
+                    </li>
+                </ul>
             </div>
-            <partial name="_Culture" />
+
         </nav>
     </header>
 
@@ -49,8 +63,8 @@
 
                                     <p class="alert-success">@ViewBag.Message</p>
                                     <form action="/Utilisateurs/Login" method="post">
-                                        <h4 class="mt-1 mb-5 pb-1">Connexion à votre compte</h4>
-                                        <h4 class="mt-1 mb-5 pb-1">@ViewData["LoginError"]</h4>
+                                        <h4 class="mt-1 mb-5 pb-1">@localizer["Connexion"]</h4>
+                                        <h5 class="mt-1 mb-5 pb-1">@ViewData["LoginError"]</h5>
                                         <div class="form-outline mb-4">
                                             <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="Nom utilisateur" />
                                             <label for="nomuser" class="form-label"></label>
@@ -64,7 +78,7 @@
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">@localizer["Login"]</button>
                                         </div>
-                                        <p class="text-center text-muted mt-5 mb-0">@localizer["NoAccount"] <a href="/Utilisateurs/Create" class="fw-bold text-body"> S'enregistrer! </a></p>
+                                        <p class="text-center text-muted mt-5 mb-0">@localizer["NoAccount"] <a href="/Utilisateurs/Create" class="fw-bold text-body"> @localizer["Enregistrer"] </a></p>
                                     </form>
 
                                 </div>
@@ -72,13 +86,13 @@
                             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
                                 <div class="text-white
                                      px-3 py-4 p-md-5 mx-md-4">
-                                    <h4 class="mb-5">Bievenue sur le site AnimAlerte!</h4>
+                                    <h4 class="mb-5">@localizer["Bievenue"]</h4>
                                     <p class="mb-2">
-                                        Animalerte permet aux propriétaires d’animaux de diffuser auprès de milliers de personnes des avis de recherche pour leurs compagnons disparus. Si vous trouvez un animal perdu, vous pouvez aussi créer une annonce afin de trouver son propriétaire.
+                                        @localizer["AnimAlerte1"]
                                     </p>
                                     <br />
                                     <p class="mb-2">
-                                        Animalerte est le site le plus fiable au Canada, vous pouvez enregistrer vos animaux afin de créer facilement et rapidement une annonce en cas de perte de votre compagnon. Une liste de contact favori vous permet de les contacter rapidement.
+                                        @localizer["AnimAlerte2"]
                                     </p>
                                 </div>
                             </div>
