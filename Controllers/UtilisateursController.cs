@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.Mvc.Localization;
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
-    { private readonly IHtmlLocalizer<UtilisateursController> _localizer;
+    { 
+        private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
@@ -246,35 +247,36 @@ namespace AnimAlerte.Controllers
         //------un administrateur peut rechercher un utilisateur afin de le désactiver 
         public ActionResult RechercheUtilisateur()
         {
-            var listeUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
-            if (listeUtilisateurs != null)
-            {
-                return View(listeUtilisateurs);
-            }
-
+            
             return View();
         }
 
         [HttpPost]
         public ActionResult RechercheUtilisateur(string nomuser)
         {
-            var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
-            if (utilisateur != null)
+            var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
+            if (nomuser == null)
             {
-                var utilisateur1 = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
-                ViewBag.userA = "";
-                if (utilisateur.IsAdmin == 1)
-                {
-                    ViewBag.userA = "Administrateur";
-                }
-                else
-                {
-                    ViewBag.userA = "Utilisateur";
-                }
-                return View(utilisateur1); //recuperer les infos d'User
+                return View(listeToutUtilisateurs);                
             }
-            ViewData["Message"] = "Aucun utilisateur n'est trouvé.";
-            return View(); 
+            else 
+            {
+                var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+                if (utilisateur != null)
+                {
+                    ViewBag.userA = "";
+                    if (utilisateur.IsAdmin == 1)
+                    {
+                        ViewBag.userA = "Administrateur";
+                    }
+                    else
+                    {
+                        ViewBag.userA = "Utilisateur";
+                    }
+                    return View(utilisateur); //recuperer les infos d'User
+                }
+                return View();
+            }
         }
 
         //la désactivation d'un utilisateur par un admin

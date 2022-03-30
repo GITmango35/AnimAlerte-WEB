@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Login" xml:space="preserve">
-    <value>Se connecté</value>
+    <value>Se connecter</value>
   </data>
   <data name="LoginError" xml:space="preserve">
-    <value>FR: Nom Utilisateur ou mot de passe est incorrect!!</value>
+    <value>Nom d'utilisateur ou mot de passe incorrect!!</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Vous n'avez pas de compte?</value>

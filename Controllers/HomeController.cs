@@ -15,7 +15,9 @@ namespace AnimAlerte.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<HomeController> _localizer;
+
+        //private readonly Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<HomeController> _localizer;
+        private readonly IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
@@ -55,18 +57,13 @@ namespace AnimAlerte.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         
-
         public IActionResult Login(string msg)
         {
 
             ViewBag.Message = msg;
             return View();
         }
-
-
-
 
         //---Methode Authentication
         [HttpPost]

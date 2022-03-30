@@ -12,12 +12,14 @@ using Microsoft.AspNetCore.Hosting;
 using AnimAlerte.ViewModels;
 using AnimAlerte.Controllers;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace AnimAlerte.Controllers
 {
 //tout est beau
     public class DetailsContactsController : Controller
     {
+        private readonly IHtmlLocalizer<DetailsContactsController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
@@ -36,23 +38,15 @@ namespace AnimAlerte.Controllers
             var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
             //on recuepere la liste de tous les users
             var listeUsers = _context.Utilisateurs.ToList();
-//<<<<<<< HEAD
 
             List<DetailsContact> detailsContactsFavoris = new List<DetailsContact>();
             if (listeContactsFavoris != null && listeUsers!=null)
-//=======
-          
-//>>>>>>> 91ff52831d23ff4607152239a5c3a540582a7409
             {
                 foreach (var contact in listeContactsFavoris)
                 {
                     foreach (var user in listeUsers)
                     {
-///<<<<<<< HEAD
-                        //if(contact.NomUtilisateurFavoris==user.NomUtilisateur && user.UtilisateurActive == 1)
-
                         if (contact.NomUtilisateurFavoris == user.NomUtilisateur && user.UtilisateurActive == 1 && user.NomUtilisateur != UtilisateursController.usersession)
-//>>>>>>> 91ff52831d23ff4607152239a5c3a540582a7409
                         {
                             detailsContactsFavoris.Add(contact);
                         }
@@ -67,23 +61,31 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts Resultats Recherche
         public IActionResult Search(string utilisateursSearch)
         {
+            List<Utilisateur> liste = new List<Utilisateur>();
+
+            var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.NomUtilisateur != UtilisateursController.usersession && u.UtilisateurActive == 1).ToList();
             var listeTrouveUtilisateur = _context.Utilisateurs
                 .Where(a => a.NomUtilisateur.Contains(utilisateursSearch) || 
                 a.Nom.Contains(utilisateursSearch) || 
                 a.Prenom.Contains(utilisateursSearch)).ToList();
-
-            List<Utilisateur> liste = new List<Utilisateur>();
-
-            foreach (var users in listeTrouveUtilisateur)
+                        
+            if (utilisateursSearch == null)
             {
-                if(users.UtilisateurActive == 1 && users.NomUtilisateur != UtilisateursController.usersession)
-                {
-                    liste.Add(users);
-                }
+                return View(listeToutUtilisateurs);
             }
-                           
-            return View(liste);
-                                   
+            else
+            {
+
+                foreach (var utilisateur in listeTrouveUtilisateur)
+                {
+                    if (utilisateur.UtilisateurActive == 1 && utilisateur.NomUtilisateur != UtilisateursController.usersession)
+                    {
+                        liste.Add(utilisateur);
+                    }
+                }
+
+                return View(liste);
+            }                    
         }
 
         // GET: DetailsContacts/Details/5
@@ -94,11 +96,8 @@ namespace AnimAlerte.Controllers
             {
                 return NotFound();
             }
-//<<<<<<< HEAD
 
             var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
-
-//=======
             //var detailsContact = _context.DetailsContacts
             //    .Include(d => d.NomUtilisateurCreateurNavigation)
             //    .Include(d => d.NomUtilisateurFavorisNavigation)
