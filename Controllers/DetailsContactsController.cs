@@ -25,10 +25,11 @@ namespace AnimAlerte.Controllers
         public static string usersession;
         public static int admin = 0;
 
-        public DetailsContactsController(AnimAlerteContext context, IHttpContextAccessor accessor)
+        public DetailsContactsController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<DetailsContactsController> localizer)
         {
             _context = context;
             this.session = accessor.HttpContext.Session;
+            _localizer = localizer;
         }
 
         // GET: DetailsContacts
@@ -61,6 +62,11 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts Resultats Recherche
         public IActionResult Search(string utilisateursSearch)
         {
+            if (utilisateursSearch == "")
+            {
+                var message = _localizer["SearchResults"];
+                ViewBag.Message = message;
+            }
             List<Utilisateur> liste = new List<Utilisateur>();
 
             var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.NomUtilisateur != UtilisateursController.usersession && u.UtilisateurActive == 1).ToList();
@@ -78,12 +84,31 @@ namespace AnimAlerte.Controllers
 
                 foreach (var utilisateur in listeTrouveUtilisateur)
                 {
+                    TempData["AlertMessage"] = "";
                     if (utilisateur.UtilisateurActive == 1 && utilisateur.NomUtilisateur != UtilisateursController.usersession)
                     {
                         liste.Add(utilisateur);
+                        //var message = _localizer["SearchResults"];
+                        //ViewBag.Message = message;
+                        //TempData["AlertMessage"] = "Contacts found";
+                        TempData["AlertMessage"] = _localizer["SearchResults"];
+
+                    }
+                    else
+                    {
+                        
+                        //var message = _localizer["NoResults"];
+                        //ViewBag.Message = message;
+                        TempData["AlertMessage"] = "Not found!!!";
                     }
                 }
-
+                if (liste == null)
+                {
+                    //var message = _localizer["NoResults"];
+                    //ViewBag.Message = message;
+                    TempData["AlertMessage"] = "Not found!!!";
+                }
+                
                 return View(liste);
             }                    
         }
@@ -98,6 +123,8 @@ namespace AnimAlerte.Controllers
             }
 
             var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
+            //var autreDetails = _context.Utilisateurs.Where(d => d.Courriel== );
+
             //var detailsContact = _context.DetailsContacts
             //    .Include(d => d.NomUtilisateurCreateurNavigation)
             //    .Include(d => d.NomUtilisateurFavorisNavigation)

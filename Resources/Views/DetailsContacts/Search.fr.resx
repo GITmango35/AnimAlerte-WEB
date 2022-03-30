@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddContact" xml:space="preserve">
-    <value>Rajouter</value>
+    <value>Rajouter(X)</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Retour</value>
@@ -128,6 +128,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Aucun Contact trouvé</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Rechercher</value>

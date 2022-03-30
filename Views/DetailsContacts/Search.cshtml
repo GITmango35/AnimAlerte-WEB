@@ -9,13 +9,20 @@
 <p>
     @using (Html.BeginForm("Search", "DetailsContacts", FormMethod.Get))
     {
-<input type="text" name="utilisateursSearch" />
-                @*<input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />*@
-                <button type="submit" class="btn btn-primary text-white">@localizer["Search"]</button>
-    }
+<input type="text" name="utilisateursSearch" /> @*<input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />*@
+                <button type="submit" class="btn btn-primary text-white">@localizer["Search"]</button>}
 </p>
-
-
+@if (TempData["AlertMessage"] != null)
+{
+<div class="alert-success">
+    <strong></strong> @TempData["AlertMessage"]
+</div>      }
+@*@if (TempData["AlertMessage"] == null)
+{
+<div class="alert-danger">
+    <strong></strong> @localizer["NotFound"]
+</div>}*@ 
+@*<p class="alert-success">@ViewBag.Message</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -37,10 +44,10 @@
             @*<th>
                     @Html.DisplayNameFor(model => model.MotDePasse)
                 </th>*@
-        <th>
-            @*@Html.DisplayNameFor(model => model.NumTel)*@
-            @localizer["Telephone"]
-        </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.NumTel)*@
+                @localizer["Telephone"]
+            </th>
             @*<th>
                     @Html.DisplayNameFor(model => model.UtilisateurActive)
                 </th>
@@ -94,10 +101,10 @@
         @*@Html.ActionLink("Rajouter(X)", "Rajouter", new { NomUtilisateurCreateur = item.DetailsContactNomUtilisateurCreateurNavigations, NomUtilisateurFavoris = item.DetailsContactNomUtilisateurFavorisNavigations })*@
 
     </td>
-</tr>}
+</tr>
+}
     </tbody>
 </table>
-
 
 <div>
     <a asp-action="Index">@localizer["Back"]</a>

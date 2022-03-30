@@ -4,6 +4,15 @@
 @{ ViewData["Title"] = "Index"; }
 
 <h1>@localizer["Profile"]</h1>
+@*<p class="alert-danger">@ViewBag.Message</p>*@
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success! </strong>@TempData["AlertMessage"]
+    </div>
+}
+
 
 <p>
     @*<a asp-action="Create">Create New(to be removed)</a>*@
@@ -81,7 +90,11 @@
     <td>
         <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">@localizer["Modify"]</a> |
         <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">@localizer["Deactivate"]</a>
+        @*@Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateur})*@
     </td>
-</tr>}
+</tr>
+}
     </tbody>
 </table>
+
+
