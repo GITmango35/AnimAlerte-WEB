@@ -84,6 +84,31 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces/Details/5
+        //public IActionResult Details(int? id, string nomuser)
+        //{
+           
+public async Task<IActionResult> Details2(int? id)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+            var annonce = await _context.Annonces
+            .Include(a => a.IdAnimalNavigation)
+            .Include(a => a.NomAdminDesactivateurNavigation)
+            .Include(a => a.NomUtilisateurNavigation)
+            .FirstOrDefaultAsync(m => m.IdAnnonce == id);
+
+            if (annonce == null)
+            {
+                return NotFound();
+            }
+            return View(annonce);
+        }
+
+
+
         public async Task<IActionResult> Details(int? idAnimal, Utilisateur proprietaire)
         {
             if (idAnimal == null)
@@ -95,7 +120,7 @@ namespace AnimAlerte.Controllers
             .FirstOrDefaultAsync(m => m.IdAnnonce == idAnimal);
             
             var animal = _context.Animals.Include(m => m.ProprietaireNavigation)
-              
+                
                 .FirstOrDefault(m => m.IdAnimal == idAnimal);
 
             var image = _context.Images
