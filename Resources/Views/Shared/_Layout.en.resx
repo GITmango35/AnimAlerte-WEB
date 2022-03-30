@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accueil" xml:space="preserve">
-    <value>Accueil</value>
+    <value>Home</value>
   </data>
   <data name="AjoutAnimal" xml:space="preserve">
     <value>Add an Animal</value>
@@ -142,7 +142,7 @@
     <value>My Ads</value>
   </data>
   <data name="Profil" xml:space="preserve">
-    <value>Profil</value>
+    <value>Profile</value>
   </data>
   <data name="PublierAnnonce" xml:space="preserve">
     <value>Post an Ad</value>

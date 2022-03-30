@@ -1,10 +1,18 @@
-﻿@model IEnumerable<AnimAlerte.Models.Utilisateur>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<AnimAlerte.Models.Utilisateur>
 
-@{
-    ViewData["Title"] = "Index";
+@{ ViewData["Title"] = "Index"; }
+
+<h1>@localizer["Profile"]</h1>
+@*<p class="alert-danger">@ViewBag.Message</p>*@
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success! </strong>@TempData["AlertMessage"]
+    </div>
 }
 
-<h1>Profil</h1>
 
 <p>
     @*<a asp-action="Create">Create New(to be removed)</a>*@
@@ -13,57 +21,64 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomUtilisateur)
+                @*@Html.DisplayNameFor(model => model.NomUtilisateur)*@
+                @localizer["UserName"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nom)
+                @*@Html.DisplayNameFor(model => model.Nom)*@
+                @localizer["Name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prenom)
+                @*@Html.DisplayNameFor(model => model.Prenom)*@
+                @localizer["FirstName"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Courriel)
+                @*@Html.DisplayNameFor(model => model.Courriel)*@
+                @localizer["Email"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MotDePasse)
+                @*@Html.DisplayNameFor(model => model.MotDePasse)*@
+                @localizer["Password"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumTel)
+                @*@Html.DisplayNameFor(model => model.NumTel)*@
+                @localizer["Telephone"]
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.UtilisateurActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAdmin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.UtilisateurActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAdmin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomUtilisateur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prenom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courriel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MotDePasse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumTel)
-            </td>
-            @*<td>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NomUtilisateur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nom)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Prenom)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Courriel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MotDePasse)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NumTel)
+    </td>
+    @*<td>
             @Html.DisplayFor(modelItem => item.UtilisateurActive)
         </td>
         <td>
@@ -72,11 +87,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
         </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">Modifier</a> |
-                <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>
-            </td>
-        </tr>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">@localizer["Modify"]</a> |
+        <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">@localizer["Deactivate"]</a>
+        @*@Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateur})*@
+    </td>
+</tr>
 }
     </tbody>
 </table>
+
+

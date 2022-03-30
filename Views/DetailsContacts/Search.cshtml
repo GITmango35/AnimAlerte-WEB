@@ -1,30 +1,42 @@
-﻿@model IEnumerable<AnimAlerte.Models.Utilisateur>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<AnimAlerte.Models.Utilisateur>
 
 @{ ViewData["Title"] = "Search"; }
 
-<h1>Rechercher Un Contact</h1>
+<h1>@localizer["SearchContact"]</h1>
 
 
 <p>
     @using (Html.BeginForm("Search", "DetailsContacts", FormMethod.Get))
     {
-            <input type="text" name="utilisateursSearch" />
-            <input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />
-    }
+<input type="text" name="utilisateursSearch" /> @*<input class="btn btn-primary text-white" type="submit" value="Rechercher" name="submit" />*@
+                <button type="submit" class="btn btn-primary text-white">@localizer["Search"]</button>}
 </p>
-
-
+@if (TempData["AlertMessage"] != null)
+{
+<div class="alert-success">
+    <strong></strong> @TempData["AlertMessage"]
+</div>      }
+@*@if (TempData["AlertMessage"] == null)
+{
+<div class="alert-danger">
+    <strong></strong> @localizer["NotFound"]
+</div>}*@ 
+@*<p class="alert-success">@ViewBag.Message</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomUtilisateur)
+                @*@Html.DisplayNameFor(model => model.NomUtilisateur)*@
+                @localizer["UserName"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nom)
+                @*@Html.DisplayNameFor(model => model.Nom)*@
+                @localizer["Name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prenom)
+                @*@Html.DisplayNameFor(model => model.Prenom)*@
+                @localizer["FirstName"]
             </th>
             @*<th>
                     @Html.DisplayNameFor(model => model.Courriel)
@@ -33,7 +45,8 @@
                     @Html.DisplayNameFor(model => model.MotDePasse)
                 </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.NumTel)
+                @*@Html.DisplayNameFor(model => model.NumTel)*@
+                @localizer["Telephone"]
             </th>
             @*<th>
                     @Html.DisplayNameFor(model => model.UtilisateurActive)
@@ -78,23 +91,23 @@
         <td>
             @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
         </td>*@
-<td>
-    
-    @*<a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">Rajouter(X)</a>*@
-    
-    
-    
-    @*<a asp-action="Delete" asp-route-id="@item.NomUtilisateur">Désactiver</a>*@
-    @Html.ActionLink("Rajouter(X)", "Rajouter", new { NomUtilisateurCreateur = item.DetailsContactNomUtilisateurCreateurNavigations, NomUtilisateurFavoris = item.DetailsContactNomUtilisateurFavorisNavigations })
-</td>
+    <td>
+
+        @*<a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">Rajouter(X)</a>*@
+
+
+
+        <a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">@localizer["AddContact"]</a>
+        @*@Html.ActionLink("Rajouter(X)", "Rajouter", new { NomUtilisateurCreateur = item.DetailsContactNomUtilisateurCreateurNavigations, NomUtilisateurFavoris = item.DetailsContactNomUtilisateurFavorisNavigations })*@
+
+    </td>
 </tr>
 }
     </tbody>
 </table>
 
-
 <div>
-    <a asp-action="Index">Retour a la Liste</a>
+    <a asp-action="Index">@localizer["Back"]</a>
 </div>
 
 @section Scripts {

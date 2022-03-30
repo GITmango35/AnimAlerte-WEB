@@ -1,45 +1,47 @@
-﻿@model IEnumerable<AnimAlerte.Models.DetailsContact>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<AnimAlerte.Models.DetailsContact>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
-<h1>Liste Contact Favoris</h1>
+<h1>@localizer["ContactList"]</h1>
 
 <p>
-    <a asp-action="Search">Rajouter un Contact</a>
-    
+    <a asp-action="Search">@localizer["AddContact"]</a>
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateAjout)
+                @*@Html.DisplayNameFor(model => model.DateAjout)*@
+                @localizer["AddDate"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NomUtilisateurFavoris)
+                @*@Html.DisplayNameFor(model => model.NomUtilisateurFavoris)*@
+                @localizer["FavContact"]
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-   
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAjout)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomUtilisateurFavoris)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris }) |
-                @Html.ActionLink("Supprimer(X)", "Delete", new { idFavoris = item.NomUtilisateurFavoris, idCreateur =item.NomUtilisateurCreateur }) |
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateurFavoris })*@
-                
-                @*<a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavoris">Supprimer</a>*@
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateAjout)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NomUtilisateurFavoris)
+    </td>
+    <td>
+        @*@Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris }) |
+        @Html.ActionLink("Supprimer(X)", "Delete", new { idFavoris = item.NomUtilisateurFavoris,item.NomUtilisateurCreateur }) |
+        @Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateurFavoris })*@
+
+        <a asp-action="Details" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Details"]</a> |
+        <a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Remove"]</a>
+    </td>
+</tr>}
     </tbody>
 </table>

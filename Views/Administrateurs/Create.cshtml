@@ -1,44 +1,45 @@
 ﻿@model AnimAlerte.Models.Utilisateur
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Create Admin";
 }
 
-<h1>Create</h1>
+<h1>@localizer["Create"]</h1>
 
-<h4>Utilisateur</h4>
+<h4>@localizer["AjouterAdmin"] </h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NomUtilisateur" class="control-label"></label>
+                <label asp-for="NomUtilisateur"class="control-label">@localizer["NomUtilisateur"]</label>
                 <input asp-for="NomUtilisateur" class="form-control" />
-                <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+                <span asp-validation-for= "NomUtilisateur" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
+                <label asp-for="Nom" class="control-label">@localizer["Nom"]</label>
                 <input asp-for="Nom" class="form-control" />
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Prenom" class="control-label"></label>
+                <label asp-for="Prenom" class="control-label">@localizer["Prenom"]</label>
                 <input asp-for="Prenom" class="form-control" />
                 <span asp-validation-for="Prenom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Courriel" class="control-label"></label>
+                <label asp-for="Courriel" class="control-label">@localizer["Courriel"]</label>
                 <input asp-for="Courriel" class="form-control" />
                 <span asp-validation-for="Courriel" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MotDePasse" class="control-label"></label>
+                <label asp-for="MotDePasse" class="control-label">@localizer["MotDePasse"]</label>
                 <input asp-for="MotDePasse" class="form-control" />
                 <span asp-validation-for="MotDePasse" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NumTel" class="control-label"></label>
+                <label asp-for="NumTel" class="control-label">@localizer["NumTel"]</label>
                 <input asp-for="NumTel" class="form-control" />
                 <span asp-validation-for="NumTel" class="text-danger"></span>
             </div>
@@ -48,14 +49,14 @@
                 <select asp-for="NomAdminDesactivateur" class ="form-control" asp-items="ViewBag.NomAdminDesactivateur"></select>
             </div>-->
             <div class="form-group">
-                <input type="submit" value="S'enregistrer" class="btn btn-primary" />
+                <input type="submit" value="@localizer["EnregistrerBtn"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@localizer["RetourListe"]</a>
 </div>
 
 @section Scripts {

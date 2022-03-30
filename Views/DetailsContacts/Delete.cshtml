@@ -1,42 +1,41 @@
-﻿@model AnimAlerte.Models.DetailsContact
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model AnimAlerte.Models.DetailsContact
 
-@{
-    ViewData["Title"] = "Delete";
-}
+@{ ViewData["Title"] = "Delete"; }
 
 <h1>Supprimer Contact</h1>
 
 <h3>Etes-vous sur que vous voulez supprimer?</h3>
 <div>
-    
+
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateAjout)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateAjout)
         </dd>
         @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomUtilisateurCreateurNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomUtilisateurCreateurNavigation.NomUtilisateur)
-        </dd class>*@
-        <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.NomUtilisateurCreateurNavigation)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.NomUtilisateurCreateurNavigation.NomUtilisateur)
+            </dd class>*@
+        <dt class="col-sm-2">
             @*@Html.DisplayNameFor(model => model.NomUtilisateurFavorisNavigation)*@
             @Html.DisplayNameFor(model => model.NomUtilisateurFavoris)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @*@Html.DisplayFor(model => model.NomUtilisateurFavorisNavigation.NomUtilisateur)*@
             @Html.DisplayFor(model => model.NomUtilisateurFavoris)
-        </dd class>
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="NomUtilisateurCreateur" />
         <input type="hidden" asp-for="NomUtilisateurFavoris" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <input type="submit" value="Supprimer(X)" class="btn btn-danger" /> |
         <a asp-action="Index">Retour a la liste</a>
     </form>
 </div>
