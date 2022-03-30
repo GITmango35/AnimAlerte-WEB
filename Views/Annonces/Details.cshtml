@@ -1,11 +1,9 @@
 ﻿@model AnimAlerte.ViewModels.AnnonceModifViewModel
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>@localizer["DetailsAnnonce"]  @Html.DisplayFor(model => model.Titre) </h1>
+<h1>Details de l'annonce  @Html.DisplayFor(model => model.Titre) </h1>
 <hr />
 
 
@@ -13,7 +11,7 @@
     <div class="card">
         <div class="row">
             <div class="col-md-4">
-
+       
 
                 @if (Model.PhotoPath != null)
                 {
@@ -73,7 +71,7 @@
 
 <div class="container mt-4">
     <div class="card border border-light shadow-sm">
-        <div class="card-header">@localizer["Contactez"] : </div>
+        <div class="card-header">Contactez : </div>
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-4">
@@ -94,5 +92,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">@localizer["RetourListe"]</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
