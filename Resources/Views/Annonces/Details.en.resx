@@ -117,76 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="Afficher" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="AnimalRequis" xml:space="preserve">
-    <value>Please add an  animal!</value>
-  </data>
-  <data name="AnimauxPerdu" xml:space="preserve">
-    <value>Lost Animals</value>
-  </data>
-  <data name="AnimauxTrouve" xml:space="preserve">
-    <value>Found Animals</value>
-  </data>
-  <data name="Contactez" xml:space="preserve">
-    <value>Contact</value>
-  </data>
-  <data name="Courriel" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="DateCreation" xml:space="preserve">
-    <value>Date Published</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="DescriptionRequis" xml:space="preserve">
-    <value>Description field is required!</value>
-  </data>
-  <data name="EnregistrerBtn" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="ModifierTitle" xml:space="preserve">
-    <value>Modify an Ad</value>
-  </data>
-  <data name="Nom" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NomAnimal" xml:space="preserve">
-    <value>Pet's Name</value>
-  </data>
-  <data name="NumAnnonce" xml:space="preserve">
+  <data name="AdId" xml:space="preserve">
     <value>Ad #</value>
   </data>
-  <data name="Proprietaire" xml:space="preserve">
-    <value>Pet Owner</value>
-  </data>
-  <data name="RetourListe" xml:space="preserve">
-    <value>Back to List</value>
-  </data>
-  <data name="Supprimer" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="TitreAnnonce" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="TitreAnnonceRequis" xml:space="preserve">
-    <value>Title field  is required!</value>
-  </data>
-  <data name="TrierDate" xml:space="preserve">
-    <value>Sort by Date</value>
-  </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="AdType" xml:space="preserve">
     <value>Ad Type</value>
   </data>
-  <data name="Ville" xml:space="preserve">
+  <data name="AnimalName" xml:space="preserve">
+    <value>Pet's Name</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
-  <data name="VilleRequis" xml:space="preserve">
-    <value>City field is required!</value>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact :</value>
+  </data>
+  <data name="CreateAd" xml:space="preserve">
+    <value>Create an ad</value>
+  </data>
+  <data name="DetailsOf" xml:space="preserve">
+    <value>Details of ad </value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="FoundAnimals" xml:space="preserve">
+    <value>Found Animals</value>
+  </data>
+  <data name="LostAnimals" xml:space="preserve">
+    <value>Lost Animals</value>
+  </data>
+  <data name="LostFoundAnimals" xml:space="preserve">
+    <value>Lost and Found Animals</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PublishDate" xml:space="preserve">
+    <value>Date Published</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchByLocation" xml:space="preserve">
+    <value>Search by location...</value>
+  </data>
+  <data name="SeeMoreDetails" xml:space="preserve">
+    <value>See more details</value>
+  </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>Sort By Date</value>
   </data>
 </root>
