@@ -75,10 +75,14 @@
     <script type="text/javascript">
         $(function () {
 
+
+
             $("#photoUpload").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
                 $(this).next(".custom-file-label").html(inputPhoto);
             });
+
+
 
             $("#photoUpload").change(function () {
                 $("#photoPreview").html("");
@@ -94,17 +98,15 @@
                         }
                         reader.readAsDataURL($(this)[0].files[0]);
                     } else {
-                        alert("@localizer["BrowserSupport"]");
-                    }
+                        alert("This browser does not support FileReader.");
+                                            }
                 } else {
-                    alert("@localizer["ValidImageFile"]");
+                    alert("Please upload a valid image file.");
                 }
             });
 
-
         });
-
-    </script>
+     </script>
 
 </body>
 </html>
