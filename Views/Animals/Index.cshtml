@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Animal>
-
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ ViewData["Title"] = "Mes Animaux";
 
 }
 
-<h1>Mes Animaux</h1>
+<h1>@localizer["MyAnimals"]</h1>
 <p>
-    <a asp-action="AjoutAnimal">Ajouter un animal</a>
+    <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a>
 </p>
 
 @foreach (var item in Model)
@@ -17,25 +17,25 @@
         if (i.IdAnimal == item.IdAnimal)
         {
             <div class="card m-2" style="width: 18rem;">
-                    <div class="d-md-table-row">
-                        @if (i.PathImage != null)
-                        {
-                            <img class="card-img-top img-fluid" src="~/uploads/@i.PathImage" asp-append-version="true" alt="@item.NomAnimal" />
-                            <div class="card-body">
-                                <h5 class="card-title">@i.TitreImage</h5>
-                                <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <img class="card-img-top img-fluid" src="~/uploads/Noimg.jpg" alt="@item.NomAnimal" />
-                            <div class="card-body">
-                                <h5 class="card-title">@i.TitreImage</h5>
-                                <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
-                            </div>
-                        }
-                    </div>
+                <div class="d-md-table-row">
+                    @if (i.PathImage != null)
+                    {
+                        <img class="card-img-top img-fluid" src="~/uploads/@i.PathImage" asp-append-version="true" alt="@item.NomAnimal" />
+                        <div class="card-body">
+                            <h5 class="card-title">@i.TitreImage</h5>
+                            <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">@localizer["SeeDetails"]</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <img class="card-img-top img-fluid" src="~/uploads/Noimg.jpg" alt="@item.NomAnimal" />
+                        <div class="card-body">
+                            <h5 class="card-title">@i.TitreImage</h5>
+                            <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
+                        </div>
+                    }
                 </div>
+            </div>
 
 
 
@@ -43,7 +43,7 @@
 
 
 
-           
+
 
         }
     }
