@@ -3,10 +3,10 @@
 
 
 @{
-    ViewData["Title"] = "Créer une annonce";
+    ViewData["Title"] = localizer["CreateAnnonce"];
 }
 
-<h1>Créer Annonce</h1>
+<h1>@localizer["CreateAnnonce"]</h1>
 @if (TempData["AlertMessage"] != null)
 {
     <div class="alert alert-success">
@@ -19,35 +19,35 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Titre" class="control-label"></label>
+                <label asp-for="Titre" class="control-label">@localizer["Titre"]</label>
                 <input asp-for="Titre" class="form-control" />
                 <span asp-validation-for="Titre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ville" class="control-label"></label>
+                <label asp-for="Ville" class="control-label">@localizer["Ville"]</label>
                 <input asp-for="Ville" class="form-control" />
                 <span asp-validation-for="Ville" class="text-danger"></span>
             </div>
-            <p>Type d'annonce:</p>
+            <p>@localizer["TypeAnnonce"]</p>
             <div class="form-group">
                 <div class="form-check my-2">
                     <input type="radio" asp-for="TypeAnnonce" class="form-check-input" checked value="perdu" />
-                    <label asp-for="TypeAnnonce" class="form-check-label">Perdu</label>
+                    <label asp-for="TypeAnnonce" class="form-check-label">@localizer["Perdu"]</label>
                 </div>
                 <div class="form-check my-2">
                     <input type="radio" asp-for="TypeAnnonce" class="form-check-input" value="trouve" />
-                    <label asp-for="TypeAnnonce" class="form-check-label">Trouvé</label>
+                    <label asp-for="TypeAnnonce" class="form-check-label">@localizer["Trouve"]</label>
                     <span asp-validation-for="TypeAnnonce" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="DescriptionAnnonce" class="control-label"></label>
+                <label asp-for="DescriptionAnnonce" class="control-label">@localizer["Description"]</label>
                 <textarea asp-for="DescriptionAnnonce" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="DescriptionAnnonce" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="IdAnimal" class="control-label">Choisissez l'animal</label>
+                <label asp-for="IdAnimal" class="control-label">@localizer["Animal"]</label>
 
                 <select asp-for="IdAnimal" class="form-control"
                         asp-items="@(new SelectList(ViewBag.animaux_User, "IdAnimal", "NomAnimal"))">
@@ -55,19 +55,21 @@
                 <span asp-validation-for="IdAnimal" class="text-danger"></span><br />
 
                 <a asp-controller="Animals" asp-action="AjoutAnimal">
-                    <input type="button" class="btn btn-success rounded" value="Ajouter un animal" />
+                    <input type="button" class="btn btn-success rounded" value=@localizer["AjoutAnimal"] />
                 </a>
 
             </div>
             <div class="form-group">
-                <input type="submit" value="Afficher" class="btn btn-primary" />
+                <input type="submit" value=@localizer["Afficher"] class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="TousMesAnnonces">Back to List</a>
+    <a asp-action="TousMesAnnonces">
+        <input type="button" class="btn btn-success rounded" value=@localizer["RetourListe"] />
+    </a>
 </div>
 
 @section Scripts {

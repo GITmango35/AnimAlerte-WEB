@@ -123,6 +123,12 @@
   <data name="Afficher" xml:space="preserve">
     <value>Afficher</value>
   </data>
+  <data name="AjoutAnimal" xml:space="preserve">
+    <value>Ajouter Animal</value>
+  </data>
+  <data name="Animal" xml:space="preserve">
+    <value>Choisissez l'animal</value>
+  </data>
   <data name="AnimalRequis" xml:space="preserve">
     <value>Ajouter un animal, s'il vous plait!</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="AnimauxTrouve" xml:space="preserve">
     <value>Animaux Trouvés</value>
+  </data>
+  <data name="CreateAnnonce" xml:space="preserve">
+    <value>Créer une annonce</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Publie le</value>
@@ -153,6 +162,9 @@
   <data name="NumAnnonce" xml:space="preserve">
     <value>#  Annonce</value>
   </data>
+  <data name="Perdu" xml:space="preserve">
+    <value>Lost</value>
+  </data>
   <data name="Proprietaire" xml:space="preserve">
     <value>Propriétaire</value>
   </data>
@@ -168,7 +180,10 @@
   <data name="TitreAnnonceRequis" xml:space="preserve">
     <value>Champ titre d'annonce obligatoire!</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="Trouve" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="TypeAnnonce" xml:space="preserve">
     <value>Type d'annonce</value>
   </data>
   <data name="Ville" xml:space="preserve">

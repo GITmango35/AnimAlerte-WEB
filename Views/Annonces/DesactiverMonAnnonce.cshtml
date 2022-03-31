@@ -1,60 +1,63 @@
-﻿@model AnimAlerte.Models.Annonce
+﻿
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@model AnimAlerte.Models.Annonce
 
 @{
-    ViewData["Title"] = "Suppression Annonce";
+    ViewData["Title"] = @localizer["SuppAnnonce"];
 }
 
-<h1>Supprimer annonce</h1>
+<h1>@localizer["SuppAnnonce"]</h1>
 
-<h3>Vous êtes sur de vouloir supprimer cette annonce?</h3>
+<h3>@localizer["Confirmationdesact"]</h3>
 <div>
 
     <dl class="row">
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
+            @localizer["TitreAnnonce"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+            @localizer["Description"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DescriptionAnnonce)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
+            @localizer["DateCreation"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ville)
+            @localizer["Ville"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ville)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeAnnonce)
+            @localizer["TypeAnnonce"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TypeAnnonce)
         </dd>
         <dt class="col-sm-2">
-            Nom Animal
+            @localizer["NomAnimal"]
         </dt>
         <dd class="col-sm-10">
             @ViewBag.animal.NomAnimal
         </dd>
     </dl>
-    
+
     <form asp-action="DesactiverMonAnnonce">
         <input type="hidden" asp-for="IdAnnonce" />
         <input type="hidden" asp-for="NomUtilisateur" />
         <input type="hidden" asp-for="NomAdminDesactivateur" />
         <input type="hidden" asp-for="IdAnimal" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-        <a asp-action="TousMesAnnonces">Mes annonces</a>
+        <input type="submit" value=@localizer["Supprimer"] class="btn btn-danger" /> |
+        <a asp-action="TousMesAnnonces">@localizer["MesAnnonces"]</a>
     </form>
 </div>

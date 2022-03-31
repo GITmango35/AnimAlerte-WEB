@@ -120,12 +120,6 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="Afficher" xml:space="preserve">
-    <value>Publish ad</value>
-  </data>
-  <data name="AjoutAnimal" xml:space="preserve">
-    <value>Add Animal</value>
-  </data>
   <data name="Animal" xml:space="preserve">
     <value>Choose the animal</value>
   </data>
@@ -145,7 +139,7 @@
     <value>Date Published</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Disable</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -153,11 +147,17 @@
   <data name="DescriptionRequis" xml:space="preserve">
     <value>Description field is required!</value>
   </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
   <data name="DetailsAnnonce" xml:space="preserve">
     <value>Ad details for</value>
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="ModifAnnonce" xml:space="preserve">
+    <value>Edit my ad</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Name</value>
@@ -177,8 +177,20 @@
   <data name="Proprietaire" xml:space="preserve">
     <value>Pet Owner</value>
   </data>
+  <data name="RechercheAnn" xml:space="preserve">
+    <value>Find Ad</value>
+  </data>
+  <data name="RechercheIdAnnonce" xml:space="preserve">
+    <value>Enter number Ad</value>
+  </data>
+  <data name="Rechercher" xml:space="preserve">
+    <value>Find</value>
+  </data>
   <data name="RetourListe" xml:space="preserve">
     <value>Back to List</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Supprimer" xml:space="preserve">
     <value>Delete</value>

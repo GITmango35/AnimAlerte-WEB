@@ -145,7 +145,7 @@
     <value>Date Published</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Desactivate</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="ModifAnnonce" xml:space="preserve">
+    <value>Edit my ad</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Name</value>
@@ -179,6 +182,9 @@
   </data>
   <data name="RetourListe" xml:space="preserve">
     <value>Back to List</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Supprimer" xml:space="preserve">
     <value>Delete</value>

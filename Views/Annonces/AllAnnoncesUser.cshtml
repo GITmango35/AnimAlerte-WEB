@@ -1,39 +1,40 @@
 ﻿@*@model IEnumerable<AnimAlerte.ViewModels.AnnonceModifViewModel>*@
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{ ViewData["Title"] = "Liste Annonces"; }
 
-<h1>Liste des annonces</h1>
+<h1>@localizer["ListAnnonces"]</h1>
 
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Photo</th>
+            <th scope="col">@localizer["Photo"]</th>
 
             <th>
                 @Html.DisplayNameFor(model => model.IdAnnonce)
             </th>
             <th>
-                Nom Animal
+                @localizer["NomAnimal"]
             </th>
             <th>
-                Proprietaire
+                @localizer["Proprietaire"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titre)
+                @localizer["TitreAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeAnnonce)
+                @localizer["TypeAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                @localizer["Description"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ville)
+                @localizer["Ville"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreation)
+                @localizer["DateCreation"]
             </th>
         </tr>
     </thead>
@@ -91,7 +92,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
-                <td>  <a asp-action="Details" asp-route-id="@item.IdAnnonce">Details</a> </td>
+                <td>  <a asp-action="Details" asp-route-id="@item.IdAnnonce">@localizer["VoirDetails"]</a> </td>
 
 
             </tr>

@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
-<h1>Recherche Annonce</h1>
-
-
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<h1>@localizer["RechercheAnn"]</h1>
 
 
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce...">
+        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder=@localizer["RechercheIdAnnonce"]>
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Rechercher</button>
+        <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
     </div>
 
 
@@ -17,25 +16,23 @@
 </form>
 
 
-
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                Nom Animal
+                @localizer["NomAnimal"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titre)
+                @localizer["TitreAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeAnnonce)
+                @localizer["TypeAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ville)
+                @localizer["Ville"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreation)
+                @localizer["DateCreation"]
             </th>
             <th>Action</th>
         </tr>
@@ -70,7 +67,7 @@
                         @*@item.DateCreation*@
                     </td>
                     <td>
-                        @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = @item.IdAnnonce }) |
+                        @Html.ActionLink("Desactiver", "DesactiverAnnonce", new { idAnnonce = @item.IdAnnonce }) |
                         @Html.ActionLink("Detail", "DetailAnnonce", new { idAnnonce = @item.IdAnnonce })
                     </td>
                 </tr>
