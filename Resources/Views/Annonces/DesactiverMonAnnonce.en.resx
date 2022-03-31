@@ -138,6 +138,9 @@
   <data name="AnimauxTrouve" xml:space="preserve">
     <value>Found Animals</value>
   </data>
+  <data name="Confirmationdesact" xml:space="preserve">
+    <value>Do you really want to disable this ad?</value>
+  </data>
   <data name="CreateAnnonce" xml:space="preserve">
     <value>Add Ad</value>
   </data>
@@ -145,7 +148,7 @@
     <value>Date Published</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Disable</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -158,6 +161,9 @@
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="MesAnnonces" xml:space="preserve">
+    <value>My Ads</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Name</value>
@@ -179,6 +185,12 @@
   </data>
   <data name="RetourListe" xml:space="preserve">
     <value>Back to List</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SuppAnnonce" xml:space="preserve">
+    <value>Delete Ad</value>
   </data>
   <data name="Supprimer" xml:space="preserve">
     <value>Delete</value>

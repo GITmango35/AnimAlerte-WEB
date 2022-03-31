@@ -1,43 +1,45 @@
-﻿@model AnimAlerte.Models.Annonce
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@model AnimAlerte.Models.Annonce
 
 @{
     ViewData["Title"] = "Désactiver Annonce";
 }
 
-<h1>Désactiver Annonce</h1>
+<h1>@localizer["DesactivAnnonce"]</h1>
 
-<h3>Vous voulez vraiment désactiver cette annonce?</h3>
+<h3>@localizer["Confirmationdesact"]</h3>
 <div>
 
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
+            @localizer["TitreAnnonce"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
+            @localizer["DateCreation"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+            @localizer["Description"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DescriptionAnnonce)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ville)
+            @localizer["Ville"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ville)
         </dd>
-      
+
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeAnnonce)
+            @localizer["TypeAnnonce"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TypeAnnonce)
@@ -54,8 +56,8 @@
         <input type="hidden" asp-for="Ville" />
         <input type="hidden" asp-for="NomUtilisateur" />
         <input type="hidden" asp-for="NomAdminDesactivateur" value=@ViewBag.admin />
-        <input type="submit" value="Désactiver" class="btn btn-danger" /> |
-        <a asp-action="RechercheAnnonce">Back to List</a>
+        <input type="submit" value= @localizer["Desactiver"] class="btn btn-danger" /> |
+        <a asp-action="RechercheAnnonce"> @localizer["RetourListe"]</a>
     </form>
 
 </div>

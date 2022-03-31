@@ -1,17 +1,19 @@
-﻿@model IEnumerable<AnimAlerte.Models.Annonce>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{
     ViewData["Title"] = "Liste Annonces";
 }
 
-<h1>Liste des annonces</h1>
+<h1>@localizer["ListAnnonces"]</h1>
 
 <form action="/Annonces/RechercheAnnonce" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder="Entrez le numéro d'annonce">
+        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder=@localizer["RecherchIdAnnonce"]>
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Rechercher</button>
+        <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
     </div>
 </form>
 
@@ -25,25 +27,25 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Photo</th>
+            <th scope="col">@localizer["Photo"]</th>
 
             <th>
                 @Html.DisplayNameFor(model => model.IdAnnonce)
             </th>
             <th>
-                Nom Animal
+                @localizer["NomAnimal"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titre)
+                @localizer["TitreAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeAnnonce)
+                @localizer["TypeAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ville)
+                @localizer["Ville"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreation)
+                @localizer["DateCreation"]
             </th>
             @*<th>Action</th>*@
         </tr>
