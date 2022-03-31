@@ -8,22 +8,9 @@
 
 <h1>@localizer["ListAnnonces"]</h1>
 
-<form action="/Annonces/RechercheAnnonce" method="post">
-    <div class="mb-3">
-        <input type="text" class="form-control" id="idAnnonce" name="idAnnonce" placeholder=@localizer["RecherchIdAnnonce"]>
-    </div>
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
-    </div>
-</form>
 
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert alert-success">
-        <strong>Alert! </strong> @TempData["AlertMessage"]
-    </div>
-}
 
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -47,7 +34,6 @@
             <th>
                 @localizer["DateCreation"]
             </th>
-            @*<th>Action</th>*@
         </tr>
     </thead>
     <tbody>
@@ -93,8 +79,8 @@
                 </td>
 
                 <td>
-
-                    @Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })
+                    <a asp-action="DesactiverMonAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Supprimer"]</a>
+                    @*@Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })*@
                 </td>
             </tr>
         }

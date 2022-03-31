@@ -1,40 +1,42 @@
-﻿@model IEnumerable<AnimAlerte.Models.Annonce>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@model IEnumerable<AnimAlerte.Models.Annonce>
 
 @{
     ViewData["Title"] = "Mes Annonces";
 }
 
-<h1>Mes Annonces</h1>
+<h1>@localizer["MesAnnonces"]</h1>
 
 @if (TempData["AlertMessage"] != null)
 {
     <div class="alert alert-success">
-        <strong>Succès ! </strong> @TempData["AlertMessage"]
+       @TempData["AlertMessage"]
     </div>
 }
 <p>
-    <a asp-action="Create">Créer une annonce</a>
+    <a asp-action="Create">@localizer["CreateAnnonce"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => model.Titre)
+                @localizer["TitreAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeAnnonce)
+                @localizer["TypeAnnonce"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ville)
+                @localizer["Ville"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                @localizer["Description"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreation)
+                @localizer["DateCreation"]
             </th>
-            <th>Opérations</th>
+            <th>  @localizer["Action"]</th>
         </tr>
     </thead>
     <tbody>
@@ -57,9 +59,8 @@
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
                 <td>
-                    @*<a asp-action="ModifierMonAnnonce" asp-route-id="@item.IdAnnonce">Modifier</a> |*@
-                    @Html.ActionLink("Modifier", "ModifierMonAnnonce", new { idAnnonce = @item.IdAnnonce })
-                    @Html.ActionLink("Supprimer", "DesactiverMonAnnonce", new { idAnnonce = @item.IdAnnonce })
+                    <a asp-action="ModifierMonAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Modifier"]</a> |
+                    <a asp-action="DesactiverMonAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Supprimer"]</a>
                 </td>
             </tr>
         }
