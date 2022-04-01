@@ -117,34 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnimAlerte1" xml:space="preserve">
-    <value>Animalerte allows pet owners to send thousands of people wanted notices for their missing companions. If you find a lost animal, you can also create an ad to find its owner.</value>
+  <data name="AnimalNameRequired" xml:space="preserve">
+    <value>Please enter your pet's name !</value>
   </data>
-  <data name="AnimAlerte2" xml:space="preserve">
-    <value>Animalerte is the most reliable site in Canada, you can register your animals in order to easily and quickly create an announcement in the event of the loss of your companion. A favorite contact list allows you to contact them quickly.</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back to list</value>
   </data>
-  <data name="Bievenue" xml:space="preserve">
-    <value>Welcome to AnimAlerte !</value>
+  <data name="BrowserSupport" xml:space="preserve">
+    <value>This browser does not support FileReader.</value>
   </data>
-  <data name="Connexion" xml:space="preserve">
-    <value>Login to your account</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="Cat" xml:space="preserve">
+    <value>Cat</value>
   </data>
-  <data name="LoginError" xml:space="preserve">
-    <value>No good</value>
+  <data name="Choose" xml:space="preserve">
+    <value>-- Please Choose  --</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>You don't have a account?</value>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Choose your file ...</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+  <data name="Description" xml:space="preserve">
+    <value>Describe your pet here</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register now !</value>
+  <data name="Dog" xml:space="preserve">
+    <value>Dog</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>UserName</value>
+  <data name="ModifyAnimal" xml:space="preserve">
+    <value>Modify the details of </value>
+  </data>
+  <data name="NoImageAdded" xml:space="preserve">
+    <value>No photo added !</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="PetName" xml:space="preserve">
+    <value>Pet's Name</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="SaveBtn" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Specie" xml:space="preserve">
+    <value>Type of specie</value>
+  </data>
+  <data name="ValidImageFile" xml:space="preserve">
+    <value>Please upload a valid image file.</value>
   </data>
 </root>

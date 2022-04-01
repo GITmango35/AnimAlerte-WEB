@@ -1,37 +1,38 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Animal>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ ViewData["Title"] = "Mes Animaux"; }
 
-<h1>Mes Animaux</h1>
+<h1>@localizer["MyAnimals"]</h1>
 <p>
-    <a asp-action="AjoutAnimal">Ajouter un animal</a>
+    <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a>
 </p>
 <hr />
-@*@if (TempData["AlertMessage"] != null)
+@if (TempData["AlertMessage"] != null)
 {
     <div class=" alert alert-success">
         <strong>Succes ! </strong> @TempData["AlertMessage"]
     </div>
-}*@
+}
 <br />
-<p class="alert alert-success">@ViewBag.Message</p>
 <table class="table" id="myTable">
     <thead class="thead-dark table-hover table-dark">
         <tr>
             <td scope="col">Photo</td>
             <td scope="col">
-                @Html.DisplayNameFor(model => model.NomAnimal)
+                @localizer["AnimalName"]
             </td>
             <td scope="col">
-                @Html.DisplayNameFor(model => model.DescriptionAnimal)
+                @localizer["Description"]
+                @*@Html.DisplayNameFor(model => model.DescriptionAnimal)*@
             </td>
             <td scope="col">
-                @Html.DisplayNameFor(model => model.DateInscription)
+                @localizer["RegistrationDate"]
             </td>
             <td scope="col">
-                @Html.DisplayNameFor(model => model.Espece)
+                @localizer["Specie"]
             </td>
-            <td scope="col">Opérations</td>
+            <td scope="col">@localizer["Action"]</td>
         </tr>
     </thead>
     <tbody>
@@ -69,10 +70,10 @@
                         </td>
                     }
                 }
-                <td>
-                    @Html.ActionLink("Modifier", "ModifierAnimal", new { idAnimal = @item.IdAnimal }) |
-                    @Html.ActionLink("Supprimer", "Delete", new { idAnimal = @item.IdAnimal })
-                </td>
+            <td>
+                <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Modify"]</a> |
+                <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Delete"]</a>
+            </td>
             </tr>
         }
     </tbody>

@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnimAlerte1" xml:space="preserve">
+    <value>Animalerte permet aux propriétaires d’animaux de diffuser auprès de milliers de personnes des avis de recherche pour leurs compagnons disparus. Si vous trouvez un animal perdu, vous pouvez aussi créer une annonce afin de trouver son propriétaire.</value>
+  </data>
+  <data name="AnimAlerte2" xml:space="preserve">
+    <value>Animalerte est le site le plus fiable au Canada, vous pouvez enregistrer vos animaux afin de créer facilement et rapidement une annonce en cas de perte de votre compagnon. Une liste de contact favori vous permet de les contacter rapidement.</value>
+  </data>
+  <data name="Bievenue" xml:space="preserve">
+    <value>Bievenue sur le site AnimAlerte !</value>
+  </data>
+  <data name="Connexion" xml:space="preserve">
+    <value>Connexion à votre compte</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Se connecter</value>
   </data>
@@ -125,5 +137,14 @@
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Vous n'avez pas de compte?</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>S'enregistrer !</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>

@@ -1,10 +1,11 @@
 ﻿@model AnimAlerte.ViewModels.AnimalModifViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Détails de  @Html.DisplayFor(model => model.NomAnimal)</h1>
+<h1>@localizer["DetailsOf"]  @Html.DisplayFor(model => model.NomAnimal)</h1>
 
 <div class="container mt-5">
     <div class="card">
@@ -23,30 +24,22 @@
                 <h3 class="card-title mt-3"> @Html.DisplayFor(model => model.NomAnimal)</h3>
                 <dl class="row">
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.DescriptionAnimal)
+                        @localizer["Description"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.DescriptionAnimal)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.DateInscription)
+                        @localizer["registrationDate"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.DateInscription)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.Espece)
+                        @localizer["Specie"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.Espece)
-                    </dd>
-
-                    @* TO DELETE *@
-                    <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.AnimalActif)
-                    </dt>
-                    <dd class="col-sm-8">
-                        @Html.DisplayFor(model => model.AnimalActif)
                     </dd>
                 </dl>
             </div>
@@ -56,8 +49,8 @@
 
 
 <div>
-    <a asp-action="Create" asp-controller="Annonces" asp-route-id="@Model.IdAnimal">Publier un annonce</a> |
-    <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">Modifier</a> |
-    <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">Supprimer</a> |
-    <a asp-action="MesAnimaux">Retour à la liste</a>
+    <a asp-action="Create" asp-controller="Annonces" asp-route-id="@Model.IdAnimal">@localizer["PublishAd"]</a> |
+    <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">@localizer["Modify"]</a> |
+    <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">@localizer["Delete"]</a> |
+    <a asp-action="MesAnimaux">@localizer["BackToList"]</a>
 </div>

@@ -115,7 +115,9 @@ namespace AnimAlerte.Controllers
                     animal.AnimalActif = 1;
                     animal.Espece = model.Espece;
                     animal.Proprietaire = proprietaire;
+
                     _context.Animals.Add(animal);
+                    await _context.SaveChangesAsync();
 
                     image.TitreImage = model.NomAnimal;
                     if (fileName != null)

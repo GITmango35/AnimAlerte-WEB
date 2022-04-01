@@ -117,34 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnimAlerte1" xml:space="preserve">
-    <value>Animalerte allows pet owners to send thousands of people wanted notices for their missing companions. If you find a lost animal, you can also create an ad to find its owner.</value>
+  <data name="Action" xml:space="preserve">
+    <value>Actions</value>
   </data>
-  <data name="AnimAlerte2" xml:space="preserve">
-    <value>Animalerte is the most reliable site in Canada, you can register your animals in order to easily and quickly create an announcement in the event of the loss of your companion. A favorite contact list allows you to contact them quickly.</value>
+  <data name="AnimalName" xml:space="preserve">
+    <value>Pet's Name</value>
   </data>
-  <data name="Bievenue" xml:space="preserve">
-    <value>Welcome to AnimAlerte !</value>
+  <data name="AreYouSure1" xml:space="preserve">
+    <value>Are you sure you want to delete </value>
   </data>
-  <data name="Connexion" xml:space="preserve">
-    <value>Login to your account</value>
+  <data name="AreYouSure2" xml:space="preserve">
+    <value> in you list ?</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to list</value>
   </data>
-  <data name="LoginError" xml:space="preserve">
-    <value>No good</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>You don't have a account?</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+  <data name="Modify" xml:space="preserve">
+    <value>Modify</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register now !</value>
+  <data name="MyAnimals" xml:space="preserve">
+    <value>My Animals</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>UserName</value>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Date Registered</value>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>See more details</value>
+  </data>
+  <data name="Specie" xml:space="preserve">
+    <value>Type of Specie</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success !</value>
   </data>
 </root>

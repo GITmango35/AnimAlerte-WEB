@@ -117,34 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnimAlerte1" xml:space="preserve">
-    <value>Animalerte allows pet owners to send thousands of people wanted notices for their missing companions. If you find a lost animal, you can also create an ad to find its owner.</value>
+  <data name="AdId" xml:space="preserve">
+    <value>No. d'annonce</value>
   </data>
-  <data name="AnimAlerte2" xml:space="preserve">
-    <value>Animalerte is the most reliable site in Canada, you can register your animals in order to easily and quickly create an announcement in the event of the loss of your companion. A favorite contact list allows you to contact them quickly.</value>
+  <data name="AdType" xml:space="preserve">
+    <value>Type d'annonce</value>
   </data>
-  <data name="Bievenue" xml:space="preserve">
-    <value>Welcome to AnimAlerte !</value>
+  <data name="AnimalName" xml:space="preserve">
+    <value>Nom d'animal</value>
   </data>
-  <data name="Connexion" xml:space="preserve">
-    <value>Login to your account</value>
+  <data name="BackToList" xml:space="preserve">
+    <value>Retour à la liste</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="City" xml:space="preserve">
+    <value>Ville</value>
   </data>
-  <data name="LoginError" xml:space="preserve">
-    <value>No good</value>
+  <data name="Contact" xml:space="preserve">
+    <value>Contactez :</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>You don't have a account?</value>
+  <data name="CreateAd" xml:space="preserve">
+    <value>Créer une annonce</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+  <data name="DetailsOf" xml:space="preserve">
+    <value>Details de l'annonce </value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register now !</value>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>UserName</value>
+  <data name="FoundAnimals" xml:space="preserve">
+    <value>Animaux Trouvés</value>
+  </data>
+  <data name="LostAnimals" xml:space="preserve">
+    <value>Animaux Perdus</value>
+  </data>
+  <data name="LostFoundAnimals" xml:space="preserve">
+    <value>Animaux Perdu ou Trouvés</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="PublishDate" xml:space="preserve">
+    <value>Publié le</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="SearchByLocation" xml:space="preserve">
+    <value>Recherchez par lieu...</value>
+  </data>
+  <data name="SeeMoreDetails" xml:space="preserve">
+    <value>Voir plus détails</value>
+  </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>Trier par Date</value>
   </data>
 </root>

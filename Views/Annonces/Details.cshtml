@@ -1,9 +1,11 @@
 ﻿@model AnimAlerte.ViewModels.AnnonceModifViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details de l'annonce  @Html.DisplayFor(model => model.Titre) </h1>
+<h1>@localizer["DetailsOf"]  @Html.DisplayFor(model => model.Titre) </h1>
 <hr />
 
 
@@ -11,7 +13,7 @@
     <div class="card">
         <div class="row">
             <div class="col-md-4">
-       
+
 
                 @if (Model.PhotoPath != null)
                 {
@@ -26,38 +28,38 @@
                 <h4 class="card-title mt-3"> @Html.DisplayFor(model => model.Titre)</h4>
                 <dl class="row">
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.IdAnnonce)
+                        @localizer["AdId"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.IdAnnonce)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.NomAnimal)
+                        @localizer["AnimalName"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.NomAnimal)
                     </dd>
 
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.DateCreation)
+                        @localizer["PublishDate"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.DateCreation)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.Ville)
+                        @localizer["City"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.Ville)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.TypeAnnonce)
+                        @localizer["AdType"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.TypeAnnonce)
                     </dd>
                     <dt class="col-sm-4">
-                        @Html.DisplayNameFor(model => model.DescriptionAnnonce)
+                        @localizer["Description"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.DescriptionAnnonce)
@@ -71,17 +73,17 @@
 
 <div class="container mt-4">
     <div class="card border border-light shadow-sm">
-        <div class="card-header">Contactez : </div>
+        <div class="card-header">@localizer["Contact"] </div>
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-4">
-                    @Html.DisplayNameFor(model => model.NomUtilisateurNavigation)
+                    @localizer["Name"]
                 </dt>
                 <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.NomUtilisateur)
                 </dd>
                 <dt class="col-sm-4">
-                    @Html.DisplayNameFor(model => model.Courriel)
+                    @localizer["Email"]
                 </dt>
                 <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.Courriel)

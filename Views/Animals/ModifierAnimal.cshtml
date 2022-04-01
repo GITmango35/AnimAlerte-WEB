@@ -1,4 +1,5 @@
 ﻿@model AnimAlerte.ViewModels.AnimalModifViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ ViewBag.Title = "Modifier Animal";
     var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg");
@@ -7,7 +8,7 @@
 @if (ViewBag.Error != null)
 {
     <h4 class="alert alert-danger">@ViewBag.Error</h4>}
-<h2 class="">Modifier les details de  @Html.DisplayFor(model => model.NomAnimal)</h2>
+<h2 class="">@localizer["ModifyAnimal"]  @Html.DisplayFor(model => model.NomAnimal)</h2>
 <hr />
 <div class="my-5">
     <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="ModifierAnimal">
@@ -17,21 +18,21 @@
         <input hidden asp-for="Proprietaire" />
 
         <div class="form-row">
-            <label asp-for="NomAnimal" class="form-label"></label>
+            <label asp-for="NomAnimal" class="form-label">@localizer["AnimalName"]</label>
             <input type="text" class="form-control" asp-for="NomAnimal">
         </div>
         <div class="form-row">
-            <label asp-for="DescriptionAnimal" class="form-label"></label>
+            <label asp-for="DescriptionAnimal" class="form-label">@localizer["Description"]</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="DescriptionAnimal"></textarea>
         </div>
         <div class="form-row">
             <label for="espece" class="form-label">
-                Selectionnez l'Espece
+                @localizer["Choose"]
             </label>
             <select class="form-control" asp-for="Espece">
-                <option value="Chien">Chien</option>
-                <option value="Chat">Chat</option>
-                <option value="Autres">Autres</option>
+                <option value="Chien">@localizer["Dog"]</option>
+                <option value="Chat">@localizer["Cat"]</option>
+                <option value="Autres">@localizer["Others"]</option>
             </select>
         </div>
         <div class="form-row">
@@ -39,7 +40,7 @@
                 <label asp-for="Photo" class="form-label"></label>
                 <div class="custom-file">
                     <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" />
-                    <label class="custom-file-label" for="photoUpload">Choisissez votre fichier...</label>
+                    <label class="custom-file-label" for="photoUpload">@localizer["ChooseFile"]</label>
                 </div>
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
@@ -54,7 +55,7 @@
                     }
                     else
                     {
-                        <span class="alert alert-info">Aucune image n'est ajouté</span>
+                        <span class="alert alert-info">@localizer["NoImageAdded"]</span>
                     }
 
 
@@ -64,8 +65,8 @@
         </div>
         <div class="form-row">
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Sauvegarder</button>
-                <a asp-action="MesAnimaux" asp-controller="Animals" class="btn btn-dark my-3">Annuler</a>
+                <button type="submit" class="btn btn-primary">@localizer["SaveBtn"]</button>
+                <a asp-action="MesAnimaux" asp-controller="Animals" class="btn btn-dark my-3">@localizer["Cancel"]</a>
             </div>
         </div>
         <div class="text text-danger" asp-validation-summary="All"></div>
@@ -95,10 +96,10 @@
                         }
                         reader.readAsDataURL($(this)[0].files[0]);
                     } else {
-                        alert("This browser does not support FileReader.");
+                          alert("@localizer["BrowserSupport"]");
                     }
                 } else {
-                    alert("Please upload a valid image file.");
+                    alert("@localizer["ValidImageFile"]");
                 }
             });
         })

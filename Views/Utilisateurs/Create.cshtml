@@ -37,52 +37,52 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">S'enregistrer</h2>
+                                <h2 class="text-uppercase text-center mb-5">@localizer["Register"]</h2>
 
                                 <form asp-action="Create">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                                     <div class="form-outline mb-4">
-                                        <label asp-for="NomUtilisateur" class="form-label"></label>
+                                        <label asp-for="NomUtilisateur" class="form-label">@localizer["UserName"]</label>
                                         <input asp-for="NomUtilisateur" class="form-control form-control-lg" />
                                         <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
                                         <p class="alert-danger">@ViewBag.Message</p>
                                     </div>
                                     <p class="alert-danger">@ViewBag.Message</p>
                                     <div class="form-outline mb-4">
-                                        <label asp-for="Nom" class="form-label"></label>
+                                        <label asp-for="Nom" class="form-label">@localizer["LastName"]</label>
                                         <input asp-for="Nom" class="form-control form-control-lg" />
                                         <span asp-validation-for="Nom" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label asp-for="Prenom" class="control-label"></label>
+                                        <label asp-for="Prenom" class="control-label">@localizer["FirstName"]</label>
                                         <input asp-for="Prenom" class="form-control form-control-lg" />
                                         <span asp-validation-for="Prenom" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label asp-for="Courriel" class="form-label"></label>
+                                        <label asp-for="Courriel" class="form-label">@localizer["Email"]</label>
                                         <input asp-for="Courriel" type="email" class="form-control form-control-lg" />
                                         <span asp-validation-for="Courriel" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label asp-for="MotDePasse" class="form-label"></label>
+                                        <label asp-for="MotDePasse" class="form-label">@localizer["Password"]</label>
                                         <input asp-for="MotDePasse" type="password" class="form-control form-control-lg" />
                                         <span asp-validation-for="MotDePasse" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label asp-for="NumTel" class="form-label"></label>
+                                        <label asp-for="NumTel" class="form-label">@localizer["Telephone"]</label>
                                         <input asp-for="NumTel" type="tel" class="form-control form-control-lg" />
                                         <span asp-validation-for="NumTel" class="text-danger"></span>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-2 text-body">S'enregistrer</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-2 text-body">@localizer["RegisterBtn"]</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Vous avez déjà un compte? <a href="/Utilisateurs/Login" class="fw-bold text-body"><u>Se connecter! </u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">@localizer["HaveAccount"] <a href="/Utilisateurs/Login" class="fw-bold text-body"><u>@localizer["Login"] </u></a></p>
 
 
                                 </form>

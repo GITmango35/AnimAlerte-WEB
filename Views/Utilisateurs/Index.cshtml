@@ -6,10 +6,10 @@
 <h1>@localizer["Profile"]</h1>
 @*<p class="alert-danger">@ViewBag.Message</p>*@
 
-@if (TempData["AlertMessage"] != null)
+@if (TempData["AlertMessageProfil"] != null)
 {
     <div class="alert alert-success">
-        <strong>Success! </strong>@TempData["AlertMessage"]
+        <strong>Success! </strong>@TempData["AlertMessageProfil"]
     </div>
 }
 
@@ -87,11 +87,23 @@
         <td>
             @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
         </td>*@
-    <td>
-        <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">@localizer["Modify"]</a> |
-        <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">@localizer["Deactivate"]</a>
-        @*@Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateur})*@
-    </td>
+<td><form>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="@item.NomUtilisateur" />
+    <input type="hidden" asp-for="@item.Nom" />
+    <input type="hidden" asp-for="@item.Prenom" />
+    <input type="hidden" asp-for="@item.Courriel" />
+    <input type="hidden" asp-for="@item.MotDePasse" />
+    <input type="hidden" asp-for="@item.NumTel" />
+    <input type="hidden" asp-for="@item.UtilisateurActive" />
+    <input type="hidden" asp-for="@item.IsAdmin" />
+    <input type="hidden" asp-for="@item.NomAdminDesactivateur" />
+    <a asp-action="Edit" asp-route-id="@item.NomUtilisateur">@localizer["Modify"]</a> |
+    <a asp-action="Delete" asp-route-id="@item.NomUtilisateur">@localizer["Deactivate"]</a>
+    @*@Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateur})*@
+
+</form>
+</td>
 </tr>
 }
     </tbody>
