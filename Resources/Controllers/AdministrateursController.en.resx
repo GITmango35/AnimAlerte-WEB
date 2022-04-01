@@ -117,46 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accueil" xml:space="preserve">
-    <value>Accueil</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
   </data>
-  <data name="AddAnimal" xml:space="preserve">
-    <value>Ajouter un Animal</value>
+  <data name="AdminRegistered" xml:space="preserve">
+    <value>The new Admin is added succesfully!</value>
   </data>
-  <data name="AjouterAdmin" xml:space="preserve">
-    <value>Ajouter un Admin</value>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>This Admin is already registered!</value>
   </data>
-  <data name="ContactFavorit" xml:space="preserve">
-    <value>Mes Contact Favoris</value>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="Deconnexion" xml:space="preserve">
-    <value>Se déconnecter</value>
+  <data name="LoginError" xml:space="preserve">
+    <value>Not Good</value>
   </data>
-  <data name="ListeAdmin" xml:space="preserve">
-    <value>Liste Administrateurs</value>
+  <data name="Modified" xml:space="preserve">
+    <value>Modified</value>
   </data>
-  <data name="ListeAnnonces" xml:space="preserve">
-    <value>Liste des Annonces</value>
+  <data name="Registered" xml:space="preserve">
+    <value>Registered</value>
   </data>
-  <data name="MesAnimaux" xml:space="preserve">
-    <value>Mes Animaux</value>
-  </data>
-  <data name="MesAnnonces" xml:space="preserve">
-    <value>Mes Annonces</value>
-  </data>
-  <data name="Profil" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="PublierAnnonce" xml:space="preserve">
-    <value>Publier une Annonce</value>
-  </data>
-  <data name="RechercheAnnonce" xml:space="preserve">
-    <value>Rechercher une Annonce</value>
-  </data>
-  <data name="RechercheUtilisateur" xml:space="preserve">
-    <value>Rechercher un Utilisateur</value>
-  </data>
-  <data name="SeConnecter" xml:space="preserve">
-    <value>Se Connecter</value>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

@@ -14,9 +14,10 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NomUtilisateur"class="control-label">@localizer["NomUtilisateur"]</label>
+                <label asp-for="NomUtilisateur" class="control-label">@localizer["NomUtilisateur"]</label>
                 <input asp-for="NomUtilisateur" class="form-control" />
-                <span asp-validation-for= "NomUtilisateur" class="text-danger"></span>
+                <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+                <p class="alert-danger">@ViewBag.Message</p>
             </div>
             <div class="form-group">
                 <label asp-for="Nom" class="control-label">@localizer["Nom"]</label>

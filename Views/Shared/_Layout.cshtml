@@ -82,7 +82,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="RechercheUtilisateur">@localizer["RechercheUtilisateur"]</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">@localizer["ListeAdmin"]</a>
+                            </li>
+                            
                             <li class="nav-item">
                                 <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
                                     <button type="submit" class="btn btn-primary text-white">
@@ -91,7 +94,7 @@
                                 </form>
                             </li>
                             <li class="nav-item">
-                              <p></p>  
+                                <p></p>
                             </li>
                             <li class="nav-item">
                                 <partial name="_Culture" />

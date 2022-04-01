@@ -117,46 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accueil" xml:space="preserve">
-    <value>Accueil</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrateur</value>
   </data>
-  <data name="AddAnimal" xml:space="preserve">
-    <value>Ajouter un Animal</value>
+  <data name="AdminRegistered" xml:space="preserve">
+    <value>L'administrateur est bien enregistré!</value>
   </data>
-  <data name="AjouterAdmin" xml:space="preserve">
-    <value>Ajouter un Admin</value>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>Cet Administrateur est déja enregistré!</value>
   </data>
-  <data name="ContactFavorit" xml:space="preserve">
-    <value>Mes Contact Favoris</value>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
   </data>
-  <data name="Deconnexion" xml:space="preserve">
-    <value>Se déconnecter</value>
+  <data name="Error1" xml:space="preserve">
+    <value>Erreur1</value>
   </data>
-  <data name="ListeAdmin" xml:space="preserve">
-    <value>Liste Administrateurs</value>
+  <data name="LoginError" xml:space="preserve">
+    <value>Pas bon</value>
   </data>
-  <data name="ListeAnnonces" xml:space="preserve">
-    <value>Liste des Annonces</value>
+  <data name="LoginError1" xml:space="preserve">
+    <value>Pas Bon</value>
   </data>
-  <data name="MesAnimaux" xml:space="preserve">
-    <value>Mes Animaux</value>
+  <data name="Modified" xml:space="preserve">
+    <value>Modifié</value>
   </data>
-  <data name="MesAnnonces" xml:space="preserve">
-    <value>Mes Annonces</value>
+  <data name="Registered" xml:space="preserve">
+    <value>Enregistré</value>
   </data>
-  <data name="Profil" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="PublierAnnonce" xml:space="preserve">
-    <value>Publier une Annonce</value>
-  </data>
-  <data name="RechercheAnnonce" xml:space="preserve">
-    <value>Rechercher une Annonce</value>
-  </data>
-  <data name="RechercheUtilisateur" xml:space="preserve">
-    <value>Rechercher un Utilisateur</value>
-  </data>
-  <data name="SeConnecter" xml:space="preserve">
-    <value>Se Connecter</value>
+  <data name="User" xml:space="preserve">
+    <value>Utilisateur</value>
   </data>
 </root>

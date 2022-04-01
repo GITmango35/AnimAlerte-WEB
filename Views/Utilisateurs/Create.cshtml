@@ -40,14 +40,14 @@
                                 <h2 class="text-uppercase text-center mb-5">@localizer["Register"]</h2>
 
                                 <form asp-action="Create">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                                     <div class="form-outline mb-4">
                                         <label asp-for="NomUtilisateur" class="form-label">@localizer["UserName"]</label>
                                         <input asp-for="NomUtilisateur" class="form-control form-control-lg" />
                                         <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
                                         <p class="alert-danger">@ViewBag.Message</p>
                                     </div>
-                                    <p class="alert-danger">@ViewBag.Message</p>
+
                                     <div class="form-outline mb-4">
                                         <label asp-for="Nom" class="form-label">@localizer["LastName"]</label>
                                         <input asp-for="Nom" class="form-control form-control-lg" />
