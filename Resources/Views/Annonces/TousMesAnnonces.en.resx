@@ -121,108 +121,84 @@
     <value>Action</value>
   </data>
   <data name="Afficher" xml:space="preserve">
-    <value>Afficher</value>
+    <value>Add</value>
   </data>
   <data name="AnimalRequis" xml:space="preserve">
-    <value>Ajouter un animal, s'il vous plait!</value>
+    <value>Please add an  animal!</value>
   </data>
   <data name="AnimauxPerdu" xml:space="preserve">
-    <value>Animaux Perdus</value>
+    <value>Lost Animals</value>
   </data>
   <data name="AnimauxTrouve" xml:space="preserve">
-    <value>Animaux Trouvés</value>
+    <value>Found Animals</value>
   </data>
   <data name="Contactez" xml:space="preserve">
-    <value>Contactez</value>
+    <value>Contact</value>
   </data>
   <data name="Courriel" xml:space="preserve">
-    <value>Courriel</value>
+    <value>Email</value>
+  </data>
+  <data name="CreateAnnonce" xml:space="preserve">
+    <value>Create Annonce</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
-    <value>Publie le</value>
-  </data>
-  <data name="Desactiver" xml:space="preserve">
-    <value>Désactiver</value>
-  </data>
-  <data name="DesactiverAnnonceConfirme" xml:space="preserve">
-    <value>Vous voulez vraiment désactiver cette annonce?</value>
-  </data>
-  <data name="DesactiverAnnonceTitle" xml:space="preserve">
-    <value>Désactiver une Annonce</value>
-  </data>
-  <data name="DesactiverMonAnnonce" xml:space="preserve">
-    <value>Supprimer mon annonce</value>
-  </data>
-  <data name="DesactiverMonAnnonceConfirme" xml:space="preserve">
-    <value>Vous voulez vraiment supprimer cette annonce?</value>
+    <value>Date Published</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="DescriptionRequis" xml:space="preserve">
-    <value>Champ description obligatoire!</value>
-  </data>
-  <data name="DetailsAnnonce" xml:space="preserve">
-    <value>Détails de</value>
+    <value>Description field is required!</value>
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
-    <value>Enregistrer</value>
+    <value>Save</value>
   </data>
-  <data name="ListAnnonces" xml:space="preserve">
-    <value>Liste des annonces</value>
+  <data name="Mes Annonces" xml:space="preserve">
+    <value>My Ads</value>
+  </data>
+  <data name="MesAnnonces" xml:space="preserve">
+    <value>My Ads</value>
+  </data>
+  <data name="Modifier" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="ModifierTitle" xml:space="preserve">
-    <value>Modifier une Annonce</value>
+    <value>Modify an Ad</value>
   </data>
   <data name="Nom" xml:space="preserve">
-    <value>Nom</value>
+    <value>Name</value>
   </data>
   <data name="NomAnimal" xml:space="preserve">
-    <value>Nom d'animal</value>
+    <value>Pet's Name</value>
   </data>
   <data name="NumAnnonce" xml:space="preserve">
-    <value>#  Annonce</value>
-  </data>
-  <data name="Photo" xml:space="preserve">
-    <value>Photo</value>
+    <value>Ad #</value>
   </data>
   <data name="Proprietaire" xml:space="preserve">
-    <value>Propriétaire</value>
-  </data>
-  <data name="RechercherBtn" xml:space="preserve">
-    <value>Rechercher</value>
-  </data>
-  <data name="RechercherLieu" xml:space="preserve">
-    <value>Rechercher par lieu</value>
-  </data>
-  <data name="RechercherParNumAnnonce" xml:space="preserve">
-    <value>Rechercher par numero d'annonce</value>
+    <value>Pet Owner</value>
   </data>
   <data name="RetourListe" xml:space="preserve">
-    <value>Retour à la liste</value>
+    <value>Back to List</value>
   </data>
   <data name="Supprimer" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>Delete</value>
   </data>
   <data name="TitreAnnonce" xml:space="preserve">
-    <value>Titre</value>
+    <value>Title</value>
   </data>
   <data name="TitreAnnonceRequis" xml:space="preserve">
-    <value>Champ titre d'annonce obligatoire!</value>
+    <value>Title field  is required!</value>
   </data>
   <data name="TrierDate" xml:space="preserve">
-    <value>Trier par Date</value>
+    <value>Sort by Date</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
-    <value>Type d'annonce</value>
+  <data name="TypeAnnonce" xml:space="preserve">
+    <value>Ad Type</value>
   </data>
   <data name="Ville" xml:space="preserve">
-    <value>Ville</value>
+    <value>City</value>
   </data>
   <data name="VilleRequis" xml:space="preserve">
-    <value>Champ ville obligatoire!</value>
-  </data>
-  <data name="VoirDetails" xml:space="preserve">
-    <value>Voir le détails</value>
+    <value>City field is required!</value>
   </data>
 </root>

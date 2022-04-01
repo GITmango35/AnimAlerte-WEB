@@ -120,7 +120,7 @@
   <data name="Accueil" xml:space="preserve">
     <value>Accueil</value>
   </data>
-  <data name="AddAnimal" xml:space="preserve">
+  <data name="AjoutAnimal" xml:space="preserve">
     <value>Ajouter un Animal</value>
   </data>
   <data name="AjouterAdmin" xml:space="preserve">

@@ -35,9 +35,7 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts
         public IActionResult Index()
         {
-            //on recupere la liste des contacts favoris de l'utilisateur connecté
             var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
-            //on recuepere la liste de tous les users
             var listeUsers = _context.Utilisateurs.ToList();
 
             List<DetailsContact> detailsContactsFavoris = new List<DetailsContact>();
@@ -62,13 +60,9 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts Resultats Recherche
         public IActionResult Search(string utilisateursSearch)
         {
-            if (utilisateursSearch == "")
-            {
-                var message = _localizer["SearchResults"];
-                ViewBag.Message = message;
-            }
+            ViewBag.Message = "";
+            TempData["AlertMessage"] = "";
             List<Utilisateur> liste = new List<Utilisateur>();
-
             var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.NomUtilisateur != UtilisateursController.usersession && u.UtilisateurActive == 1).ToList();
             var listeTrouveUtilisateur = _context.Utilisateurs
                 .Where(a => a.NomUtilisateur.Contains(utilisateursSearch) || 
@@ -81,34 +75,20 @@ namespace AnimAlerte.Controllers
             }
             else
             {
-
                 foreach (var utilisateur in listeTrouveUtilisateur)
                 {
-                    TempData["AlertMessage"] = "";
+
                     if (utilisateur.UtilisateurActive == 1 && utilisateur.NomUtilisateur != UtilisateursController.usersession)
                     {
                         liste.Add(utilisateur);
-                        //var message = _localizer["SearchResults"];
-                        //ViewBag.Message = message;
-                        //TempData["AlertMessage"] = "Contacts found";
                         TempData["AlertMessage"] = _localizer["SearchResults"];
-
+                        //ViewBag.Message = _localizer["SearchResults"];
                     }
-                    else
-                    {
-                        
-                        //var message = _localizer["NoResults"];
-                        //ViewBag.Message = message;
-                        TempData["AlertMessage"] = "Not found!!!";
-                    }
-                }
-                if (liste == null)
+                } 
+                if (liste.Count == 0)
                 {
-                    //var message = _localizer["NoResults"];
-                    //ViewBag.Message = message;
-                    TempData["AlertMessage"] = "Not found!!!";
+                    ViewBag.Message = _localizer["NoResults"];
                 }
-                
                 return View(liste);
             }                    
         }
@@ -116,27 +96,11 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts/Details/5
         public IActionResult Details(string id)
         {
-            
             if (id == null)
             {
                 return NotFound();
             }
-
             var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
-            //var autreDetails = _context.Utilisateurs.Where(d => d.Courriel== );
-
-            //var detailsContact = _context.DetailsContacts
-            //    .Include(d => d.NomUtilisateurCreateurNavigation)
-            //    .Include(d => d.NomUtilisateurFavorisNavigation)
-            //    .SingleOrDefault(m => m.NomUtilisateurCreateur == id);
-           /* var detailsContact = _context.DetailsContacts.SingleOrDefault(c => c.NomUtilisateurFavoris == id);
-            
-            // ??? remove this?
-            /*if (detailsContact == null)
-            {
-                return NotFound();
-            }
-            */
             return View(detailsContact);
         }
 

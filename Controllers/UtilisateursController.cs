@@ -77,7 +77,6 @@ namespace AnimAlerte.Controllers
                     await _context.SaveChangesAsync();
                     var message = _localizer["Registered"];
                     ViewBag.Message = message;
-                    //ViewBag.Message = "Vous êtes bien enregistré";
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
@@ -128,26 +127,12 @@ namespace AnimAlerte.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(utilisateur);
-                    _context.SaveChanges();
-                    //var message = _localizer["Modified"];
-                    //var message = "Modified";
-                    //ViewBag.Message = message;
-                    TempData["AlertMessage"] = "Modified";
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UtilisateurExists(utilisateur.NomUtilisateur))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["AlertMessageProfil"] = "";
+                utilisateur.UtilisateurActive = 1;
+                utilisateur.IsAdmin = 0;
+                _context.Update(utilisateur);
+                _context.SaveChanges();
+                TempData["AlertMessageProfil"] = "Modified";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
@@ -219,7 +204,7 @@ namespace AnimAlerte.Controllers
                     {
                         admin = 0;
 
-                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("AllAnnoncesUser", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
@@ -231,15 +216,12 @@ namespace AnimAlerte.Controllers
 
                 else
                 {
-                    // ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
                     ViewBag.Message = _localizer["LoginError"];
-                    //  ViewData["LoginError"] = test;
                     return RedirectToAction("Login", new { msg = ViewBag.Message });
                 }
             }
             catch (Exception)
             {
-
                 return RedirectToAction("Index", "Utilisateurs");
             }
 
@@ -276,8 +258,6 @@ namespace AnimAlerte.Controllers
                     ViewBag.userA = "";
                     if (utilisateur.IsAdmin == 1)
                     {
-                        
-                        //ViewBag.userA = "Administrateur";
                         ViewBag.userA = _localizer["Admin"];
                     }
                     else
@@ -290,7 +270,7 @@ namespace AnimAlerte.Controllers
             }
         }
 
-        //la désactivation d'un utilisateur par un admin
+        // La désactivation d'un utilisateur par un admin
         public ActionResult DesactiverUtilisateur(string nomuser)
         {
             var utilisateur = _context.Utilisateurs.SingleOrDefault(u=>u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);

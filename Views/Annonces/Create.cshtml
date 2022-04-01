@@ -10,7 +10,7 @@
 @if (TempData["AlertMessage"] != null)
 {
     <div class="alert alert-success">
-        <strong>Succès ! </strong> @TempData["AlertMessage"]
+        @TempData["AlertMessage"]
     </div>
 }
 
@@ -53,14 +53,17 @@
                         asp-items="@(new SelectList(ViewBag.animaux_User, "IdAnimal", "NomAnimal"))">
                 </select>
                 <span asp-validation-for="IdAnimal" class="text-danger"></span><br />
-
-                <a asp-controller="Animals" asp-action="AjoutAnimal">
-                    <input type="button" class="btn btn-success rounded" value=@localizer["AjoutAnimal"] />
-                </a>
+              <div>
+                    <p>@localizer["MsgAjoutAnimal"]</p>
+                        <a asp-controller="Animals" asp-action="AjoutAnimal">
+                             <input type="button" class="btn btn-success rounded" value="@localizer["AjoutAnimal"]" />
+                         </a>
+               </div>
+  
 
             </div>
             <div class="form-group">
-                <input type="submit" value=@localizer["Afficher"] class="btn btn-primary" />
+                <input type="submit" value="@localizer["Afficher"]" class="btn btn-primary" />
             </div>
         </form>
     </div>

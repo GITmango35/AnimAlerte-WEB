@@ -18,27 +18,28 @@ namespace AnimAlerte.Models
 
         [StringLength(50)]
         [Display(Name="Nom d'utilisateur")]
-        [Required(ErrorMessage = "Entrez un nom d'utilisateur")]
+        [Required(ErrorMessage = "Entrez un nom d'utilisateur / Enter a username")]
         public string NomUtilisateur { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "Entrez votre nom")]
+        
+        [Required(ErrorMessage = "Entrez votre nom / Enter a name")]
         public string Nom { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "Entrez votre prénom")]
+        [Required(ErrorMessage = "Entrez votre prénom / Enter a first name")]
         [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         [StringLength(25)]
-        [Required(ErrorMessage = "Entrez un courriel valide")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Courriel non valide")]
+        [Required(ErrorMessage = "Entrez un courriel valide / Enter a valid email")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Courriel non valide / Invalid email")]
         public string Courriel { get; set; }
         [StringLength(25)]
         [Display(Name = "Mot de passe")]
-        [Required(ErrorMessage = "Entrez un mot de passe")]
+        [Required(ErrorMessage = "Entrez un mot de passe / Enter a password")]
         public string MotDePasse { get; set; }
         [StringLength(10)]
         [Display(Name = "Téléphone")]
-        [Required(ErrorMessage = "Entrez votre téléphone")]
-        [RegularExpression(@"[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$", ErrorMessage = "Format de téléphone non valide")]
+        [Required(ErrorMessage = "Entrez votre téléphone / Enter a phone number")]
+        [RegularExpression(@"[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$", ErrorMessage = "Format de téléphone non valide / Invalid telephone format")]
         public string NumTel { get; set; }
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }

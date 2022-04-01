@@ -138,6 +138,9 @@
   <data name="Courriel" xml:space="preserve">
     <value>Courriel</value>
   </data>
+  <data name="CreateAnnonce" xml:space="preserve">
+    <value>Créer une annonce</value>
+  </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Publie le</value>
   </data>
@@ -168,8 +171,11 @@
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
-  <data name="ListAnnonces" xml:space="preserve">
-    <value>Liste des annonces</value>
+  <data name="MesAnnonces" xml:space="preserve">
+    <value>Mes Annonces</value>
+  </data>
+  <data name="Modifier" xml:space="preserve">
+    <value>Modifier</value>
   </data>
   <data name="ModifierTitle" xml:space="preserve">
     <value>Modifier une Annonce</value>
