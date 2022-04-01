@@ -92,7 +92,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
-                <td>  <a asp-action="Details" asp-route-id="@item.IdAnnonce">@localizer["VoirDetails"]</a> </td>
+                <td> 
+                <a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce">@localizer["VoirDetails"]</a> 
+                </td>
 
 
             </tr>

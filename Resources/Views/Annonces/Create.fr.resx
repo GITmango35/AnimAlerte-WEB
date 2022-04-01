@@ -153,6 +153,9 @@
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
+  <data name="MsgAjoutAnimal" xml:space="preserve">
+    <value>Vous n'avez pas encore d'animal?</value>
+  </data>
   <data name="Nom" xml:space="preserve">
     <value>Nom</value>
   </data>
@@ -163,7 +166,7 @@
     <value>#  Annonce</value>
   </data>
   <data name="Perdu" xml:space="preserve">
-    <value>Lost</value>
+    <value>Perdu</value>
   </data>
   <data name="Proprietaire" xml:space="preserve">
     <value>Propriétaire</value>
@@ -181,7 +184,7 @@
     <value>Champ titre d'annonce obligatoire!</value>
   </data>
   <data name="Trouve" xml:space="preserve">
-    <value>Found</value>
+    <value>Trouvé</value>
   </data>
   <data name="TypeAnnonce" xml:space="preserve">
     <value>Type d'annonce</value>

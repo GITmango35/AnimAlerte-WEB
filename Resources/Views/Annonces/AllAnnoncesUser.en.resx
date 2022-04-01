@@ -150,6 +150,9 @@
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ListAnnonces" xml:space="preserve">
+    <value>List of ads</value>
+  </data>
   <data name="ModifierTitle" xml:space="preserve">
     <value>Modify an Ad</value>
   </data>

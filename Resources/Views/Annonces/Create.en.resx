@@ -159,6 +159,9 @@
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="MsgAjoutAnimal" xml:space="preserve">
+    <value>Don't have an animal?</value>
+  </data>
   <data name="Nom" xml:space="preserve">
     <value>Name</value>
   </data>
