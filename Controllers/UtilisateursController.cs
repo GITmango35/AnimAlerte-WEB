@@ -242,7 +242,14 @@ namespace AnimAlerte.Controllers
         //------un administrateur peut rechercher un utilisateur afin de le désactiver 
         public ActionResult RechercheUtilisateur()
         {
-            
+            var listeUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
+            if (listeUtilisateurs != null)
+            {
+                return View(listeUtilisateurs);
+            }
+
+
+
             return View();
         }
 
