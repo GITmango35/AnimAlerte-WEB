@@ -6,9 +6,21 @@
 }
 
 <h1>@localizer["MyAnimals"]</h1>
+<hr />
+
 <p>
-    <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a>
+    <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a> |
+    <a asp-action="Create" asp-controller="Annonces">@localizer["PublishAd"]</a>
 </p>
+<br />
+
+@if (TempData["AlertMessageAnimal"] != null)
+{
+    <div class=" alert alert-success">
+        <strong>Success ! </strong> @TempData["AlertMessageAnimal"]
+    </div>
+}
+
 
 @foreach (var item in Model)
 {
@@ -23,7 +35,7 @@
                         <img class="card-img-top img-fluid" src="~/uploads/@i.PathImage" asp-append-version="true" alt="@item.NomAnimal" />
                         <div class="card-body">
                             <h5 class="card-title">@i.TitreImage</h5>
-                            <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">@localizer["SeeDetails"]</a>
+                            <a asp-controller="Animals" asp-action="Details" asp-route-idAnimal="@i.IdAnimal" class="btn btn-primary">@localizer["SeeDetails"]</a>
                         </div>
                     }
                     else
@@ -31,7 +43,7 @@
                         <img class="card-img-top img-fluid" src="~/uploads/Noimg.jpg" alt="@item.NomAnimal" />
                         <div class="card-body">
                             <h5 class="card-title">@i.TitreImage</h5>
-                            <a asp-controller="Animals" asp-action="Details" asp-route-id="@i.IdAnimal" class="btn btn-primary">Voir Détails</a>
+                            <a asp-controller="Animals" asp-action="Details" asp-route-idAnimal="@i.IdAnimal" class="btn btn-primary">@localizer["SeeDetails"]</a>
                         </div>
                     }
                 </div>

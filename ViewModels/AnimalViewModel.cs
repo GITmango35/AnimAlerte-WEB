@@ -13,23 +13,24 @@ namespace AnimAlerte.ViewModels
         
         public int IdAnimal { get; set; }
 
-        [Display(Name = "Nom Animal ")]
-        [Required(ErrorMessage = "Entrer le nom de votre animal")]
+        [Display(Name = "Pet's Name")]
+        [Required(ErrorMessage = "Enter the name of your pet !")]
         public string NomAnimal { get; set; }
 
         [Display(Name = "Description")]
+        [Required(ErrorMessage = "Enter the description of your pet !")]
         public string DescriptionAnimal { get; set; }
 
-        [Display(Name = "Date d'inscription")]
+        [Display(Name = "Registration Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateInscription { get; set; }
 
         public byte? AnimalActif { get; set; }
 
-        [Display(Name = "Espéce")]
+        [Display(Name = "Specie")]
         public string Espece { get; set; }
 
-        [Display(Name = "Proprietaire")]
+        [Display(Name = "Pet Owner")]
         public string Proprietaire { get; set; }
 
       

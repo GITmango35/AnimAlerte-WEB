@@ -142,7 +142,7 @@
     <value>Mot de passe</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>S'enregistrer !</value>
+    <value>S'enregistrer!</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Nom d'utilisateur</value>

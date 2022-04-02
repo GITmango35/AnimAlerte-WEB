@@ -6,6 +6,14 @@
 }
 
 <h1>@localizer["DetailsOf"]  @Html.DisplayFor(model => model.NomAnimal)</h1>
+<hr />
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class=" alert alert-success">
+        <strong>Succes ! </strong> @TempData["AlertMessage"]
+    </div>
+}
 
 <div class="container mt-5">
     <div class="card">
@@ -30,7 +38,7 @@
                         @Html.DisplayFor(model => model.DescriptionAnimal)
                     </dd>
                     <dt class="col-sm-4">
-                        @localizer["registrationDate"]
+                        @localizer["RegistrationDate"]
                     </dt>
                     <dd class="col-sm-8">
                         @Html.DisplayFor(model => model.DateInscription)
@@ -49,8 +57,18 @@
 
 
 <div>
-    <a asp-action="Create" asp-controller="Annonces" asp-route-id="@Model.IdAnimal">@localizer["PublishAd"]</a> |
+    <a asp-action="Create" asp-controller="Annonces">@localizer["PublishAd"]</a> |
     <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">@localizer["Modify"]</a> |
     <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@Model.IdAnimal">@localizer["Delete"]</a> |
     <a asp-action="MesAnimaux">@localizer["BackToList"]</a>
 </div>
+
+
+@section DTListAnimals{
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

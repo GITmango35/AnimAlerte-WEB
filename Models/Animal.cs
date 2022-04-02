@@ -18,11 +18,11 @@ namespace AnimAlerte.Models
         public int IdAnimal { get; set; }
 
         [Display(Name = "Nom Animal ")]
-        [Required(ErrorMessage = "Entrez le nom de votre animal")]
+        [Required(ErrorMessage = "Enter the name of your animal !")]
         public string NomAnimal { get; set; }
 
         [Display(Name = "Description")]
-        [Required(ErrorMessage = "Entrez le description de votre animal")]
+        [Required(ErrorMessage = "Enter the description of your pet !")]
         public string DescriptionAnimal { get; set; }
 
         [Display(Name = "Date d'inscription")]

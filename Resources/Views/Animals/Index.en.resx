@@ -120,8 +120,17 @@
   <data name="AddAnimal" xml:space="preserve">
     <value>Add an animal</value>
   </data>
+  <data name="AlertMessage1" xml:space="preserve">
+    <value>Your animal </value>
+  </data>
+  <data name="AlertMessage2" xml:space="preserve">
+    <value> is registered successfuly !</value>
+  </data>
   <data name="MyAnimals" xml:space="preserve">
     <value>My Animals</value>
+  </data>
+  <data name="PublishAd" xml:space="preserve">
+    <value>Post an ad</value>
   </data>
   <data name="SeeDetails" xml:space="preserve">
     <value>See more details</value>
