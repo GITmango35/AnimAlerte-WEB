@@ -136,15 +136,15 @@
     <value>No good</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
-    <value>You don't have a account?</value>
+    <value>Don't have an account?</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Register now !</value>
+    <value>Register now!</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>UserName</value>
+    <value>Username</value>
   </data>
 </root>

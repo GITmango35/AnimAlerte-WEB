@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnimalNameRequired" xml:space="preserve">
-    <value>Please enter the name of your pet</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrateur</value>
+  </data>
+  <data name="AdminRegistered" xml:space="preserve">
+    <value>L'administrateur est bien enregistré!</value>
+  </data>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>Cet Administrateur est déja enregistré!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Error1" xml:space="preserve">
+    <value>Erreur1</value>
+  </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Pas bon</value>
+  </data>
+  <data name="LoginError1" xml:space="preserve">
+    <value>Pas Bon</value>
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value>Modifié</value>
+  </data>
+  <data name="Registered" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Utilisateur</value>
   </data>
 </root>

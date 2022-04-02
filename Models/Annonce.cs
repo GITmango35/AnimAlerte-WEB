@@ -8,28 +8,29 @@ namespace AnimAlerte.Models
 {
     public partial class Annonce
     {
-        [Display(Name = "No. d'annonce")]
+        [Display(Name = "Ad No.")]
         public int IdAnnonce { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        [Display(Name = "Publié le")]
+        [Display(Name = "Publish Date")]
         public DateTime? DateCreation { get; set; }
 
-        [Required(ErrorMessage = "Champ titre d'annonce obligatoire!")]
-        [Display(Name = "Titre d'annonce")]
+        [Required(ErrorMessage = "Title field is required !")]
+        [Display(Name = "Ad Title")]
         public string Titre { get; set; }
 
-        [Required(ErrorMessage = "Champ description obligatoire!")]
+        [Required(ErrorMessage = "Description field is required !")]
         [Display(Name = "Description")]
         public string DescriptionAnnonce { get; set; }
 
-        [Required(ErrorMessage = "Champ ville obligatoire!")]
-        [Display(Name = "Ville")]
+        [Required(ErrorMessage = "City field is required !")]
+        [Display(Name = "City")]
         public string Ville { get; set; }
 
         public byte? AnnonceActive { get; set; }
 
-        [Display(Name = "Type d'annonce")]
+        [Display(Name = "Ad type")]
+        [Required(ErrorMessage = "Please choose the ad type !")]
         public string TypeAnnonce { get; set; }
         
         [Required(ErrorMessage = "SVP, Veuillez ajouter un nouvel animal!")]

@@ -132,6 +132,9 @@
   <data name="Deconnexion" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="ListeAdmin" xml:space="preserve">
+    <value>List Admin</value>
+  </data>
   <data name="ListeAnnonces" xml:space="preserve">
     <value>List of Ads</value>
   </data>

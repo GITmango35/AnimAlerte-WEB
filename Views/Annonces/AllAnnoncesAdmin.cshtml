@@ -9,6 +9,21 @@
 <h1>@localizer["ListAnnonces"]</h1>
 
 
+@if (TempData["MessageAdminEnregistre"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Alert! </strong> @TempData["MessageAdminEnregistre"]
+    </div>
+}
+
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Alert! </strong> @TempData["AlertMessage"]
+    </div>
+}
+
 
 <hr />
 <table class="table">

@@ -27,22 +27,26 @@ namespace AnimAlerte
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {   
+        {
             // Ajouter pour la langues FR et En
             services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+            services.AddControllersWithViews().AddDataAnnotationsLocalization();
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
             services.Configure<RequestLocalizationOptions>(
                 opt =>
                 {
                     var supportedCultures = new List<CultureInfo>
-                { new CultureInfo("en"),
-                    new CultureInfo("fr") };
+                    { 
+                        new CultureInfo("en"),
+                        new CultureInfo("fr") 
+                    };
                     opt.DefaultRequestCulture = new RequestCulture("en");
                     opt.SupportedCultures = supportedCultures;
                     opt.SupportedUICultures = supportedCultures;
 
                 });
-            services.AddControllersWithViews();
+
             services.AddDbContext<AnimAlerteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbAnimalerte")));
             services.AddSession();
             services.AddMemoryCache();
@@ -60,18 +64,16 @@ namespace AnimAlerte
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
 
-            /* var supportedCultres = new[] { "en", "fr" };
-             var localisationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultres[0])
-                 .AddSupportedCultures(supportedCultres)
-                 .AddSupportedUICultures(supportedCultres);*/
-            // app.UseRequestLocalization(localisationOptions);
-
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+            
             app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {

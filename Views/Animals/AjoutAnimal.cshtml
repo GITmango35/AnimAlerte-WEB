@@ -18,15 +18,15 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Ajouter un animal</h1>
+    <h1>@localizer["AddAnimal"]</h1>
     <hr />
 
     <div class="row">
         <div class="col-md-4">
             <form method="post" asp-controller="Animals" asp-action="AjoutAnimal" enctype="multipart/form-data">
-                <div asp-validation-summary="All" class="text-danger"></div>
+                @*<div asp-validation-summary="All" class="text-danger"></div>*@
                 <div class="form-group">
-                    <label asp-for="NomAnimal" class="control-label">@localizer["AddAnimal"]</label>
+                    <label asp-for="NomAnimal" class="control-label"></label>
                     <input asp-for="NomAnimal" class="form-control" />
                     <span asp-validation-for="NomAnimal" class="text-danger"></span>
                 </div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="card m-2" style="width: 18rem;">
                         <div class="d-md-table-row">
-                            <div id="photoPreview" class="card-img-top"></div>
+                            <div id="photoPreview"></div>
                         </div>
                     </div>
                     <p id="uploadMessage"></p>
@@ -99,7 +99,7 @@
                         reader.readAsDataURL($(this)[0].files[0]);
                     } else {
                         alert("This browser does not support FileReader.");
-                                            }
+                    }
                 } else {
                     alert("Please upload a valid image file.");
                 }
@@ -111,15 +111,3 @@
 </body>
 </html>
 
-
-@*@section CreateSectionJS{
-        <script type="text/javascript">
-            //pour une seule photo
-            $(document).ready(function () {
-                $("#customFile").on("change", function () {
-                    var inputPhoto = $(this).val().split("\\").pop();
-                    $(this).next(".custom-file-label").html(inputPhoto);
-                });
-            })
-        </script>
-    }*@

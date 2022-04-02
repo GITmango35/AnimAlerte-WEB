@@ -144,6 +144,9 @@
   <data name="LostFoundAnimals" xml:space="preserve">
     <value>Lost and Found Animals</value>
   </data>
+  <data name="NoSearchResult" xml:space="preserve">
+    <value>We're sorry! We were not able to find a match.</value>
+  </data>
   <data name="PublishDate" xml:space="preserve">
     <value>Date Published</value>
   </data>

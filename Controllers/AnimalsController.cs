@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using Microsoft.AspNetCore.Hosting;
 using AnimAlerte.ViewModels;
-using AnimAlerte.Controllers;
 using System.IO;
+using Microsoft.Extensions.Localization;
 
 namespace AnimAlerte.Controllers
 {
     public class AnimalsController : Controller
     {
+        private readonly IStringLocalizer<AnimalsController> _stringLocalizer;
         private readonly AnimAlerteContext _context;
         private readonly IWebHostEnvironment hosting;
 
 
-        public AnimalsController(AnimAlerteContext context, IWebHostEnvironment hosting)
+        public AnimalsController(AnimAlerteContext context, IWebHostEnvironment hosting, IStringLocalizer<AnimalsController> stringLocalizer)
         {
+            _stringLocalizer = stringLocalizer;
             _context = context;
             this.hosting = hosting;
         }
@@ -46,19 +46,19 @@ namespace AnimAlerte.Controllers
 
         // Affiché de l'info d'un animal selectionné
         // GET: Animals2/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? idAnimal)
         {
-            if (id == null)
+            if (idAnimal == null)
             {
                 return NotFound();
             }
 
             var animal = await _context.Animals
                 .Include(a => a.ProprietaireNavigation)
-               .FirstOrDefaultAsync(m => m.IdAnimal == id);
+               .FirstOrDefaultAsync(m => m.IdAnimal == idAnimal);
             var image = await _context.Images
                 .Include(a => a.IdAnimalNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnimal == id);
+                .FirstOrDefaultAsync(m => m.IdAnimal == idAnimal);
 
             var model = new AnimalModifViewModel()
             {
@@ -129,9 +129,9 @@ namespace AnimAlerte.Controllers
                     _context.Images.Add(image);
                     await _context.SaveChangesAsync();
 
-                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien enregistré !";
+                    TempData["AlertMessageAnimal"] = _stringLocalizer["Your animal is added successfully !"].Value;
 
-                    return RedirectToAction(nameof(MesAnimaux), new { msg = ViewBag.Message });
+                    return RedirectToAction(nameof(Index), new { msg = ViewBag.Message });
                 }
             }
             catch (DbUpdateException)
@@ -167,7 +167,7 @@ namespace AnimAlerte.Controllers
                 PhotoPath = imageToUpdate.PathImage
             };
 
-            if (model == null)
+            if (animalToUpdate == null)
             {
                 return NotFound();
             }
@@ -185,7 +185,8 @@ namespace AnimAlerte.Controllers
             {
                 try
                 {
-                    var animalToUpdate = await _context.Animals.FindAsync(model.IdAnimal);
+                    Animal animalToUpdate = await _context.Animals.SingleOrDefaultAsync(ani => ani.IdAnimal == model.IdAnimal);
+                    animalToUpdate.NomAnimal = model.NomAnimal;
                     animalToUpdate.NomAnimal = model.NomAnimal;
                     animalToUpdate.DescriptionAnimal = model.DescriptionAnimal;
                     animalToUpdate.DateInscription = model.DateInscription;
@@ -193,7 +194,7 @@ namespace AnimAlerte.Controllers
                     animalToUpdate.Espece = model.Espece;
                     animalToUpdate.Proprietaire = model.Proprietaire;
 
-                    var imageToUpdate = await _context.Images.FindAsync(model.IdAnimal);
+                    Image imageToUpdate = await _context.Images.SingleOrDefaultAsync(i => i.IdAnimal == model.IdAnimal);
 
                     if (model.Photo != null)
                     {
@@ -203,20 +204,21 @@ namespace AnimAlerte.Controllers
                             System.IO.File.Delete(filePath);
                         }
 
-                        imageToUpdate.TitreImage = model.NomAnimal;
+                        //imageToUpdate.TitreImage = model.NomAnimal;
                         imageToUpdate.PathImage = ImageUpload(model);
-                        imageToUpdate.IdAnimal = model.IdAnimal;
+                        //imageToUpdate.IdAnimal = model.IdAnimal;
                     }
 
-                    var animalmodif = _context.Animals.Attach(animalToUpdate);
-                    animalmodif.State = EntityState.Modified;
-                    _context.SaveChanges();
+                    _context.Update(animalToUpdate);
+                    //var animalmodif = _context.Animals.Attach(animalToUpdate);
+                    //animalmodif.State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
 
-                    var imageModif = _context.Images.Attach(imageToUpdate);
-                    imageModif.State = EntityState.Modified;
-                    _context.SaveChanges();
-                    TempData["AlertMessage"] = "Votre animal " + model.NomAnimal + " est bien modifié !";
-
+                    //var imageModif = _context.Images.Attach(imageToUpdate);
+                    //imageModif.State = EntityState.Modified;
+                    _context.Update(imageToUpdate);
+                    await _context.SaveChangesAsync();
+                    TempData["AlertMessageAnimal"] = _stringLocalizer["Your animal is modified successfully !"].Value;
                     return RedirectToAction(nameof(MesAnimaux));
                 }
                 catch (DbUpdateException)
@@ -225,13 +227,14 @@ namespace AnimAlerte.Controllers
                         "Réessayez, et si le problème persiste, " +
                         "consultez votre administrateur système.");
                 }
+
             }
             return View(model);
         }
 
         // L'utilisateur désactive son annonce selectionné (Soft delete)
         // GET: Animals/Delete/5
-        public async Task<IActionResult> Delete(int? idAnimal, bool? saveChangesError = false )
+        public async Task<IActionResult> Delete(int? idAnimal, bool? saveChangesError = false)
         {
             if (idAnimal == null)
             {
@@ -280,8 +283,8 @@ namespace AnimAlerte.Controllers
                 animalModif.State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
-                TempData["AlertMessage"] = "Votre animal est bien supprimé !";
-                return RedirectToAction(nameof(MesAnimaux));
+                TempData["AlertMessageAnimal"] = _stringLocalizer["Your animal is deleted successfully !"].Value;
+                return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
             {

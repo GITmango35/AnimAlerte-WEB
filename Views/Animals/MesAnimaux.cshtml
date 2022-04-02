@@ -8,13 +8,13 @@
     <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a>
 </p>
 <hr />
-@if (TempData["AlertMessage"] != null)
+@if (TempData["AlertMessageAnimal"] != null)
 {
     <div class=" alert alert-success">
-        <strong>Succes ! </strong> @TempData["AlertMessage"]
+        <strong>Success ! </strong> @TempData["AlertMessageAnimal"]
     </div>
 }
-<br />
+
 <table class="table" id="myTable">
     <thead class="thead-dark table-hover table-dark">
         <tr>
@@ -24,7 +24,6 @@
             </td>
             <td scope="col">
                 @localizer["Description"]
-                @*@Html.DisplayNameFor(model => model.DescriptionAnimal)*@
             </td>
             <td scope="col">
                 @localizer["RegistrationDate"]
@@ -45,7 +44,7 @@
                     if (i.IdAnimal == item.IdAnimal)
                     {
                         <td scope="col">
-                            <a asp-action="Details" asp-route-id="@item.IdAnimal">
+                            <a asp-action="Details" asp-route-idAnimal="@item.IdAnimal">
                                 @if (i.PathImage != null)
                                 {
                                     <img src="~/uploads/@i.PathImage" style="width:150px;" class="img-thumbnail" />
@@ -70,21 +69,21 @@
                         </td>
                     }
                 }
-            <td>
-                <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Modify"]</a> |
-                <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Delete"]</a>
-            </td>
+                <td>
+                    <a asp-action="ModifierAnimal" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Modify"]</a> |
+                    <a asp-action="Delete" asp-controller="Animals" asp-route-idAnimal="@item.IdAnimal">@localizer["Delete"]</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
-@section DTListAnimals{
+@*@section DTListAnimals{
 
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        });
-    </script>
-}
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>
+    }*@
 

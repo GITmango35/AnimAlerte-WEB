@@ -12,6 +12,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AnimAlerte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/login.css" />
@@ -19,18 +21,21 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">AnimAlerte</a>
-                @*<div class="navbar-nav flex-grow-1 justify-content-end">
-                        <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Create">S'enregistrer</a>
-                        <a class="nav-link active" asp-area="" asp-controller="Utilisateurs" asp-action="Login">Se Connecter</a>
-                    </div>*@
+        <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Utilisateurs" asp-action="Login">
+                    <img src="/images/animalerte-logo3.png" height="50" alt="AnimAlerte">
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
+            <partial name="_Culture" />
         </nav>
     </header>
 
     <section class="h-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+       
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -40,14 +45,13 @@
                                 <h2 class="text-uppercase text-center mb-5">@localizer["Register"]</h2>
 
                                 <form asp-action="Create">
-                                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                                     <div class="form-outline mb-4">
                                         <label asp-for="NomUtilisateur" class="form-label">@localizer["UserName"]</label>
                                         <input asp-for="NomUtilisateur" class="form-control form-control-lg" />
                                         <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
                                         <p class="alert-danger">@ViewBag.Message</p>
                                     </div>
-                                    <p class="alert-danger">@ViewBag.Message</p>
+
                                     <div class="form-outline mb-4">
                                         <label asp-for="Nom" class="form-label">@localizer["LastName"]</label>
                                         <input asp-for="Nom" class="form-control form-control-lg" />
@@ -79,7 +83,7 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-2 text-body">@localizer["RegisterBtn"]</button>
+                                        <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">@localizer["RegisterBtn"]</button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">@localizer["HaveAccount"] <a href="/Utilisateurs/Login" class="fw-bold text-body"><u>@localizer["Login"] </u></a></p>

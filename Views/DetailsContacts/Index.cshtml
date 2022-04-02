@@ -4,6 +4,11 @@
 @{ ViewData["Title"] = "Index"; }
 
 <h1>@localizer["ContactList"]</h1>
+@if (TempData["AlertMessageContact"] != null)
+{
+<div class="alert alert-success">
+    <strong>Success! </strong>@TempData["AlertMessageContact"]
+</div>}
 
 <p>
     <a asp-action="Search">@localizer["AddContact"]</a>
@@ -36,12 +41,13 @@
     </td>
     <td>
         @*@Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris }) |
-        @Html.ActionLink("Supprimer(X)", "Delete", new { idFavoris = item.NomUtilisateurFavoris,item.NomUtilisateurCreateur }) |
-        @Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateurFavoris })*@
+            @Html.ActionLink("Supprimer(X)", "Delete", new { idFavoris = item.NomUtilisateurFavoris,item.NomUtilisateurCreateur }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateurFavoris })*@
 
         <a asp-action="Details" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Details"]</a> |
-        <a asp-action="Delete" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Remove"]</a>
+        <a asp-action="Supprimer" asp-route-NomUtilisateur="@item.NomUtilisateurFavoris" asp-route-NomUtilisateurCreateur="@item.NomUtilisateurCreateur">@localizer["Remove"]</a>
     </td>
-</tr>}
+</tr>
+}
     </tbody>
 </table>

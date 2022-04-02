@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Rajouter</value>
+  </data>
+  <data name="AddContact" xml:space="preserve">
+    <value>Contact Favoris Rajouté!</value>
+  </data>
+  <data name="AddedContact" xml:space="preserve">
+    <value>Contact Rajouté!</value>
+  </data>
   <data name="NoResults" xml:space="preserve">
-    <value>Aucun contact trouvé</value>
+    <value>Aucun contact trouvé!</value>
+  </data>
+  <data name="RemovedContact" xml:space="preserve">
+    <value>Contact Supprimé</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
-    <value>Liste d'utilisateurs trouvés</value>
+    <value>Liste d'utilisateurs trouvés!</value>
   </data>
 </root>

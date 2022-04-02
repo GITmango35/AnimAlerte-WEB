@@ -91,16 +91,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
         </td>*@
-    <td>
+<td>
+       
+    <a asp-route-NomUtilisateur="@item.NomUtilisateur"
+       asp-route-NomUtilisateurCreateur="@item.DetailsContactNomUtilisateurCreateurNavigations" 
+       asp-action="Rajouter">@localizer["Add"]</a> 
+   
 
-        @*<a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">Rajouter(X)</a>*@
-
-
-
-        <a asp-action="Rajouter" asp-route-id="@item.NomUtilisateur">@localizer["AddContact"]</a>
-        @*@Html.ActionLink("Rajouter(X)", "Rajouter", new { NomUtilisateurCreateur = item.DetailsContactNomUtilisateurCreateurNavigations, NomUtilisateurFavoris = item.DetailsContactNomUtilisateurFavorisNavigations })*@
-
-    </td>
+</td>
 </tr>
 }
     </tbody>

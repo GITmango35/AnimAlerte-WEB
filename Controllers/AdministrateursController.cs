@@ -7,17 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace AnimAlerte.Controllers
 {
     public class AdministrateursController : Controller
     {
         private readonly AnimAlerteContext _context;
+        private readonly IHtmlLocalizer<AdministrateursController> _localizer;
 
-        public AdministrateursController(AnimAlerteContext context)
+        public AdministrateursController(AnimAlerteContext context, IHtmlLocalizer<AdministrateursController> localizer)
         {
+        
+
             _context = context;
-            
+            _localizer = localizer;
+
         }
 
         // GET: Administrateurs
@@ -62,28 +67,43 @@ namespace AnimAlerte.Controllers
         public IActionResult Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
 
+            var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
 
+            ViewBag.Message = "";
             Utilisateur obj = new Utilisateur();
             try
             {
-                obj.NomUtilisateur = utilisateur.NomUtilisateur;
-                obj.Nom = utilisateur.Nom;
-                obj.Prenom = utilisateur.Prenom;
-                obj.Courriel = utilisateur.Courriel;
-                obj.MotDePasse = utilisateur.MotDePasse;
-                obj.NumTel = utilisateur.NumTel;
-                obj.UtilisateurActive = 1;
-                obj.IsAdmin = 1;
-                obj.NomAdminDesactivateur = null;
-                _context.Utilisateurs.Add(obj);
-                _context.SaveChanges();
-                Administrateur admin = new Administrateur();
-                admin.NomAdmin = utilisateur.NomUtilisateur;
-                admin.DateCreation = DateTime.Today;
-                _context.Administrateurs.Add(admin);
-                _context.SaveChanges();
-                // return RedirectToAction("AllAnnoncesAdmin", "Annonce");
-                return RedirectToAction("Index", "Administrateurs");
+                if (u == null && ModelState.IsValid)
+                {
+                    obj.NomUtilisateur = utilisateur.NomUtilisateur;
+                    obj.Nom = utilisateur.Nom;
+                    obj.Prenom = utilisateur.Prenom;
+                    obj.Courriel = utilisateur.Courriel;
+                    obj.MotDePasse = utilisateur.MotDePasse;
+                    obj.NumTel = utilisateur.NumTel;
+                    obj.UtilisateurActive = 1;
+                    obj.IsAdmin = 1;
+                    obj.NomAdminDesactivateur = null;
+                    _context.Utilisateurs.Add(obj);
+                    _context.SaveChanges();
+                    Administrateur admin = new Administrateur();
+                    admin.NomAdmin = utilisateur.NomUtilisateur;
+                    admin.DateCreation = DateTime.Today;
+                    _context.Administrateurs.Add(admin);
+                    _context.SaveChanges();
+                    TempData["MessageAdminEnregistre"] = "Administrateur ajouté/The new Admin is added succesfully!";
+                        //_localizer["AdminRegistered"];
+                    var message = _localizer["Registered"];
+                    ViewBag.Message = message;
+                     return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { msg = ViewBag.Message });
+                   
+                }
+                else
+                {
+                    var message = _localizer["AlreadyRegistered"];
+                    ViewBag.Message = message;
+                    return View();
+                }
             }
             catch
             {

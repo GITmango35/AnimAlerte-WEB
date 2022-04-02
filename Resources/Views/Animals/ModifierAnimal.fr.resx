@@ -121,7 +121,7 @@
     <value>Entrez le nom de votre animal !</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Retour à laliste</value>
+    <value>Retour à la liste</value>
   </data>
   <data name="BrowserSupport" xml:space="preserve">
     <value>Ce navigateur ne prend pas en charge FileReader.</value>
