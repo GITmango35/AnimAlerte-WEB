@@ -2,7 +2,7 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model IEnumerable<AnimAlerte.Models.Annonce>
 
-@{ ViewData["Title"] = "Liste Annonces"; }
+@{ ViewData["Title"] = localizer["ListAnnonces"]; }
 
 <h1>@localizer["ListAnnonces"]</h1>
 
@@ -47,18 +47,18 @@
                 {
                     if (i.IdAnimal == item.IdAnimal)
                     {
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.IdAnnonce">
-                                @if (i.PathImage != null)
-                                {
-                                    <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
-                                }
-                                else
-                                {
-                                    <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
-                                }
-                            </a>
-                        </td>
+                <td>
+                    <a asp-action="Details" asp-controller="Annonces" asp-route-idAnimal="@item.IdAnnonce">
+                            @if (i.PathImage != null)
+                            {
+                                <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                            }
+                            else
+                            {
+                                <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+                            }
+                        </a>
+                </td>
                     }
                 }
                 <td>
@@ -93,8 +93,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
-                <td> 
-                <a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce">@localizer["VoirDetails"]</a> 
+                <td>
+                    @*<a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce">@localizer["VoirDetails"]</a>*@
+                    <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce" > @localizer["SeeMoreDetails"]</a>
+
                 </td>
 
 
