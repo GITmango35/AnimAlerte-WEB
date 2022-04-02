@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
 @model IEnumerable<AnimAlerte.Models.Utilisateur>
 <h1>Recherche Utilisateur</h1>
 
@@ -90,3 +91,38 @@
 
     </tbody>
 </table>
+
+@*@{ if (Model.Count() == 0)
+        {
+            <div class=" alert alert-danger">
+                @localizer["AlertMessageUser"]
+            </div>
+        }
+        else if (ViewData["AlertMessageUser"] != null)
+        {
+            <div class=" alert alert-success">
+                @ViewData["AlertMessageUser"]
+            </div>
+        }
+    }*@
+
+@if (TempData["AlertMessageUser"] != null)
+{
+    <div class=" alert alert-danger">
+        @localizer["AlertMessageUser"]
+    </div>
+}
+
+@if (ViewData["AlertMessageUser"] != null)
+{
+    <div class=" alert alert-success">
+        @ViewData["AlertMessageUser"]
+    </div>
+}
+
+@*@if (TempData["AlertMessageUser"] != null)
+{
+    <div class=" alert alert-danger">
+        @localizer["AlertMessageUser"]
+    </div>
+}*@

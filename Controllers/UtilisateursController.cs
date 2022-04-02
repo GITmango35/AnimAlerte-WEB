@@ -247,8 +247,10 @@ namespace AnimAlerte.Controllers
             {
                 return View(listeUtilisateurs);
             }
-
-
+            else
+            {
+                TempData["AlertMessageUser"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
+            }
 
             return View();
         }
@@ -259,27 +261,43 @@ namespace AnimAlerte.Controllers
             var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
             if (nomuser == null)
             {
-                return View(listeToutUtilisateurs);                
+                return View(listeToutUtilisateurs);
             }
-            else 
+            else
             {
-                var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
-                if (utilisateur != null)
+                //var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+                var utilisateur = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
+                foreach (var user in utilisateur)
                 {
-                    ViewBag.userA = "";
-                    if (utilisateur.IsAdmin == 1)
+                    if (user != null)
                     {
-                        ViewBag.userA = _localizer["Admin"];
+                        ViewData["AlertMessageUser"] = _stringlocalizer["We found result(s)."].Value;
+                        ViewBag.userA = "";
+                        if (user.IsAdmin == 1)
+                        {
+                            ViewBag.userA = _localizer["Admin"];
+                        }
+                        else
+                        {
+                            ViewBag.userA = _localizer["User"];
+                        }
+                        return View(utilisateur); //recuperer les infos d'User
                     }
+
                     else
                     {
-                        ViewBag.userA = _localizer["User"];
+                        TempData["AlertMessageUser"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
+                        return RedirectToAction(nameof(RechercheUtilisateur));
                     }
-                    return View(utilisateur); //recuperer les infos d'User
                 }
                 return View();
             }
         }
+
+        //             return View();
+        //        }
+        //    }
+        //}
 
         // La désactivation d'un utilisateur par un admin
         public ActionResult DesactiverUtilisateur(string nomuser)
