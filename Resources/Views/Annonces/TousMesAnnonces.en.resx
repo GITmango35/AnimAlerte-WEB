@@ -139,7 +139,7 @@
     <value>Email</value>
   </data>
   <data name="CreateAnnonce" xml:space="preserve">
-    <value>Create Annonce</value>
+    <value>Add Ad</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date Published</value>

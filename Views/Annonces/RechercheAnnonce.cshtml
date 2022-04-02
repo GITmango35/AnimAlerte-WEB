@@ -31,7 +31,7 @@
             <th>
                 @localizer["DateCreation"]
             </th>
-            <th>Action</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -61,12 +61,12 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DateCreation, "{yyyy-MM-dd}")
-                      
+
                     </td>
                     <td>
                         <a asp-action="DesactiverAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Desactiver"]</a> |
                         <a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Detail"]</a>
-                       
+
 
                     </td>
                 </tr>
@@ -80,3 +80,17 @@
             @TempData["AlertMessage"]
         </div>
     }*@
+
+@{ if (Model.Count() == 0)
+    {
+        <div class=" alert alert-danger">
+            @localizer["AlertMessageAnnonces"]
+        </div>
+    }
+    else if (ViewData["AlertMessageAnnonces"] != null)
+    {
+        <div class=" alert alert-success">
+            @ViewData["AlertMessageAnnonces"]
+        </div>
+    }
+}
