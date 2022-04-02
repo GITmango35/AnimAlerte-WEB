@@ -136,6 +136,6 @@
     <value>Favorite Contact</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove(X)</value>
+    <value>Remove</value>
   </data>
 </root>
