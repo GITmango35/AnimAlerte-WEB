@@ -5,82 +5,101 @@
     var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg");
 }
 
-@if (ViewBag.Error != null)
-{
-    <h4 class="alert alert-danger">@ViewBag.Error</h4>}
-<h2 class="">@localizer["ModifyAnimal"]  @Html.DisplayFor(model => model.NomAnimal)</h2>
-<hr />
-<div class="my-5">
-    <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="ModifierAnimal">
-        <input hidden asp-for="IdAnimal" />
-        <input hidden asp-for="PhotoPath" />
-        <input hidden asp-for="DateInscription" />
-        <input hidden asp-for="Proprietaire" />
+@*@if (ViewBag.Error != null)
+    {
+        <h4 class="alert alert-danger">@ViewBag.Error</h4>
+    }*@
+<!DOCTYPE html>
 
-        <div class="form-row">
-            <label asp-for="NomAnimal" class="form-label">@localizer["AnimalName"]</label>
-            <input type="text" class="form-control" asp-for="NomAnimal">
-        </div>
-        <div class="form-row">
-            <label asp-for="DescriptionAnimal" class="form-label">@localizer["Description"]</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="DescriptionAnimal"></textarea>
-        </div>
-        <div class="form-row">
-            <label for="espece" class="form-label">
-                @localizer["Choose"]
-            </label>
-            <select class="form-control" asp-for="Espece">
-                <option value="Chien">@localizer["Dog"]</option>
-                <option value="Chat">@localizer["Cat"]</option>
-                <option value="Autres">@localizer["Others"]</option>
-            </select>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label asp-for="Photo" class="form-label"></label>
-                <div class="custom-file">
-                    <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" />
-                    <label class="custom-file-label" for="photoUpload">@localizer["ChooseFile"]</label>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AnimAlerte</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+    <h2 class="">@localizer["ModifyAnimal"]  @Html.DisplayFor(model => model.NomAnimal)</h2>
+    <hr />
+    <div class="my-5">
+        <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="MesAnimaux">
+            <input hidden asp-for="IdAnimal" />
+            <input hidden asp-for="PhotoPath" />
+            <input hidden asp-for="DateInscription" />
+            <input hidden asp-for="Proprietaire" />
+
+            <div class="form-row">
+                <label asp-for="NomAnimal" class="form-label">@localizer["AnimalName"]</label>
+                <input type="text" class="form-control" asp-for="NomAnimal">
+            </div>
+            <div class="form-row">
+                <label asp-for="DescriptionAnimal" class="form-label">@localizer["Description"]</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="DescriptionAnimal"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="espece" class="form-label">
+                    @localizer["Specie"]
+                </label>
+                <select class="form-control" asp-for="Espece">
+                    <option value="Chien">@localizer["Dog"]</option>
+                    <option value="Chat">@localizer["Cat"]</option>
+                    <option value="Autres">@localizer["Others"]</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Photo" class="form-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="Photo" class="custom-file-input" id="photoUpload" accept="image/*" />
+                        <label class="custom-file-label" for="photoUpload">@localizer["ChooseFile"]</label>
+                    </div>
+                    <span asp-validation-for="Photo" class="text-danger"></span>
                 </div>
-                <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <div class="input-group" id="photoPreview">
-                    @if (Model.PhotoPath != null)
-                    {
-                        <img src="@ExistingPhotoPath" asp-append-version="true" height="100" width="100" alt="@Model.NomAnimal" class="img-thumbnail" />
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="input-group" id="photoPreview">
+                        @if (Model.PhotoPath != null)
+                        {
+                            <img src="@ExistingPhotoPath" asp-append-version="true" height="100" width="100" alt="@Model.NomAnimal" class="img-thumbnail" />
 
-                    }
-                    else
-                    {
-                        <span class="alert alert-info">@localizer["NoImageAdded"]</span>
-                    }
+                        }
+                        else
+                        {
+                            <span class="alert alert-info">@localizer["NoImageAdded"]</span>
+                        }
 
 
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">@localizer["SaveBtn"]</button>
+                    <a asp-action="MesAnimaux" asp-controller="Animals" class="btn btn-dark my-3">@localizer["Cancel"]</a>
                 </div>
             </div>
-            
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">@localizer["SaveBtn"]</button>
-                <a asp-action="MesAnimaux" asp-controller="Animals" class="btn btn-dark my-3">@localizer["Cancel"]</a>
-            </div>
-        </div>
-        <div class="text text-danger" asp-validation-summary="All"></div>
-    </form>
-</div>
+            <div class="text text-danger" asp-validation-summary="All"></div>
+        </form>
+    </div>
 
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
+    <script type="text/javascript">
+        $(function () {
+
+
+
             $("#photoUpload").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
                 $(this).next(".custom-file-label").html(inputPhoto);
             });
+
+
 
             $("#photoUpload").change(function () {
                 $("#photoPreview").html("");
@@ -92,18 +111,57 @@
                         var reader = new FileReader();
                         reader.onload = function (e) {
                             $("#photoPreview img").attr("src", e.target.result);
-                            $("#photoPreview img").attr("style", "height:200px;width: 100px");
+                            $("#photoPreview img").attr("style", "height:200px; width: 180px");
                         }
                         reader.readAsDataURL($(this)[0].files[0]);
                     } else {
-                          alert("@localizer["BrowserSupport"]");
+                        alert("This browser does not support FileReader.");
                     }
                 } else {
-                    alert("@localizer["ValidImageFile"]");
+                    alert("Please upload a valid image file.");
                 }
             });
-        })
-    </script>
-}
 
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        });
+    </script>
+
+
+
+</body>
+</html>
+
+
+
+@*@section Scripts {
+        <script>
+            $(document).ready(function () {
+                $("#photoUpload").on("change", function () {
+                    var inputPhoto = $(this).val().split("\\").pop();
+                    $(this).next(".custom-file-label").html(inputPhoto);
+                });
+
+                $("#photoUpload").change(function () {
+                    $("#photoPreview").html("");
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                    if (regex.test($(this).val().toLowerCase())) {
+                        if (typeof (FileReader) != "undefined") {
+                            $("#photoPreview").show();
+                            $("#photoPreview").append("<img />");
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("#photoPreview img").attr("src", e.target.result);
+                                $("#photoPreview img").attr("style", "height:200px;width: 100px");
+                            }
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            alert("This browser does not support FileReader.");
+                        }
+                    } else {
+                        alert("Please upload a valid image file.");
+                    }
+                });
+            })
+        </script>
+    }
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@

@@ -40,25 +40,19 @@ namespace AnimAlerte
             services.AddControllersWithViews().AddDataAnnotationsLocalization();
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
-
-
             services.Configure<RequestLocalizationOptions>(
-            opt =>
-            {
-                var supportedCultures = new List<CultureInfo>
-            {
-new CultureInfo("en"),
-new CultureInfo("fr")
-            };
-                opt.DefaultRequestCulture = new RequestCulture("en");
-                opt.SupportedCultures = supportedCultures;
-                opt.SupportedUICultures = supportedCultures;
+                opt =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    { 
+                        new CultureInfo("en"),
+                        new CultureInfo("fr") 
+                    };
+                    opt.DefaultRequestCulture = new RequestCulture("en");
+                    opt.SupportedCultures = supportedCultures;
+                    opt.SupportedUICultures = supportedCultures;
 
-
-
-            });
-
-
+                });
 
             services.AddDbContext<AnimAlerteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbAnimalerte")));
             services.AddSession();
@@ -80,19 +74,15 @@ new CultureInfo("fr")
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
-
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
 
-
-
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-
+            
             app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {

@@ -35,7 +35,7 @@ namespace AnimAlerte.Controllers
         // GET: DetailsContacts
         public IActionResult Index()
         {
-            var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).ToList();
+            var listeContactsFavoris = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession && a.isFavoris==1).ToList();
             var listeUsers = _context.Utilisateurs.ToList();
 
             List<DetailsContact> detailsContactsFavoris = new List<DetailsContact>();
@@ -63,7 +63,12 @@ namespace AnimAlerte.Controllers
             ViewBag.Message = "";
             TempData["AlertMessage"] = "";
             List<Utilisateur> liste = new List<Utilisateur>();
-            var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.NomUtilisateur != UtilisateursController.usersession && u.UtilisateurActive == 1).ToList();
+            var listeToutUtilisateurs = _context.Utilisateurs
+                .Where(u => u.NomUtilisateur != UtilisateursController.usersession && 
+                u.UtilisateurActive == 1).ToList();
+            
+            
+            
             var listeTrouveUtilisateur = _context.Utilisateurs
                 .Where(a => a.NomUtilisateur.Contains(utilisateursSearch) || 
                 a.Nom.Contains(utilisateursSearch) || 
@@ -108,27 +113,28 @@ namespace AnimAlerte.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //var animAlerteContext = _context.DetailsContacts.Where(a => a.NomUtilisateurCreateur == UtilisateursController.usersession).Include(d => d.NomUtilisateurCreateurNavigation).Include(d => d.NomUtilisateurFavorisNavigation);
-            //return View();
-            ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
-            ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
-            return View();
+           return View();
         }
-
+                   
         // POST: DetailsContacts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomUtilisateurCreateur,NomUtilisateurFavoris,DateAjout")] DetailsContact detailsContact)
+        public async Task<IActionResult> Create(string NomUtilisateurCreateur, string NomUtilisateurFavoris)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(detailsContact);
+                DetailsContact obj = new DetailsContact();
+                obj.NomUtilisateurCreateur = NomUtilisateurCreateur;
+                obj.NomUtilisateurFavoris = NomUtilisateurFavoris;
+                //obj.DateAjout = DateAjout;
+
+                _context.DetailsContacts.Add(obj);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurCreateur);
-            ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurFavoris);
-            return View(detailsContact);
+            ViewData["NomUtilisateurCreateur"] = NomUtilisateurCreateur;
+            ViewData["NomUtilisateurFavoris"] = NomUtilisateurFavoris; 
+            return View();
         }
 
         // GET: DetailsContacts/Edit/5
@@ -194,14 +200,14 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: DetailsContacts/Delete/5
-        public IActionResult Delete(string idFavoris, string idCreateur)
+        public IActionResult Delete(string id)
         {
-            if (idFavoris == null || idCreateur==null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var detailsContact = _context.DetailsContacts.FirstOrDefault(m => m.NomUtilisateurFavoris == idFavoris);
+            var detailsContact = _context.DetailsContacts.FirstOrDefault(m => m.NomUtilisateurFavoris == id);
             if (detailsContact == null)
             {
                 return NotFound();
@@ -213,9 +219,9 @@ namespace AnimAlerte.Controllers
         // POST: DetailsContacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(string idFavoris, string idCreateur)
+        public IActionResult DeleteConfirmed(string id)
         {
-            var detailsContact = _context.DetailsContacts.Find(idFavoris, idCreateur);
+            var detailsContact = _context.DetailsContacts.Find(id);
             _context.DetailsContacts.Remove(detailsContact);
             
             _context.SaveChanges();
@@ -226,24 +232,49 @@ namespace AnimAlerte.Controllers
         {
             return _context.DetailsContacts.Any(e => e.NomUtilisateurCreateur == id);
         }
-
-     
-        // POST: DetailsContacts/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //public IActionResult Rajouter([Bind("NomUtilisateurCreateur,NomUtilisateurFavoris,DateAjout")] DetailsContact detailsContact)
-        public IActionResult Rajouter([Bind("NomUtilisateurCreateur,NomUtilisateurFavoris")] DetailsContact detailsContact)
+               
+        // POST: DetailsContacts / Rajouter Contact Favoris
+        public IActionResult Rajouter(string NomUtilisateur, string NomUtilisateurCreateur)
         {
             if (ModelState.IsValid)
             {
+                DetailsContact obj = new DetailsContact();
+                obj.NomUtilisateurFavoris = NomUtilisateur;
 
-                _context.Add(detailsContact);
+                obj.NomUtilisateurCreateur = UtilisateursController.usersession;
+                
+                //obj.NomUtilisateurCreateur = "user5";// hard coded
+                //obj.NomUtilisateurCreateur = NomUtilisateurCreateur;
+                obj.isFavoris = 1;
+                obj.DateAjout = DateTime.Today;
+                
+                _context.Add(obj);
                 _context.SaveChanges();
+                //TempData["AlertMessageContact"] = _localizer["AddedContact"];
+                TempData["AlertMessageContact"] = "Contact added";
+                
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurCreateur);
-            //ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurFavoris);
-            return View(detailsContact);
+            return View();
+        }
+        // DELETE
+        public IActionResult Supprimer(string NomUtilisateur, string NomUtilisateurCreateur)
+        {
+            if (ModelState.IsValid)
+            {
+                DetailsContact obj = new DetailsContact();
+                obj.NomUtilisateurFavoris = NomUtilisateur;
+                obj.NomUtilisateurCreateur = NomUtilisateurCreateur;
+                obj.DateAjout = DateTime.Today;
+                obj.isFavoris = 0;
+                
+                _context.Update(obj);
+                _context.SaveChanges();
+                //TempData["AlertMessageContact"] = _localizer["RemovedContact"];
+                TempData["AlertMessageContact"] = "Contact Removed";               
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
 
     }

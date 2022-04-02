@@ -9,21 +9,24 @@ using AnimAlerte.Models;
 using System.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
     { 
+        private readonly IStringLocalizer<UtilisateursController> _stringlocalizer;
         private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<UtilisateursController> localizer)
+        public UtilisateursController(AnimAlerteContext context, IHttpContextAccessor accessor, IStringLocalizer<UtilisateursController> stringlocalizer, IHtmlLocalizer<UtilisateursController> localizer)
         {
             _context = context;
             _localizer = localizer;
+            _stringlocalizer = stringlocalizer;
             this.session = accessor.HttpContext.Session;
         }
 

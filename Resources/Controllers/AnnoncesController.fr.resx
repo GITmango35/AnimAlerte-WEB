@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnimalNameRequired" xml:space="preserve">
-    <value>Please enter the name of your pet</value>
+  <data name="Sorry, this ad does not exists !" xml:space="preserve">
+    <value>Désolée, cette annonce est inexistante!</value>
+  </data>
+  <data name="The ad is deactivated succesfully!" xml:space="preserve">
+    <value>L'annonce est supprimée avec succès!</value>
+  </data>
+  <data name="We found result(s)." xml:space="preserve">
+    <value>Nous avons trouvé le(s) résultat(s).</value>
+  </data>
+  <data name="We're sorry! We were not able to find a match." xml:space="preserve">
+    <value>Nous sommes désolés! Nous n'avons pas pu trouver de correspondance.</value>
+  </data>
+  <data name="Your ad is added successfully !" xml:space="preserve">
+    <value>Votre annonce est ajoutée avec succès!</value>
+  </data>
+  <data name="Your ad is deleted successfully!" xml:space="preserve">
+    <value>Votre annonce est supprimée avec succès!</value>
+  </data>
+  <data name="Your ad is modified successfully!" xml:space="preserve">
+    <value>Votre annonce est modifiée avec succès!</value>
   </data>
 </root>

@@ -120,6 +120,12 @@
   <data name="AddAnimal" xml:space="preserve">
     <value>Add a pet</value>
   </data>
+  <data name="AlertMessage1" xml:space="preserve">
+    <value>Your animal </value>
+  </data>
+  <data name="AlertMessage2" xml:space="preserve">
+    <value> is registered successfuly !</value>
+  </data>
   <data name="AnimalNameRequired" xml:space="preserve">
     <value>Please enter your pet's name !</value>
   </data>

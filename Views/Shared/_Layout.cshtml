@@ -7,113 +7,95 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AnimAlerte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-3">
-            <div class="container">
-                @*<a class="navbar-brand" asp-area="" asp-controller="Annonces" asp-action="Index">AnimAlerte</a>*@
-
-                <h2 class="navbar-brand">AnimAlerte</h2>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                    <ul class="navbar-nav flex-grow-1" id="menu">
-                        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 0))
-                        {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesUser"> @localizer["Accueil"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Index">@localizer["Profil"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="AjoutAnimal">@localizer["AjoutAnimal"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="Create">@localizer["PublierAnnonce"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="TousMesAnnonces">@localizer["MesAnnonces"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Animals" asp-action="Index">@localizer["MesAnimaux"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="DetailsContacts" asp-action="Index">@localizer["ContactFavorit"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["Deconnexion"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <partial name="_Culture" />
-                            </li>
-
-                            @*<li class="nav navbar-nav navbar-right">
-                <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
-                    <button type="submit" class="btn btn-primary text-white">
-                        Se déconnecter  @AnimAlerte.Controllers.UtilisateursController.usersession
+        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 0))
+        {
+            <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Annonces" asp-action="Index">
+                        <img src="/images/animalerte-logo3.png" height="50" alt="AnimAlerte">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                </form>
-            </li>*@
-
-                        }
-                        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 1))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesAdmin">@localizer["Accueil"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Create">@localizer["AjouterAdmin"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesAdmin">@localizer["ListeAnnonces"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="RechercheAnnonce">@localizer["RechercheAnnonce"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="RechercheUtilisateur">@localizer["RechercheUtilisateur"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">@localizer["ListeAdmin"]</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
-                                    <button type="submit" class="btn btn-primary text-white">
-                                        @localizer["Deconnexion"]  @AnimAlerte.Controllers.UtilisateursController.usersession
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <p></p>
-                            </li>
-                            <li class="nav-item">
-                                <partial name="_Culture" />
-                            </li>
-                        }
-                        @if (AnimAlerte.Controllers.UtilisateursController.usersession == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["SeConnecter"]</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <partial name="_Culture" />
-                            </li>
-                        }
-                    </ul>
+                    <div class="collapse navbar-collapse text-light" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesUser"> @localizer["Accueil"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Index">@localizer["Profil"]</a>
+                            <a class=" nav-item nav-link text-white" asp-area="" asp-controller="Animals" asp-action="AjoutAnimal">@localizer["AjoutAnimal"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="Create">@localizer["PublierAnnonce"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="TousMesAnnonces">@localizer["MesAnnonces"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Animals" asp-action="MesAnimaux">@localizer["MesAnimaux"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="DetailsContacts" asp-action="Index">@localizer["ContactFavorit"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["Deconnexion"]</a>
+                        </div>
+                        <div class="navbar-nav ms-auto form-inline">
+                            <partial name="_Culture" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        }
+        @if ((AnimAlerte.Controllers.UtilisateursController.usersession != null) && (AnimAlerte.Controllers.UtilisateursController.admin == 1))
+        {
+            <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Annonces" asp-action="Index">
+                        <img src="/images/animalerte-logo3.png" height="50" alt="AnimAlerte">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse text-light" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesAdmin">@localizer["Accueil"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Create">@localizer["AjouterAdmin"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="AllAnnoncesAdmin">@localizer["ListeAnnonces"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="RechercheAnnonce">@localizer["RechercheAnnonce"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="RechercheUtilisateur">@localizer["RechercheUtilisateur"]</a>
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">@localizer["ListeAdmin"]</a>
+                            <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
+                                <button type="submit" class="btn btn-primary text-white">
+                                    @localizer["Deconnexion"]  @AnimAlerte.Controllers.UtilisateursController.usersession
+                                </button>
+                            </form>
+                        </div>
+                        <div class="navbar-nav ms-auto form-inline">
+                            <partial name="_Culture" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        }
+        @if (AnimAlerte.Controllers.UtilisateursController.usersession == null)
+        {
+            <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Annonces" asp-action="Index">
+                        <img src="/images/animalerte-logo3.png" height="50" alt="AnimAlerte">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse text-light" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["SeConnecter"]</a>
+                        </div>
+                        <div class="navbar-nav ms-auto form-inline">
+                            <partial name="_Culture" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        }
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -130,7 +112,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-   
+
 
 
     @await RenderSectionAsync("Scripts", required: false)

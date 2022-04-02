@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using Microsoft.AspNetCore.Http;
 using AnimAlerte.ViewModels;
+using Microsoft.Extensions.Localization;
 
 namespace AnimAlerte.Controllers
 {
@@ -15,10 +16,12 @@ namespace AnimAlerte.Controllers
     {
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
+        private readonly IStringLocalizer<AnnoncesController> _stringLocalizer;
 
-        public AnnoncesController(AnimAlerteContext context, IHttpContextAccessor accessor)
+        public AnnoncesController(AnimAlerteContext context, IHttpContextAccessor accessor, IStringLocalizer<AnnoncesController> stringLocalizer)
         {
             _context = context;
+            _stringLocalizer = stringLocalizer;
             this.session = accessor.HttpContext.Session;
         }
 
@@ -34,16 +37,22 @@ namespace AnimAlerte.Controllers
 
 
             ViewBag.userSession = nomuser;
-            ViewBag.animaux = _context.Animals.ToList();
-            ViewBag.images = _context.Images.ToList();
-            var annonces = from a in _context.Annonces 
-                           where a.AnnonceActive == 1 
+            var annonces = from a in _context.Annonces
+                           where a.AnnonceActive == 1
                            select a;
+            ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
+            ViewBag.images = _context.Images.ToList();
+
 
 
             if (!String.IsNullOrEmpty(searchString))
             {
+                ViewData["SearchAdResult"] = _stringLocalizer["We found result(s)."].Value;
                 annonces = annonces.Where(a => a.Ville.ToUpper().Contains(searchString.ToUpper()) && a.AnnonceActive == 1);
+            }
+            else
+            {
+                TempData["NoSearchAdResult"] = _stringLocalizer["We're sorry! We were not able to find a match."].Value;
             }
 
             if (!String.IsNullOrEmpty(annoncePerdu))
@@ -55,6 +64,7 @@ namespace AnimAlerte.Controllers
             {
                 annonces = annonces.Where(a => a.TypeAnnonce == "trouve" && a.AnnonceActive == 1);
             }
+
 
             switch (sortOrder)
             {
@@ -84,31 +94,6 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces/Details/5
-        //public IActionResult Details(int? id, string nomuser)
-        //{
-           
-public async Task<IActionResult> Details2(int? id)
-            {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-            var annonce = await _context.Annonces
-            .Include(a => a.IdAnimalNavigation)
-            .Include(a => a.NomAdminDesactivateurNavigation)
-            .Include(a => a.NomUtilisateurNavigation)
-            .FirstOrDefaultAsync(m => m.IdAnnonce == id);
-
-            if (annonce == null)
-            {
-                return NotFound();
-            }
-            return View(annonce);
-        }
-
-
-
         public async Task<IActionResult> Details(int? idAnimal, Utilisateur proprietaire)
         {
             if (idAnimal == null)
@@ -118,16 +103,12 @@ public async Task<IActionResult> Details2(int? id)
 
             var annonce = await _context.Annonces
             .FirstOrDefaultAsync(m => m.IdAnnonce == idAnimal);
-            
+
             var animal = _context.Animals.Include(m => m.ProprietaireNavigation)
-                
                 .FirstOrDefault(m => m.IdAnimal == idAnimal);
 
             var image = _context.Images
                .FirstOrDefault(m => m.IdImage == idAnimal);
-
-            //var utilisateur =  _context.Utilisateurs
-            //    .FirstOrDefault(m => m.NomUtilisateur == proprietaire.NomUtilisateur);
 
             var model = new AnnonceModifViewModel()
             {
@@ -179,7 +160,7 @@ public async Task<IActionResult> Details2(int? id)
                 annonce.NomUtilisateur = session.GetString("NomUtilisateur");
                 _context.Add(annonce);
                 await _context.SaveChangesAsync();
-                TempData["AlertMessage"] = "Votre annonce est bien ajoutée avec succès!";
+                TempData["AlertMessage"] = _stringLocalizer["Your ad is added successfully!"].Value;
                 return RedirectToAction(nameof(TousMesAnnonces));
             }
             catch
@@ -191,7 +172,6 @@ public async Task<IActionResult> Details2(int? id)
         // GET: Annonces/Edit/5
         public async Task<IActionResult> ModifierMonAnnonce(int? idAnnonce)
         {
-
             if (idAnnonce == null)
             {
                 return NotFound();
@@ -213,11 +193,11 @@ public async Task<IActionResult> Details2(int? id)
         {
             if (ModelState.IsValid)
             {
-                TempData["AlertMessage"] = "";
+                TempData["AlertMessageAnnonces"] = "";
                 var annonceModif = _context.Annonces.Attach(annonce);
                 annonceModif.State = EntityState.Modified;
                 _context.SaveChanges();
-                TempData["AlertMessage"] = "Votre annonce est bien modifiée avec succès!";
+                TempData["AlertMessageAnnonces"] = _stringLocalizer["Your ad is modified successfully!"].Value;
                 return RedirectToAction(nameof(TousMesAnnonces));
             }
             return View(annonce);
@@ -246,13 +226,13 @@ public async Task<IActionResult> Details2(int? id)
         [ValidateAntiForgeryToken]
         public IActionResult DesactivationConfirmed(int idAnnonce)
         {
-            TempData["AlertMessage"] = "";
+            TempData["AlertMessageAnnonces"] = "";
             var annonce = _context.Annonces.Find(idAnnonce);
             annonce.AnnonceActive = 0;
             var annonceModif = _context.Annonces.Attach(annonce);
             annonceModif.State = EntityState.Modified;
             _context.SaveChanges();
-            TempData["AlertMessage"] = "Votre annonce est bien supprimée avec succès!";
+            TempData["AlertMessageAnnonces"] = _stringLocalizer["Your ad is deleted successfully!"].Value;
             return RedirectToAction(nameof(TousMesAnnonces));
         }
 
@@ -266,21 +246,21 @@ public async Task<IActionResult> Details2(int? id)
 
         [HttpPost]
         public ActionResult RechercheAnnonce(int idAnnonce)
-        {            
+        {
             var annonce = _context.Annonces.Where(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1).ToList();
-               ViewBag.animals = _context.Animals.ToList();
-            TempData["AlertMessage"] = "";
+            ViewBag.animals = _context.Animals.ToList();
+
             if (annonce != null)
             {
-                TempData["AlertMessage"] = "";
+                TempData["AlertMessageAnnonces"] = _stringLocalizer["We found result(s)."].Value;
                 return View(annonce); //recuperer les infos d'annonce
             }
             else
             {
-                TempData["AlertMessage"]= "Désolée, cette annonce est inexistante!!";
+                TempData["AlertMessageAnnonces"] = _stringLocalizer["Sorry, this ad does not exists !"].Value;
                 return RedirectToAction(nameof(RechercheAnnonce));
-            }                         
-                 
+            }
+
         }
 
         //la désactivation d'annonce par un admin
@@ -288,7 +268,7 @@ public async Task<IActionResult> Details2(int? id)
         {
             var annonce = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1);
             ViewBag.admin = UtilisateursController.usersession;
-           
+
             if (annonce != null)
             {
                 return View(annonce);
@@ -303,13 +283,13 @@ public async Task<IActionResult> Details2(int? id)
         public ActionResult DesactiverAnnonce(int idAnnonce, Annonce annonce)
         {
             var annonce1 = _context.Annonces.SingleOrDefault(a => a.IdAnnonce == idAnnonce && a.AnnonceActive == 1);
-            TempData["AlertMessage"] = ""; 
+            TempData["AlertMessageAnnonces"] = "";
             if (annonce1 != null)
             {
                 annonce1.AnnonceActive = 0;
                 _context.Entry(annonce1).State = EntityState.Modified;
                 _context.SaveChanges();
-                TempData["AlertMessage"] = "Annonce bien supprimée avec succès!";
+                TempData["AlertMessageAnnonces"] = _stringLocalizer["The ad is deactivated succesfully!"].Value;
             }
 
             return RedirectToAction("AllAnnoncesAdmin", "Annonces");
@@ -330,8 +310,8 @@ public async Task<IActionResult> Details2(int? id)
         {
             ViewBag.userSession = nomuser;
             var annonces = _context.Annonces.Where(a => a.AnnonceActive == 1).ToList();
-       
-           ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
+
+            ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
             ViewBag.images = _context.Images.ToList();
             return View(annonces);
         }
