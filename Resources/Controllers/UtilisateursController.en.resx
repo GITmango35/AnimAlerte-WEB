@@ -135,6 +135,9 @@
   <data name="Registered" xml:space="preserve">
     <value>Registered</value>
   </data>
+  <data name="RegisteredUser" xml:space="preserve">
+    <value>You Welcome to Animalete</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>

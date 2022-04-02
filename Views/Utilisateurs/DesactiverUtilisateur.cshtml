@@ -3,44 +3,43 @@
 
 @{ ViewData["Title"] = "Désactiver Utilisateur"; }
 
-<h1>Désactiver Utilisateur</h1>
+<h1>@localizer["DesactiverUse"]</h1>
 
-<h3>Voulez-vous vraiment désactiver cet Utilisateur?</h3>
+<h3> @localizer["MsgConfirmation"]</h3>
 <div>
 
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NomUtilisateur)
+            @localizer["UserName"]
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NomUtilisateur)
+           @Html.DisplayFor(model => model.NomUtilisateur)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
+            @localizer["LastName"]
+         
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nom)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Prenom)
+            @localizer["FirstName"]
+          
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Prenom)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Courriel)
+          
+            @localizer["Email"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Courriel)
         </dd>
+        
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MotDePasse)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MotDePasse)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NumTel)
+         
+            @localizer["Telephone"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NumTel)
@@ -55,9 +54,8 @@
         <input type="hidden" asp-for="NumTel" />
         <input type="hidden" asp-for="IsAdmin" />
         <input type="hidden" asp-for="NomAdminDesactivateur" value=@ViewBag.admin />
-        <input type="submit" value="Désactiver" class="btn btn-danger" /> |
-        @*@Html.ActionLink("Désactiver", "DesactiverUtilisateur", new { nomuser = @Model.NomUtilisateur })*@
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value=" @localizer["DesactiverUse"]" class="btn btn-danger" /> 
+    <a asp-action="Index"> @localizer["RetourListe"]</a>
     </form>
 
 </div>

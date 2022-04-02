@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AnimAlerte.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace AnimAlerte.Controllers
 {
@@ -15,11 +16,11 @@ namespace AnimAlerte.Controllers
     {
         private readonly AnimAlerteContext _context;
         private readonly IHtmlLocalizer<AdministrateursController> _localizer;
+        private readonly IStringLocalizer<AdministrateursController> _stringLocalizer;
 
-        public AdministrateursController(AnimAlerteContext context, IHtmlLocalizer<AdministrateursController> localizer)
+        public AdministrateursController(AnimAlerteContext context, IHtmlLocalizer<AdministrateursController> localizer, IStringLocalizer<AdministrateursController> stringLocalizer)
         {
-        
-
+            _stringLocalizer = stringLocalizer;
             _context = context;
             _localizer = localizer;
 
@@ -91,8 +92,9 @@ namespace AnimAlerte.Controllers
                     admin.DateCreation = DateTime.Today;
                     _context.Administrateurs.Add(admin);
                     _context.SaveChanges();
-                    TempData["MessageAdminEnregistre"] = "Administrateur ajouté/The new Admin is added succesfully!";
-                        //_localizer["AdminRegistered"];
+                    TempData["AlertAddAdmin"] = _stringLocalizer["The addmin is added successfully !"].Value;
+                    // TempData["MessageAdminEnregistre"] = "Administrateur ajouté/The new Admin is added succesfully!";
+                    //_localizer["AdminRegistered"];
                     var message = _localizer["Registered"];
                     ViewBag.Message = message;
                      return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { msg = ViewBag.Message });

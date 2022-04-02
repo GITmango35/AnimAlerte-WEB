@@ -75,14 +75,15 @@ namespace AnimAlerte.Controllers
                 {
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
-                    var message = _localizer["Registered"];
-                    ViewBag.Message = message;
+                    
+                   
+                    ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
                 {
-                    var message = _localizer["AlreadyRegistered"];
-                    ViewBag.Message = message;
+                    
+                    ViewBag.Message = "Le nom d'utilisateur existe deja!/ This User exist!";
                     return View(utilisateur);
                 }
 

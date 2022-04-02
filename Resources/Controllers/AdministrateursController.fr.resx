@@ -144,6 +144,9 @@
   <data name="Registered" xml:space="preserve">
     <value>Enregistré</value>
   </data>
+  <data name="The addmin is added successfully !" xml:space="preserve">
+    <value>L'administrateur est ajouté avec succés!</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>Utilisateur</value>
   </data>

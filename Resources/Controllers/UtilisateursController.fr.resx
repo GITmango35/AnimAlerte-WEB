@@ -141,6 +141,9 @@
   <data name="Registered" xml:space="preserve">
     <value>Enregistré</value>
   </data>
+  <data name="RegisteredUser" xml:space="preserve">
+    <value>Bienvenue sur le site Animalerte</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>Utilisateur</value>
   </data>
