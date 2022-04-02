@@ -1,15 +1,15 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model IEnumerable<AnimAlerte.Models.Utilisateur>
-<h1>Recherche Utilisateur</h1>
+<h1> @localizer["RechercherUtilisateur"]</h1>
 
 
 
 <form action="/Utilisateurs/RechercheUtilisateur" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="Entrez le nom utilisateur">
+        <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="@localizer["EnterUser"]">
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Rechercher</button>
+        <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
     </div>
 </form>
 <table class="table">
@@ -17,23 +17,28 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NomUtilisateur)
+                @localizer["UserName"]
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nom)
+                @localizer["LastName"]
             </th>
             <th>
+                @localizer["FirstName"]
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
             <th>
+                @localizer["Email"]
                 @Html.DisplayNameFor(model => model.Courriel)
             </th>
             <th>
+                @localizer["Telephone"]
                 @Html.DisplayNameFor(model => model.NumTel)
             </th>
             <th>
-                Administrateur ou Utilisateur
+                @localizer["AdminorUser"] 
             </th>
-            <th>Opérations</th>
+            <th>@localizer["Action"]</th>
         </tr>
     </thead>
     <tbody>
@@ -64,15 +69,15 @@
 
                     @if (item.IsAdmin == 1)
                     {
-                        <td>
-                            Administrateur
-                        </td>
+                <td>
+                    @localizer["Admin"] 
+                </td>
                     }
                     else
                     {
-                        <td>
-                            Utilisateur
-                        </td>
+                <td>
+                    @localizer["User"] 
+                </td>
                     }
 
 
