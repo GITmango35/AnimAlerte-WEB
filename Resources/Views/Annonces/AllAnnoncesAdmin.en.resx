@@ -163,13 +163,13 @@
     <value>Pet's Name</value>
   </data>
   <data name="NumAnnonce" xml:space="preserve">
-    <value>Ad #</value>
+    <value>Ad No.</value>
   </data>
   <data name="Proprietaire" xml:space="preserve">
     <value>Pet Owner</value>
   </data>
   <data name="RecherchIdAnnonce" xml:space="preserve">
-    <value>Enter number of Ad</value>
+    <value>Search by Ad number...</value>
   </data>
   <data name="RetourListe" xml:space="preserve">
     <value>Back to List</value>

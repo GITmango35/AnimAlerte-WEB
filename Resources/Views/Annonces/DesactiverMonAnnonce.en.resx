@@ -121,13 +121,13 @@
     <value>Action</value>
   </data>
   <data name="Afficher" xml:space="preserve">
-    <value>Publish ad</value>
+    <value>Publish</value>
   </data>
   <data name="AjoutAnimal" xml:space="preserve">
-    <value>Add Animal</value>
+    <value>Add an animal</value>
   </data>
   <data name="Animal" xml:space="preserve">
-    <value>Choose the animal</value>
+    <value>Choose an animal</value>
   </data>
   <data name="AnimalRequis" xml:space="preserve">
     <value>Please add an  animal!</value>
@@ -139,10 +139,10 @@
     <value>Found Animals</value>
   </data>
   <data name="Confirmationdesact" xml:space="preserve">
-    <value>Do you really want to disable this ad?</value>
+    <value>Do you really want to deactivate this ad?</value>
   </data>
   <data name="CreateAnnonce" xml:space="preserve">
-    <value>Add Ad</value>
+    <value>Post an ad</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date Published</value>

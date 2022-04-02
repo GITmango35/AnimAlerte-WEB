@@ -145,7 +145,7 @@
     <value>Date Registered</value>
   </data>
   <data name="SeeDetails" xml:space="preserve">
-    <value>See more details</value>
+    <value>Details</value>
   </data>
   <data name="Specie" xml:space="preserve">
     <value>Type of Specie</value>

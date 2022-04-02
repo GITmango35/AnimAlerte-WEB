@@ -160,7 +160,7 @@ namespace AnimAlerte.Controllers
                 annonce.NomUtilisateur = session.GetString("NomUtilisateur");
                 _context.Add(annonce);
                 await _context.SaveChangesAsync();
-                TempData["AlertMessage"] = _stringLocalizer["Your ad is added successfully!"].Value;
+                TempData["AlertMessage"] = _stringLocalizer["Your ad is added successfully !"].Value;
                 return RedirectToAction(nameof(TousMesAnnonces));
             }
             catch
