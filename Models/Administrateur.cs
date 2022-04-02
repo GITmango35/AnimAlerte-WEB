@@ -16,6 +16,7 @@ namespace AnimAlerte.Models
 
         [Display(Name = "Nom d'administrateur:")]
         public string NomAdmin { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DateCreation { get; set; }
         
         public virtual Utilisateur NomAdminNavigation { get; set; }

@@ -154,12 +154,15 @@
     <value>Search</value>
   </data>
   <data name="SearchByLocation" xml:space="preserve">
-    <value>Search by location...</value>
+    <value>Find by location :</value>
   </data>
   <data name="SeeMoreDetails" xml:space="preserve">
     <value>See more details</value>
   </data>
   <data name="SortByDate" xml:space="preserve">
     <value>Sort By Date</value>
+  </data>
+  <data name="WithSearchResult" xml:space="preserve">
+    <value>Here are the result(s) of your search.</value>
   </data>
 </root>

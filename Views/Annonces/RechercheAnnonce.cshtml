@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Annonce>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = localizer["RechercheAnn"];
+}
+
 <h1>@localizer["RechercheAnn"]</h1>
 
 
