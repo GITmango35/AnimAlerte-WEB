@@ -136,7 +136,7 @@
     <value>Courriel</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Création</value>
+    <value>Ajouter un Administrateur</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date</value>
@@ -145,13 +145,16 @@
     <value>Désactiver</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Détaille</value>
+    <value>Détail</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>S'enregistrer</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Liste des Administrateurs</value>
   </data>
   <data name="MotDePasse" xml:space="preserve">
     <value>Mot de passe</value>
@@ -160,7 +163,7 @@
     <value>Nom</value>
   </data>
   <data name="NomAdmin" xml:space="preserve">
-    <value>Nom Admin</value>
+    <value>Nom Administrateur</value>
   </data>
   <data name="NomUtilisateur" xml:space="preserve">
     <value>Nom d'utilisateur</value>
