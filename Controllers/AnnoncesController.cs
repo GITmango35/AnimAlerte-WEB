@@ -193,11 +193,11 @@ namespace AnimAlerte.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempData["AlertMessageAnnonces"] = "";
+                TempData["AlertMessage"] = "";
                 var annonceModif = _context.Annonces.Attach(annonce);
                 annonceModif.State = EntityState.Modified;
                 _context.SaveChanges();
-                TempData["AlertMessageAnnonces"] = _stringLocalizer["Your ad is modified successfully!"].Value;
+                TempData["AlertMessage"] = _stringLocalizer["Your ad is modified successfully!"].Value;
                 return RedirectToAction(nameof(TousMesAnnonces));
             }
             return View(annonce);
@@ -226,13 +226,13 @@ namespace AnimAlerte.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DesactivationConfirmed(int idAnnonce)
         {
-            TempData["AlertMessageAnnonces"] = "";
+            TempData["AlertMessage"] = "";
             var annonce = _context.Annonces.Find(idAnnonce);
             annonce.AnnonceActive = 0;
             var annonceModif = _context.Annonces.Attach(annonce);
             annonceModif.State = EntityState.Modified;
             _context.SaveChanges();
-            TempData["AlertMessageAnnonces"] = _stringLocalizer["Your ad is deleted successfully!"].Value;
+            TempData["AlertMessage"] = _stringLocalizer["Your ad is deleted successfully!"].Value;
             return RedirectToAction(nameof(TousMesAnnonces));
         }
 
@@ -252,7 +252,7 @@ namespace AnimAlerte.Controllers
 
             if (annonce != null)
             {
-                TempData["AlertMessageAnnonces"] = _stringLocalizer["We found result(s)."].Value;
+                ViewData["AlertMessageAnnonces"] = _stringLocalizer["We found result(s)."].Value;
                 return View(annonce); //recuperer les infos d'annonce
             }
             else

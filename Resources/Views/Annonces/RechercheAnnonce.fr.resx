@@ -120,6 +120,9 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="AlertMessageAnnonces" xml:space="preserve">
+    <value>Désolé, aucun resultat trouvé !</value>
+  </data>
   <data name="AnimalRequis" xml:space="preserve">
     <value>Ajouter un animal, s'il vous plait!</value>
   </data>
@@ -133,7 +136,7 @@
     <value>Créer une annonce</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
-    <value>Publie le</value>
+    <value>Publié le</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
     <value>Désactiver</value>

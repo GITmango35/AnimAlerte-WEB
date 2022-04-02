@@ -139,7 +139,7 @@
     <value>Courriel</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
-    <value>Publie le</value>
+    <value>Publié le</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
     <value>Désactiver</value>
@@ -213,7 +213,7 @@
   <data name="TrierDate" xml:space="preserve">
     <value>Trier par Date</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="TypeAnnonce" xml:space="preserve">
     <value>Type d'annonce</value>
   </data>
   <data name="Ville" xml:space="preserve">
@@ -223,6 +223,6 @@
     <value>Champ ville obligatoire!</value>
   </data>
   <data name="VoirDetails" xml:space="preserve">
-    <value>Voir le détails</value>
+    <value>Détails</value>
   </data>
 </root>

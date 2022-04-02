@@ -186,7 +186,7 @@
   <data name="TrierDate" xml:space="preserve">
     <value>Sort by Date</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="TypeAnnonce" xml:space="preserve">
     <value>Ad Type</value>
   </data>
   <data name="Ville" xml:space="preserve">
@@ -194,5 +194,8 @@
   </data>
   <data name="VilleRequis" xml:space="preserve">
     <value>City field is required!</value>
+  </data>
+  <data name="VoirDetails" xml:space="preserve">
+    <value>Details</value>
   </data>
 </root>

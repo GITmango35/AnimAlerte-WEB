@@ -142,7 +142,7 @@
     <value>Créer une annonce</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
-    <value>Publie le</value>
+    <value>Publié le</value>
   </data>
   <data name="Desactiver" xml:space="preserve">
     <value>Désactiver</value>
@@ -219,7 +219,7 @@
   <data name="TrierDate" xml:space="preserve">
     <value>Trier par Date</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="TypeAnnonce" xml:space="preserve">
     <value>Type d'annonce</value>
   </data>
   <data name="Ville" xml:space="preserve">

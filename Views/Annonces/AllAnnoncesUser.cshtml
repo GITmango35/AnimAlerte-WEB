@@ -18,24 +18,25 @@
             <th>
                 @localizer["NomAnimal"]
             </th>
-            <th>
+            @*<th>
                 @localizer["Proprietaire"]
-            </th>
+            </th>*@
             <th>
                 @localizer["TitreAnnonce"]
             </th>
             <th>
                 @localizer["TypeAnnonce"]
             </th>
-            <th>
+            @*<th>
                 @localizer["Description"]
-            </th>
+            </th>*@
             <th>
                 @localizer["Ville"]
             </th>
             <th>
                 @localizer["DateCreation"]
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -74,18 +75,18 @@
 
 
 
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.NomUtilisateur)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Titre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TypeAnnonce)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Ville)
                 </td>

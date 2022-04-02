@@ -120,6 +120,9 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="AlertMessageAnnonces" xml:space="preserve">
+    <value>Sorry, this ad does not exists !</value>
+  </data>
   <data name="Animal" xml:space="preserve">
     <value>Choose the animal</value>
   </data>

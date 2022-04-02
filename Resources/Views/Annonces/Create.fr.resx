@@ -154,7 +154,7 @@
     <value>Enregistrer</value>
   </data>
   <data name="MsgAjoutAnimal" xml:space="preserve">
-    <value>Vous n'avez pas encore d'animal?</value>
+    <value>Vous n'avez pas d'animal?</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Nom</value>

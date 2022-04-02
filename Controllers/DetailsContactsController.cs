@@ -65,7 +65,7 @@ namespace AnimAlerte.Controllers
             List<Utilisateur> liste = new List<Utilisateur>();
             var listeToutUtilisateurs = _context.Utilisateurs
                 .Where(u => u.NomUtilisateur != UtilisateursController.usersession && 
-                u.UtilisateurActive == 1).ToList();
+                u.UtilisateurActive == 1 && u.IsAdmin!=1).ToList();
             
             
             
@@ -250,7 +250,7 @@ namespace AnimAlerte.Controllers
                 
                 _context.Add(obj);
                 _context.SaveChanges();
-                //TempData["AlertMessageContact"] = _localizer["AddedContact"];
+                
                 TempData["AlertMessageContact"] = "Contact added";
                 
                 return RedirectToAction(nameof(Index));
