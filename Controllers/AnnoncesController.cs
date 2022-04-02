@@ -191,7 +191,6 @@ public async Task<IActionResult> Details2(int? id)
         // GET: Annonces/Edit/5
         public async Task<IActionResult> ModifierMonAnnonce(int? idAnnonce)
         {
-
             if (idAnnonce == null)
             {
                 return NotFound();
