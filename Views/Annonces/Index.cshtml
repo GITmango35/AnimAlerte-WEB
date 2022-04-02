@@ -5,12 +5,19 @@
     ViewData["Title"] = "Accueil";
 }
 
+<div class="jumbotron">
+    <div class="container">
+        <h1>Welcome, @AnimAlerte.Controllers.UtilisateursController.usersession!</h1>
+        <p class="lead"></p>
+        <p>This is an example for jumbotron.</p>
+        <hr class="my-4"/>
+        <p class="lead">
+            <a asp-action="Create" class="btn btn-primary btn-lg" role="button">@localizer["CreateAd"]</a>
+        </p>
+    </div>
+</div>
+
 <h1>@localizer["LostFoundAnimals"]</h1>
-<hr />
-<p>
-    <a asp-action="Create">@localizer["CreateAd"]</a>
-</p>
-<br />
 
 @{ if (Model.Count() == 0)
     {
@@ -28,23 +35,28 @@
 
 <form asp-action="Index" method="get">
     <div class="input-group mb-3">
-        <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="@localizer["SearchByLocation"]" aria-label="Ville">
-        <div class="input-group-append">
-            <button class="btn btn-primary rounded-right" type="submit">@localizer["Search"]</button>
-        </div>
+        <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="@localizer["SearchByLocation"]" />
+        <button class="btn btn-outline-secondary" type="submit">@localizer["Search"]</button>
     </div>
 
-    <a asp-action="Index">@localizer["BackToCompleteList"]</a> |
-    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@localizer["SortByDate"]</a>
-
-    <a asp-action="Index" asp-route-annoncePerdu="@ViewData["LostAnimalFilter"]">
-        <input type="button" class="btn btn-danger rounded" value="@localizer["LostAnimals"]" />
-    </a>
-
-    <a asp-action="Index" asp-route-annonceTrouve="@ViewData["FoundAnimalFilter"]">
-        <input type="button" class="btn btn-success rounded" value="@localizer["FoundAnimals"]" />
-    </a>
+    @*<a asp-action="Index">@localizer["BackToCompleteList"]</a>*@
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 mb-2 text-xs-center">
+                <a asp-action="Index" asp-route-annoncePerdu="@ViewData["LostAnimalFilter"]">
+                    <input type="button" class="btn btn-danger rounded" value="@localizer["LostAnimals"]" />
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-xs-center">
+                <a asp-action="Index" asp-route-annonceTrouve="@ViewData["FoundAnimalFilter"]">
+                    <input type="button" class="btn btn-success rounded" value="@localizer["FoundAnimals"]" />
+                </a>
+            </div>
+        </div>
+    </div>
 </form>
+
+
 
 
 @foreach (var item in Model)
