@@ -50,6 +50,15 @@
                                         <img src="~/images/logo.png" style="width: 150px;" alt="logo" />
                                     </div>
 
+                                    @if (TempData["AlertNOAccount"] != null)
+                                    {
+                                <div class="alert alert-danger">
+                                    <strong>Alert! </strong> @TempData["AlertNOAccount"]
+
+                                </div>
+                                    }
+
+
                                     <p class="alert-success">@ViewBag.Message</p>
                                     <form action="/Utilisateurs/Login" method="post">
                                         <h4 class="mt-1 mb-5 pb-1">@localizer["Connexion"]</h4>

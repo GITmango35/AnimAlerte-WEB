@@ -13,6 +13,14 @@
         <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
     </div>
 </form>
+
+@if (TempData["AlertMessageUser1"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Alert! </strong> @TempData["AlertMessageUser1"]
+
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -37,7 +45,7 @@
                 @*@Html.DisplayNameFor(model => model.NumTel)*@
             </th>
             <th>
-                @localizer["AdminorUser"] 
+                @localizer["AdminorUser"]
             </th>
             <th>@localizer["Action"]</th>
         </tr>
@@ -70,15 +78,15 @@
 
                     @if (item.IsAdmin == 1)
                     {
-                <td>
-                    @localizer["Admin"] 
-                </td>
+                        <td>
+                            @localizer["Admin"]
+                        </td>
                     }
                     else
                     {
-                <td>
-                    @localizer["User"] 
-                </td>
+                        <td>
+                            @localizer["User"]
+                        </td>
                     }
 
 
@@ -97,19 +105,7 @@
     </tbody>
 </table>
 
-@*@{ if (Model.Count() == 0)
-        {
-            <div class=" alert alert-danger">
-                @localizer["AlertMessageUser"]
-            </div>
-        }
-        else if (ViewData["AlertMessageUser"] != null)
-        {
-            <div class=" alert alert-success">
-                @ViewData["AlertMessageUser"]
-            </div>
-        }
-    }*@
+
 
 @if (TempData["AlertMessageUser"] != null)
 {
@@ -126,8 +122,8 @@
 }
 
 @*@if (TempData["AlertMessageUser"] != null)
-{
-    <div class=" alert alert-danger">
-        @localizer["AlertMessageUser"]
-    </div>
-}*@
+    {
+        <div class=" alert alert-danger">
+            @localizer["AlertMessageUser"]
+        </div>
+    }*@

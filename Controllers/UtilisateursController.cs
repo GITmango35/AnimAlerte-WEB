@@ -14,7 +14,7 @@ using Microsoft.Extensions.Localization;
 namespace AnimAlerte.Controllers
 {
     public class UtilisateursController : Controller
-    { 
+    {
         private readonly IStringLocalizer<UtilisateursController> _stringlocalizer;
         private readonly IHtmlLocalizer<UtilisateursController> _localizer;
         private readonly AnimAlerteContext _context;
@@ -78,14 +78,14 @@ namespace AnimAlerte.Controllers
                 {
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
-                    
-                   
+
+
                     ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
                 {
-                    
+
                     ViewBag.Message = "Le nom d'utilisateur existe deja!/ This User exist!";
                     return View(utilisateur);
                 }
@@ -208,7 +208,7 @@ namespace AnimAlerte.Controllers
                     {
                         admin = 0;
 
-                        return RedirectToAction("AllAnnoncesUser", "Annonces", new { nomuser = nomuser });
+                        return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
                     }
                     else
                     {
@@ -220,7 +220,8 @@ namespace AnimAlerte.Controllers
 
                 else
                 {
-                    ViewBag.Message = _localizer["LoginError"];
+
+                    TempData["AlertNOAccount"] = _stringlocalizer["This user does not exists!"].Value;
                     return RedirectToAction("Login", new { msg = ViewBag.Message });
                 }
             }
@@ -258,14 +259,17 @@ namespace AnimAlerte.Controllers
         [HttpPost]
         public ActionResult RechercheUtilisateur(string nomuser)
         {
+            
             var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
+
+
             if (nomuser == null)
             {
                 return View(listeToutUtilisateurs);
             }
             else
             {
-                //var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+               
                 var utilisateur = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
                 foreach (var user in utilisateur)
                 {
@@ -286,18 +290,16 @@ namespace AnimAlerte.Controllers
 
                     else
                     {
-                        TempData["AlertMessageUser"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
-                        return RedirectToAction(nameof(RechercheUtilisateur));
+                        TempData["AlertMessageUser1"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
+                       return RedirectToAction(nameof(RechercheUtilisateur));
+                       
                     }
                 }
                 return View();
             }
         }
 
-        //             return View();
-        //        }
-        //    }
-        //}
+        
 
         // La désactivation d'un utilisateur par un admin
         public ActionResult DesactiverUtilisateur(string nomuser)

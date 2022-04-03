@@ -110,6 +110,16 @@ namespace AnimAlerte.Controllers
             var image = _context.Images
                .FirstOrDefault(m => m.IdImage == idAnimal);
 
+            var user = _context.Utilisateurs.Find(annonce.NomUtilisateur);
+            var name = user.Nom;
+            var FirstName = user.Prenom;
+            var phone = user.NumTel;
+            var email = user.Courriel;
+            ViewData["Name"] = name;
+            ViewData["FirstName"] = FirstName;
+             ViewData["Phone"] = phone;
+            ViewData["Email"] = email;
+
             var model = new AnnonceModifViewModel()
             {
                 IdAnnonce = annonce.IdAnnonce,
@@ -321,6 +331,7 @@ namespace AnimAlerte.Controllers
         // GET: Annonces/detail/5
         public async Task<IActionResult> DetailAnnonce(int? idAnnonce)
         {
+            ViewBag.Phone = "";
             if (idAnnonce == null)
             {
                 return NotFound();
@@ -328,6 +339,10 @@ namespace AnimAlerte.Controllers
 
             var annonce = await _context.Annonces.FindAsync(idAnnonce);
             ViewBag.animal = await _context.Animals.FindAsync(annonce.IdAnimal);
+            var user = await _context.Utilisateurs.FindAsync(annonce.NomUtilisateur);
+            var name = user.Nom;
+            var phone = user.NumTel;
+            ViewData["phone"] = phone;
             if (annonce == null)
             {
                 return NotFound();

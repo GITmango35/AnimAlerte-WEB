@@ -156,6 +156,9 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
   <data name="PublishDate" xml:space="preserve">
     <value>Publié le</value>
   </data>

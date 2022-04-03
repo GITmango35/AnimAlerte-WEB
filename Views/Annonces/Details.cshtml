@@ -80,14 +80,25 @@
                     @localizer["Name"]
                 </dt>
                 <dd class="col-sm-8">
-                    @Html.DisplayFor(model => model.NomUtilisateur)
+                    @ViewData["FirstName"]  @ViewData["Name"] 
                 </dd>
                 <dt class="col-sm-4">
-                    @localizer["Email"]
+                    @localizer["Email"] 
+
                 </dt>
                 <dd class="col-sm-8">
-                    @Html.DisplayFor(model => model.Courriel)
+                    @ViewData["Email"]
                 </dd>
+
+                <dt class="col-sm-4">
+                    @localizer["Phone"] 
+
+                </dt>
+                <dd class="col-sm-8">
+                    @ViewData["Phone"]
+                </dd>
+
+
             </dl>
         </div>
     </div>
