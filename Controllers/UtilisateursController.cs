@@ -79,13 +79,12 @@ namespace AnimAlerte.Controllers
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
 
-<<<<<<< HEAD
 
                     ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
-=======
+
                     TempData["RegisteredUser"] = _stringlocalizer["Welcome to AnimAlerte!"].Value;
-                   // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
->>>>>>> f16d167d9a2123d64b0fb5dfd6a2b6a1cb603d2d
+                    // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
+
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
@@ -258,51 +257,42 @@ namespace AnimAlerte.Controllers
                 TempData["AlertMessageUser"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
             }
 
-            return View();
+            return View(listeUtilisateurs);
         }
 
         [HttpPost]
         public ActionResult RechercheUtilisateur(string nomuser)
         {
-            
-            var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
 
-
-            if (nomuser == null)
+            var utilisateur = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
+            if (utilisateur.Count == 0) { TempData["AlertMessageUser1"] = _stringlocalizer["Sorry, this user does not exists !"].Value; }
+            foreach (var user in utilisateur)
             {
-                return View(listeToutUtilisateurs);
-            }
-            else
-            {
-               
-                var utilisateur = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
-                foreach (var user in utilisateur)
+                if (user != null)
                 {
-                    if (user != null)
+                    ViewData["AlertMessageUser"] = _stringlocalizer["We found result(s)."].Value;
+                    ViewBag.userA = "";
+                    if (user.IsAdmin == 1)
                     {
-                        ViewData["AlertMessageUser"] = _stringlocalizer["We found result(s)."].Value;
-                        ViewBag.userA = "";
-                        if (user.IsAdmin == 1)
-                        {
-                            ViewBag.userA = _localizer["Admin"];
-                        }
-                        else
-                        {
-                            ViewBag.userA = _localizer["User"];
-                        }
-                        return View(utilisateur); //recuperer les infos d'User
+                        ViewBag.userA = _localizer["Admin"];
                     }
-
                     else
                     {
-                        TempData["AlertMessageUser1"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
-                       return RedirectToAction(nameof(RechercheUtilisateur));
-                       
+                        ViewBag.userA = _localizer["User"];
                     }
+                    return View(utilisateur); //recuperer les infos d'User
                 }
-                return View();
+
+                else
+                {
+              
+                    return RedirectToAction("RechercheUtilisateur", "Utilisateurs");
+
+                }
             }
+            return RedirectToAction("RechercheUtilisateur", "Utilisateurs");
         }
+   
 
         
 
