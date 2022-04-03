@@ -123,6 +123,9 @@
   <data name="AlreadyRegistered" xml:space="preserve">
     <value>Vous êtes déja enregistré</value>
   </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Désactiver</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
   </data>
@@ -142,7 +145,7 @@
     <value>Enregistré</value>
   </data>
   <data name="RegisteredUser" xml:space="preserve">
-    <value>Bienvenue sur le site Animalerte</value>
+    <value>Bienvenue sur le site Animalerte!</value>
   </data>
   <data name="Sorry, this user does not exists !" xml:space="preserve">
     <value>Désolé, aucun résultat trouvé!</value>
