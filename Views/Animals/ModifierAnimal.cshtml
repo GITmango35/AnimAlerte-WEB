@@ -88,15 +88,10 @@
     <script type="text/javascript">
         $(function () {
 
-
-
             $("#photoUpload").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
                 $(this).next(".custom-file-label").html(inputPhoto);
             });
-
-
-
             $("#photoUpload").change(function () {
                 $("#photoPreview").html("");
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;

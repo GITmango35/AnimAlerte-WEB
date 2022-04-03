@@ -1,7 +1,5 @@
 ﻿@model AnimAlerte.ViewModels.AnimalViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-
-
 @{
     ViewData["Title"] = localizer["AddAnimal"];
 }
@@ -74,14 +72,10 @@
     <script type="text/javascript">
         $(function () {
 
-
-
             $("#photoUpload").on("change", function () {
                 var inputPhoto = $(this).val().split("\\").pop();
                 $(this).next(".custom-file-label").html(inputPhoto);
             });
-
-
 
             $("#photoUpload").change(function () {
                 $("#photoPreview").html("");

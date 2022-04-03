@@ -2,12 +2,9 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ ViewData["Title"] = localizer["MyAnimals"];
-
 }
-
 <h1>@localizer["MyAnimals"]</h1>
 <hr />
-
 <p>
     <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a> |
     <a asp-action="Create" asp-controller="Annonces">@localizer["PublishAd"]</a>
@@ -20,7 +17,6 @@
         <strong>Success ! </strong> @TempData["AlertMessageAnimal"]
     </div>
 }
-
 
 @foreach (var item in Model)
 {
@@ -49,18 +45,9 @@
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
         }
     }
 }
-
 
 @section DTListAnimals{
     <script>

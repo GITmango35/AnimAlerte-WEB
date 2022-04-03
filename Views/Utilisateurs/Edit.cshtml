@@ -36,23 +36,9 @@
                 <input asp-for="NumTel" class="form-control" />
                 <span asp-validation-for="NumTel" class="text-danger"></span>
             </div>
-            <!--<div class="form-group">
-                <label asp-for="UtilisateurActive" class="control-label"></label>
-                <input asp-for="UtilisateurActive" class="form-control" />
-                <span asp-validation-for="UtilisateurActive" class="text-danger"></span>
-            </div>
+      
             <div class="form-group">
-                <label asp-for="IsAdmin" class="control-label"></label>
-                <input asp-for="IsAdmin" class="form-control" />
-                <span asp-validation-for="IsAdmin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomAdminDesactivateur" class="control-label"></label>
-                <select asp-for="NomAdminDesactivateur" class="form-control" asp-items="ViewBag.NomAdminDesactivateur"></select>
-                <span asp-validation-for="NomAdminDesactivateur" class="text-danger"></span>
-            </div>-->
-            <div class="form-group">
-                @*<input type="submit" value="Enregistrer" class="btn btn-primary" />*@
+            
                 <button type="submit" class="btn btn-primary">@localizer["Modify"]</button>
             </div>
         </form>

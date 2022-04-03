@@ -14,7 +14,6 @@ namespace AnimAlerte.Models
             Annonces = new HashSet<Annonce>();
             Images = new HashSet<Image>();
         }
-
         public int IdAnimal { get; set; }
 
         [Display(Name = "Nom Animal ")]

@@ -48,15 +48,7 @@
                 @*@Html.DisplayNameFor(model => model.NumTel)*@
                 @localizer["Telephone"]
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.UtilisateurActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsAdmin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
-                </th>*@
+         
             <th></th>
         </tr>
     </thead>
@@ -73,31 +65,16 @@
     <td>
         @Html.DisplayFor(modelItem => item.Prenom)
     </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.Courriel)
-        </td>*@
-    @*<td>
-            @Html.DisplayFor(modelItem => item.MotDePasse)
-        </td>*@
     <td>
         @Html.DisplayFor(modelItem => item.NumTel)
     </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.UtilisateurActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
-        </td>*@
+  
 <td>
        
     <a asp-route-NomUtilisateur="@item.NomUtilisateur"
        asp-route-NomUtilisateurCreateur="@item.DetailsContactNomUtilisateurCreateurNavigations" 
        asp-action="Rajouter">@localizer["Add"]</a> 
    
-
 </td>
 </tr>
 }

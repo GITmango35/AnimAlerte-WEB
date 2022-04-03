@@ -78,19 +78,12 @@ namespace AnimAlerte.Controllers
                 {
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
-
-
-
                     ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
-
                     TempData["RegisteredUser"] = _stringlocalizer["Welcome to AnimAlerte!"].Value;
-                    // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
-
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
                 {
-
                     ViewBag.Message = "Le nom d'utilisateur existe deja!/ This User exist!";
                     return View(utilisateur);
                 }
@@ -113,7 +106,6 @@ namespace AnimAlerte.Controllers
             {
                 return NotFound();
             }
-
             var Utilisateurs = await _context.Utilisateurs.FindAsync(id);
             if (Utilisateurs == null)
             {

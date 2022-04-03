@@ -48,6 +48,7 @@ namespace AnimAlerte.Models
 
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }
+
         [Range(0, 1)]
         public byte? IsAdmin { get; set; }
         [StringLength(50)]

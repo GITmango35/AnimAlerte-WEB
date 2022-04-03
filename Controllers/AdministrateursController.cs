@@ -54,22 +54,15 @@ namespace AnimAlerte.Controllers
         // GET: Utilisateurs/Create
         public IActionResult Create()
         {
-          //  ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin");
             return View();
         }
 
         // POST: Utilisateurs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Create([Bind("NomUtilisateur,Nom,Prenom,Courriel,MotDePasse,NumTel,UtilisateurActive,IsAdmin,NomAdminDesactivateur")] Utilisateur utilisateur)
         {
-
             var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur);
-
             ViewBag.Message = "";
             Utilisateur obj = new Utilisateur();
             try
@@ -93,12 +86,9 @@ namespace AnimAlerte.Controllers
                     _context.Administrateurs.Add(admin);
                     _context.SaveChanges();
                     TempData["AlertAddAdmin"] = _stringLocalizer["The addmin is added successfully !"].Value;
-                    // TempData["MessageAdminEnregistre"] = "Administrateur ajouté/The new Admin is added succesfully!";
-                    //_localizer["AdminRegistered"];
                     var message = _localizer["Registered"];
                     ViewBag.Message = message;
-                     return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { msg = ViewBag.Message });
-                   
+                    return RedirectToAction("AllAnnoncesAdmin", "Annonces", new { msg = ViewBag.Message });
                 }
                 else
                 {
@@ -112,58 +102,6 @@ namespace AnimAlerte.Controllers
                 return View();
             }
         }
-
-
-
-
-
-
-
-
-
-
-        /*
-        if (ModelState.IsValid)
-        {
-            _context.Add(utilisateur);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        ViewData["NomAdminDesactivateur"] = new SelectList(_context.Administrateurs, "NomAdmin", "NomAdmin", utilisateur.NomAdminDesactivateur);
-        return View(utilisateur);
-    }
-        */
-
-
-
-
-
-
-
-        /*
-        // GET: Administrateurs/Create
-        public IActionResult Create()
-        {
-            ViewData["NomAdmin"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur");
-            return View();
-        }
-
-        // POST: Administrateurs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomAdmin,DateCreation")] Administrateur administrateur)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(administrateur);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["NomAdmin"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", administrateur.NomAdmin);
-            return View(administrateur);
-        }*/
 
         // GET: Administrateurs/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -183,8 +121,6 @@ namespace AnimAlerte.Controllers
         }
 
         // POST: Administrateurs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NomAdmin,DateCreation")] Administrateur administrateur)

@@ -45,8 +45,6 @@
             @foreach (var item in Model)
             {
 
-
-
                 <tr>
                     @foreach (var a in ViewBag.animals)
                     {
@@ -79,12 +77,6 @@
         }
     </tbody>
 </table>
-@*@if (TempData["AlertMessage"]!=null)
-    {
-        <div class="alert alert-danger">
-            @TempData["AlertMessage"]
-        </div>
-    }*@
 
 @{ if (Model.Count() == 0)
     {

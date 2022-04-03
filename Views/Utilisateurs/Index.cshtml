@@ -14,9 +14,7 @@
 }
 
 
-<p>
-    @*<a asp-action="Create">Create New(to be removed)</a>*@
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -44,15 +42,7 @@
                 @*@Html.DisplayNameFor(model => model.NumTel)*@
                 @localizer["Telephone"]
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.UtilisateurActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsAdmin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomAdminDesactivateurNavigation)
-                </th>*@
+          
             <th></th>
         </tr>
     </thead>
@@ -78,15 +68,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.NumTel)
     </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.UtilisateurActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomAdminDesactivateurNavigation.NomAdmin)
-        </td>*@
+ 
 <td><form>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="@item.NomUtilisateur" />

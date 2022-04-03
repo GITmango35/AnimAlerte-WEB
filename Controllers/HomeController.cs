@@ -15,8 +15,6 @@ namespace AnimAlerte.Controllers
 {
     public class HomeController : Controller
     {
-
-        //private readonly Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<HomeController> _localizer;
         private readonly IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
         private readonly AnimAlerteContext _context;
@@ -37,8 +35,7 @@ namespace AnimAlerte.Controllers
         public IActionResult CultureManagement(string culture, string returnUrl)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
-            //return RedirectToAction("Login","Utilisateurs");
+            new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
             return LocalRedirect(returnUrl);
         }
 
@@ -67,7 +64,6 @@ namespace AnimAlerte.Controllers
 
         //---Methode Authentication
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult Login(string nomuser, string mdp)
         {
             ViewBag.Message = "";
@@ -75,29 +71,24 @@ namespace AnimAlerte.Controllers
             Utilisateur utilisateur = _context.Utilisateurs.Find(nomuser);
            try
             {
-               // var u = _context.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == nomuser);
-                if (utilisateur != null && utilisateur.MotDePasse == mdp)
+               if (utilisateur != null && utilisateur.MotDePasse == mdp)
 
-                {
-
+               {
                     session.SetString("NomUtilisateur", nomuser);
                     usersession = nomuser;
                     if (utilisateur.IsAdmin == 0)
                     {
                         admin = 0;
-                       // return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
                         return RedirectToAction("Index", "Utilisateurs");
                     }
                     else
                     {
                         admin = 1;
                         return RedirectToAction("Index", "Annonces", new { nomuser = nomuser });
-                       // return RedirectToAction("Index", "Utilisaieurs");
+                      
                     }
 
-
                 }
-
                 else
                 {
                     ViewBag.Message = "Nom Utilisateur ou mot de passe est incorrect!!";
@@ -109,21 +100,12 @@ namespace AnimAlerte.Controllers
                 return View();
             }
 
-
-
-            /*  catch (DbUpdateConcurrencyException)
-              {
-                  return NotFound();
-              }
-            */
-
         }
 
         public IActionResult Profil()
         {
             return View();
         }
-
 
         //Deconnexion
         [HttpPost]
@@ -133,21 +115,5 @@ namespace AnimAlerte.Controllers
             usersession = "";
             return RedirectToAction("Login");
         }
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

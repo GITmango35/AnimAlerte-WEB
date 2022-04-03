@@ -42,8 +42,6 @@ namespace AnimAlerte.Controllers
             ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
             ViewBag.images = _context.Images.ToList();
 
-
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewData["SearchAdResult"] = _stringLocalizer["We found result(s)."].Value;
@@ -128,8 +126,6 @@ namespace AnimAlerte.Controllers
 
             return View(model);
         }
-
-
 
         // GET: Annonces/Create
         public IActionResult Create()
@@ -283,8 +279,7 @@ namespace AnimAlerte.Controllers
             }
 
             return RedirectToAction("AllAnnoncesAdmin", "Annonces");
-
-            // return RedirectToAction("Index", "Annonces");
+                        
         }
 
         public IActionResult AllAnnoncesAdmin(string nomuser)

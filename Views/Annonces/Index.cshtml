@@ -28,8 +28,7 @@
         <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="@localizer["SearchByLocation"]" />
         <button class="btn btn-outline-secondary" type="submit">@localizer["Search"]</button>
     </div>
-
-    @*<a asp-action="Index">@localizer["BackToCompleteList"]</a>*@
+        
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 mb-2 text-xs-center">
@@ -45,9 +44,6 @@
         </div>
     </div>
 </form>
-
-
-
 
 @foreach (var item in Model)
 {

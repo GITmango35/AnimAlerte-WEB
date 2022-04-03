@@ -175,7 +175,6 @@ namespace AnimAlerte.Controllers
             return View(model);
         }
 
-
         // POST: Animals/ModifierAnimal
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -203,19 +202,13 @@ namespace AnimAlerte.Controllers
                             string filePath = Path.Combine(hosting.WebRootPath, "uploads", model.PhotoPath);
                             System.IO.File.Delete(filePath);
                         }
-
-                        //imageToUpdate.TitreImage = model.NomAnimal;
+                                           
                         imageToUpdate.PathImage = ImageUpload(model);
-                        //imageToUpdate.IdAnimal = model.IdAnimal;
+                        
                     }
 
                     _context.Update(animalToUpdate);
-                    //var animalmodif = _context.Animals.Attach(animalToUpdate);
-                    //animalmodif.State = EntityState.Modified;
                     await _context.SaveChangesAsync();
-
-                    //var imageModif = _context.Images.Attach(imageToUpdate);
-                    //imageModif.State = EntityState.Modified;
                     _context.Update(imageToUpdate);
                     await _context.SaveChangesAsync();
                     TempData["AlertMessageAnimal"] = _stringLocalizer["Your animal is modified successfully !"].Value;
@@ -308,8 +301,6 @@ namespace AnimAlerte.Controllers
 
             return nomFichier;
         }
-
-
 
     }
 }

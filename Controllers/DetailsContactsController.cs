@@ -69,9 +69,7 @@ namespace AnimAlerte.Controllers
             var listeToutUtilisateurs = _context.Utilisateurs
                 .Where(u => u.NomUtilisateur != UtilisateursController.usersession && 
                 u.UtilisateurActive == 1 && u.IsAdmin!=1).ToList();
-            
-            
-            
+                     
             var listeTrouveUtilisateur = _context.Utilisateurs
                 .Where(a => a.NomUtilisateur.Contains(utilisateursSearch) || 
                 a.Nom.Contains(utilisateursSearch) || 
@@ -162,8 +160,7 @@ namespace AnimAlerte.Controllers
             {
                 return NotFound();
             }
-            //ViewData["NomUtilisateurCreateur"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurCreateur);
-            //ViewData["NomUtilisateurFavoris"] = new SelectList(_context.Utilisateurs, "NomUtilisateur", "NomUtilisateur", detailsContact.NomUtilisateurFavoris);
+            
             return View(detailsContact1);
         }
 

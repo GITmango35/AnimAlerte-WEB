@@ -11,7 +11,6 @@
     </div>
 }
 
-
 <p>
     <a asp-action="Search">@localizer["AddContact"]</a>
 
@@ -40,11 +39,7 @@
                     @Html.DisplayFor(modelItem => item.NomUtilisateurFavoris)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Details", "Details", new { id = item.NomUtilisateurFavoris }) |
-                        @Html.ActionLink("Supprimer(X)", "Delete", new { idFavoris = item.NomUtilisateurFavoris,item.NomUtilisateurCreateur }) |
-                        @Html.ActionLink("Edit", "Edit", new { id = item.NomUtilisateurFavoris })*@
-
-                    <a asp-action="Details" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Details"]</a> |
+                  <a asp-action="Details" asp-route-id="@item.NomUtilisateurFavoris">@localizer["Details"]</a> |
                     <a asp-action="Supprimer" asp-route-NomUtilisateur="@item.NomUtilisateurFavoris" asp-route-NomUtilisateurCreateur="@item.NomUtilisateurCreateur">@localizer["Remove"]</a>
                 </td>
             </tr>
