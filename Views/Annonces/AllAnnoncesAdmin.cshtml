@@ -105,8 +105,7 @@
                 </td>
 
                 <td>
-                    <a asp-action="DesactiverAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Supprimer"]</a>
-                    @*@Html.ActionLink("Désactiver", "DesactiverAnnonce", new { idAnnonce = item.IdAnnonce })*@
+                    <a asp-action="DesactiverAnnonce" asp-route-idAnnonce="@item.IdAnnonce"> @localizer["Deactivate"]</a>
                 </td>
             </tr>
         }

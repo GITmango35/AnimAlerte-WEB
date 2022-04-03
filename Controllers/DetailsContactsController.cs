@@ -13,6 +13,7 @@ using AnimAlerte.ViewModels;
 using AnimAlerte.Controllers;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace AnimAlerte.Controllers
 {
@@ -20,16 +21,18 @@ namespace AnimAlerte.Controllers
     public class DetailsContactsController : Controller
     {
         private readonly IHtmlLocalizer<DetailsContactsController> _localizer;
+        private readonly IStringLocalizer<DetailsContactsController> _stringlocalizer;
         private readonly AnimAlerteContext _context;
         private readonly ISession session;
         public static string usersession;
         public static int admin = 0;
 
-        public DetailsContactsController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<DetailsContactsController> localizer)
+        public DetailsContactsController(AnimAlerteContext context, IHttpContextAccessor accessor, IHtmlLocalizer<DetailsContactsController> localizer, IStringLocalizer<DetailsContactsController> stringlocalizer)
         {
             _context = context;
             this.session = accessor.HttpContext.Session;
             _localizer = localizer;
+            _stringlocalizer = stringlocalizer;
         }
 
         // GET: DetailsContacts
@@ -232,28 +235,36 @@ namespace AnimAlerte.Controllers
         {
             return _context.DetailsContacts.Any(e => e.NomUtilisateurCreateur == id);
         }
-               
+
         // POST: DetailsContacts / Rajouter Contact Favoris
         public IActionResult Rajouter(string NomUtilisateur, string NomUtilisateurCreateur)
         {
-            if (ModelState.IsValid)
+            try
             {
-                DetailsContact obj = new DetailsContact();
-                obj.NomUtilisateurFavoris = NomUtilisateur;
+                if (ModelState.IsValid)
+                {
+                    DetailsContact obj = new DetailsContact();
+                    obj.NomUtilisateurFavoris = NomUtilisateur;
 
-                obj.NomUtilisateurCreateur = UtilisateursController.usersession;
-                
-                //obj.NomUtilisateurCreateur = "user5";// hard coded
-                //obj.NomUtilisateurCreateur = NomUtilisateurCreateur;
-                obj.isFavoris = 1;
-                obj.DateAjout = DateTime.Today;
-                
-                _context.Add(obj);
-                _context.SaveChanges();
-                
-                TempData["AlertMessageContact"] = "Contact added";
-                
-                return RedirectToAction(nameof(Index));
+                    obj.NomUtilisateurCreateur = UtilisateursController.usersession;
+
+                    //obj.NomUtilisateurCreateur = "user5";// hard coded
+                    //obj.NomUtilisateurCreateur = NomUtilisateurCreateur;
+                    obj.isFavoris = 1;
+                    obj.DateAjout = DateTime.Today;
+
+                    _context.Add(obj);
+                    _context.SaveChanges();
+
+                    TempData["AlertMessageContact"] = _stringlocalizer["A favorite contact is added in your list."].Value;
+
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (DbUpdateException)
+            {
+                //Log the error
+                ModelState.AddModelError("", _stringlocalizer["Unable to save changes. Try again, and if the problem persists see your system administrator."].Value);
             }
             return View();
         }

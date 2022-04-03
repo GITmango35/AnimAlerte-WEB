@@ -120,11 +120,14 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
   <data name="Afficher" xml:space="preserve">
     <value>Add</value>
   </data>
   <data name="AjouterAdmin" xml:space="preserve">
-    <value>Add Admin</value>
+    <value>Add an Admin</value>
   </data>
   <data name="Contactez" xml:space="preserve">
     <value>Contact</value>

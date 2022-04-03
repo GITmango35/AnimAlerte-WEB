@@ -1,11 +1,11 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model AnimAlerte.Models.DetailsContact
 
-@{ ViewData["Title"] = "Delete"; }
+@{ ViewData["Title"] = localizer["DeleteContact"]; }
 
-<h1>Supprimer Contact</h1>
+<h1>@localizer["DeleteContact"]</h1>
 
-<h3>Etes-vous sur que vous voulez supprimer?</h3>
+<h3>@localizer["AreYouSure"]</h3>
 <div>
 
     <hr />

@@ -2,7 +2,7 @@
 @model IEnumerable<AnimAlerte.Models.Administrateur>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = localizer["Index"];
 }
 
 <h1>@localizer["Index"]</h1>
@@ -14,11 +14,9 @@
     <thead>
         <tr>
             <th>
-                @* @Html.DisplayNameFor(model => model.DateCreation)*@
                 @localizer["DateCreation"]
             </th>
             <th>
-                @* @Html.DisplayNameFor(model => model.NomAdminNavigation)*@
                 @localizer["NomAdmin"]
             </th>
             <th></th>

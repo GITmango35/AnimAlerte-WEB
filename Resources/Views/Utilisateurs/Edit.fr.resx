@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>Retour a la liste</value>
+    <value>Retour à la liste</value>
   </data>
   <data name="Deactivate" xml:space="preserve">
-    <value>Déactiver</value>
+    <value>Désactiver</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
@@ -139,7 +139,7 @@
     <value>Nom</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Mot de Passe</value>
+    <value>Mot de passe</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>

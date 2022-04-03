@@ -141,6 +141,9 @@
   <data name="DateCreation" xml:space="preserve">
     <value>Publié le</value>
   </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Désactiver</value>
+  </data>
   <data name="Desactiver" xml:space="preserve">
     <value>Désactiver</value>
   </data>
@@ -148,7 +151,7 @@
     <value>Vous voulez vraiment désactiver cette annonce?</value>
   </data>
   <data name="DesactiverAnnonceTitle" xml:space="preserve">
-    <value>Désactiver une Annonce</value>
+    <value>Désactiver une annonce</value>
   </data>
   <data name="DesactiverMonAnnonce" xml:space="preserve">
     <value>Supprimer mon annonce</value>
@@ -169,10 +172,10 @@
     <value>Enregistrer</value>
   </data>
   <data name="ListAnnonces" xml:space="preserve">
-    <value>Liste des Annonces</value>
+    <value>Liste des annonces</value>
   </data>
   <data name="ModifierTitle" xml:space="preserve">
-    <value>Modifier une Annonce</value>
+    <value>Modifier une annonce</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Nom</value>

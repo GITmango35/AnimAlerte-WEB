@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A favorite contact is added in your list." xml:space="preserve">
+    <value>Un contact favori est ajouté de votre liste.</value>
+  </data>
+  <data name="A favorite contact is deleted in your list." xml:space="preserve">
+    <value>Un contact favori est supprimé de votre liste.</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Rajouter</value>
   </data>
@@ -134,5 +140,11 @@
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Liste d'utilisateurs trouvés!</value>
+  </data>
+  <data name="Success!" xml:space="preserve">
+    <value>Succès!</value>
+  </data>
+  <data name="Unable to save changes. Try again, and if the problem persists see your system administrator." xml:space="preserve">
+    <value>Impossible d'enregistrer les modifications. Réessayez et si le problème persiste, consultez votre administrateur système.</value>
   </data>
 </root>

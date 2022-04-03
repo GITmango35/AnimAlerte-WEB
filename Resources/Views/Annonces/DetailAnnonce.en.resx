@@ -175,7 +175,7 @@
     <value>Search by location...</value>
   </data>
   <data name="SeeMoreDetails" xml:space="preserve">
-    <value>See more details</value>
+    <value>Details</value>
   </data>
   <data name="SortByDate" xml:space="preserve">
     <value>Sort By Date</value>

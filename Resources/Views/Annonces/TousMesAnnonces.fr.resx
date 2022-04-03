@@ -165,6 +165,9 @@
   <data name="DescriptionRequis" xml:space="preserve">
     <value>Champ description obligatoire!</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
+  </data>
   <data name="DetailsAnnonce" xml:space="preserve">
     <value>Détails de</value>
   </data>

@@ -26,11 +26,10 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces
-        // Index retour la liste des annonces, une barre de recherche par ville, Trier par Date de création, filtrer par type d'annonce (perdu ou trouvé)
+        // Index retour la liste des annonces, une barre de recherche par ville, filtrer par type d'annonce (perdu ou trouvé)
         public async Task<IActionResult> Index(string nomuser, string searchString, string annoncePerdu, string annonceTrouve)
         {
-            //ViewData["IdAnnonceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
-            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
             ViewData["CurrentFilter"] = searchString;
             ViewData["LostAnimalFilter"] = annoncePerdu == "perdu" ? "trouve" : "perdu";
             ViewData["FoundAnimalFilter"] = annonceTrouve == "trouve" ? "perdu" : "trouve";
@@ -65,23 +64,6 @@ namespace AnimAlerte.Controllers
                 annonces = annonces.Where(a => a.TypeAnnonce == "trouve" && a.AnnonceActive == 1);
             }
 
-
-            //switch (sortOrder)
-            //{
-            //    case "id_desc":
-            //        annonces = annonces.OrderByDescending(a => a.IdAnnonce);
-            //        break;
-            //    case "Date":
-            //        annonces = annonces.OrderBy(a => a.DateCreation);
-            //        break;
-            //    case "date_desc":
-            //        annonces = annonces.OrderByDescending(a => a.DateCreation);
-            //        break;
-            //    default:
-            //        annonces = annonces.OrderBy(a => a.IdAnnonce);
-            //        break;
-            //}
-
             return View(await annonces.ToListAsync());
         }
 
@@ -94,7 +76,7 @@ namespace AnimAlerte.Controllers
         }
 
         // GET: Annonces/Details/5
-        public async Task<IActionResult> Details(int? idAnimal, Utilisateur proprietaire)
+        public async Task<IActionResult> Details(int? idAnimal)
         {
             if (idAnimal == null)
             {
@@ -117,7 +99,7 @@ namespace AnimAlerte.Controllers
             var email = user.Courriel;
             ViewData["Name"] = name;
             ViewData["FirstName"] = FirstName;
-             ViewData["Phone"] = phone;
+            ViewData["Phone"] = phone;
             ViewData["Email"] = email;
 
             var model = new AnnonceModifViewModel()
@@ -137,8 +119,6 @@ namespace AnimAlerte.Controllers
                 AnimalActif = 1,
                 Proprietaire = animal.Proprietaire,
                 PhotoPath = image.PathImage,
-                //Courriel = utilisateur.Courriel,
-                //NumTel = utilisateur.NumTel
             };
 
             if (annonce == null)
@@ -316,11 +296,11 @@ namespace AnimAlerte.Controllers
             return View(annonces);
         }
 
-        
+
         // afficher toutes les annonces
         public IActionResult AllAnnoncesUser(string nomuser)
         {
-            ViewBag.userSession = nomuser;   
+            ViewBag.userSession = nomuser;
             var annonces = _context.Annonces.Where(a => a.AnnonceActive == 1).ToList();
 
             ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();
@@ -339,10 +319,9 @@ namespace AnimAlerte.Controllers
 
             var annonce = await _context.Annonces.FindAsync(idAnnonce);
             ViewBag.animal = await _context.Animals.FindAsync(annonce.IdAnimal);
+            ViewBag.images = _context.Images.ToList();
             var user = await _context.Utilisateurs.FindAsync(annonce.NomUtilisateur);
-            var name = user.Nom;
-            var phone = user.NumTel;
-            ViewData["phone"] = phone;
+           
             if (annonce == null)
             {
                 return NotFound();

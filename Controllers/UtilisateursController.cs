@@ -79,13 +79,12 @@ namespace AnimAlerte.Controllers
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
 
-<<<<<<< HEAD
+
 
                     ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
-=======
                     TempData["RegisteredUser"] = _stringlocalizer["Welcome to AnimAlerte!"].Value;
-                   // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
->>>>>>> f16d167d9a2123d64b0fb5dfd6a2b6a1cb603d2d
+                    // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
+
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else
@@ -264,17 +263,10 @@ namespace AnimAlerte.Controllers
         [HttpPost]
         public ActionResult RechercheUtilisateur(string nomuser)
         {
-            
             var listeToutUtilisateurs = _context.Utilisateurs.Where(u => u.UtilisateurActive == 1).ToList();
-
-
-            if (nomuser == null)
+            var message = " ";
+            if (nomuser != null)
             {
-                return View(listeToutUtilisateurs);
-            }
-            else
-            {
-               
                 var utilisateur = _context.Utilisateurs.Where(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1).ToList();
                 foreach (var user in utilisateur)
                 {
@@ -292,54 +284,66 @@ namespace AnimAlerte.Controllers
                         }
                         return View(utilisateur); //recuperer les infos d'User
                     }
-
                     else
                     {
+                        message = "oui";
                         TempData["AlertMessageUser1"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
-                       return RedirectToAction(nameof(RechercheUtilisateur));
-                       
+                        return RedirectToAction(nameof(RechercheUtilisateur));
                     }
                 }
-                return View();
             }
+            else
+            {
+                if (message != null)
+                {
+                    TempData["AlertMessageUser1"] = _stringlocalizer["Sorry, this user does not exists !"].Value;
+                    return View(listeToutUtilisateurs);
+                }
+                else
+                {
+                    TempData["AlertMessageUser1"] = null;
+                    return View(listeToutUtilisateurs);
+                }
+            }
+            return View(listeToutUtilisateurs);
         }
 
-        
+
 
         // La désactivation d'un utilisateur par un admin
         public ActionResult DesactiverUtilisateur(string nomuser)
         {
-            var utilisateur = _context.Utilisateurs.SingleOrDefault(u=>u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
+            var utilisateur = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == nomuser && u.UtilisateurActive == 1);
             ViewBag.admin = session.GetString("NomUtilisateur");
             return View(utilisateur);
         }
 
         [HttpPost]
-        public ActionResult DesactiverUtilisateur( Utilisateur utilisateur)
+        public ActionResult DesactiverUtilisateur(Utilisateur utilisateur)
         {
-             var utilisateur1 = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur && u.UtilisateurActive == 1);
+            var utilisateur1 = _context.Utilisateurs.SingleOrDefault(u => u.NomUtilisateur == utilisateur.NomUtilisateur && u.UtilisateurActive == 1);
 
             if (utilisateur1 != null)
             {
                 //avant de désactiver l'utilisateur, on doit tt d'abord désactiver ses annonces et ses animaux
-                    //-1---Désactivation de ses annonces
-                    var annoncesUtilisateurs = _context.Annonces.Where(a => a.NomUtilisateur == utilisateur1.NomUtilisateur).ToList();
-                    foreach (var annonce in annoncesUtilisateurs)
-                    {
-                        annonce.AnnonceActive = 0;
-                        _context.Entry(annonce).State = EntityState.Modified;
-                        _context.SaveChanges();
-                    }
-                    //-2---Désactivation de ses animaux
-                    var animauxUtilisateurs = _context.Animals.Where(a => a.Proprietaire == utilisateur1.NomUtilisateur).ToList();
-                    foreach (var animal in animauxUtilisateurs)
-                    {
-                        animal.AnimalActif = 0;
-                        _context.Entry(animal).State = EntityState.Modified;
-                        _context.SaveChanges();
-                    }
+                //-1---Désactivation de ses annonces
+                var annoncesUtilisateurs = _context.Annonces.Where(a => a.NomUtilisateur == utilisateur1.NomUtilisateur).ToList();
+                foreach (var annonce in annoncesUtilisateurs)
+                {
+                    annonce.AnnonceActive = 0;
+                    _context.Entry(annonce).State = EntityState.Modified;
+                    _context.SaveChanges();
+                }
+                //-2---Désactivation de ses animaux
+                var animauxUtilisateurs = _context.Animals.Where(a => a.Proprietaire == utilisateur1.NomUtilisateur).ToList();
+                foreach (var animal in animauxUtilisateurs)
+                {
+                    animal.AnimalActif = 0;
+                    _context.Entry(animal).State = EntityState.Modified;
+                    _context.SaveChanges();
+                }
                 //--désactivation de l'utilisateur
-                utilisateur1.UtilisateurActive = 0;        
+                utilisateur1.UtilisateurActive = 0;
                 _context.Entry(utilisateur1).State = EntityState.Modified;
                 _context.SaveChanges();
             }

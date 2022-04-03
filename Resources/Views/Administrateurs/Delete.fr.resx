@@ -145,7 +145,10 @@
     <value>Désactiver</value>
   </data>
   <data name="Delete?" xml:space="preserve">
-    <value>Etes vous sure de désactiver?</value>
+    <value>Voulez-vous vraiment désactiver ?</value>
+  </data>
+  <data name="DeleteAdmin" xml:space="preserve">
+    <value>Désactiver un Admin</value>
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>S'enregistrer</value>

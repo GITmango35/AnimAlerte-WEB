@@ -1,11 +1,10 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model AnimAlerte.Models.Utilisateur
 
-@{ ViewData["Title"] = "Désactiver Utilisateur"; }
+@{ ViewData["Title"] = localizer["DesactiverUse"]; }
 
-<h1>@localizer["DesactiverUse"]</h1>
-
-<h3> @localizer["MsgConfirmation"]</h3>
+<h1> @localizer["MsgConfirmation"]</h1>
+<hr />
 <div>
 
     <dl class="row">
