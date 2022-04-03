@@ -1,7 +1,7 @@
 ﻿@model AnimAlerte.ViewModels.AnimalModifViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
-@{ ViewBag.Title = "Modifier Animal";
+@{ ViewBag.Title = @localizer["ModifyAnimal"];
     var ExistingPhotoPath = "/uploads/" + (Model.PhotoPath ?? "Noimg.jpg");
 }
 
@@ -26,7 +26,7 @@
     <h2 class="">@localizer["ModifyAnimal"]  @Html.DisplayFor(model => model.NomAnimal)</h2>
     <hr />
     <div class="my-5">
-        <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="MesAnimaux">
+        <form enctype="multipart/form-data" method="post" asp-controller="Animals" asp-action="ModifierAnimal">
             <input hidden asp-for="IdAnimal" />
             <input hidden asp-for="PhotoPath" />
             <input hidden asp-for="DateInscription" />
@@ -89,7 +89,7 @@
     </div>
 
 
-    <script type="text/javascript">
+  @*  <script type="text/javascript">
         $(function () {
 
 
@@ -125,14 +125,14 @@
         });
     </script>
 
-
+*@
 
 </body>
 </html>
 
 
 
-@*@section Scripts {
+@section CreateSectionJS {
         <script>
             $(document).ready(function () {
                 $("#photoUpload").on("change", function () {
@@ -164,4 +164,4 @@
         </script>
     }
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

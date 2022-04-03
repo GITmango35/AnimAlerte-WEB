@@ -163,7 +163,7 @@
     <value>Nom d'animal</value>
   </data>
   <data name="NumAnnonce" xml:space="preserve">
-    <value>#  Annonce</value>
+    <value>No. d'annonce</value>
   </data>
   <data name="Perdu" xml:space="preserve">
     <value>Perdu</value>

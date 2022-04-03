@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<AnimAlerte.Models.Animal>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
-@{ ViewData["Title"] = "Mes Animaux"; }
+@{ ViewData["Title"] = @localizer["MyAnimals"]; }
 
 <h1>@localizer["MyAnimals"]</h1>
 <p>
     <a asp-action="AjoutAnimal">@localizer["AddAnimal"]</a>
 </p>
-<hr />
 @if (TempData["AlertMessageAnimal"] != null)
 {
     <div class=" alert alert-success">
@@ -16,7 +15,7 @@
 }
 
 <table class="table" id="myTable">
-    <thead class="thead-dark table-hover table-dark">
+    <thead>
         <tr>
             <td scope="col">Photo</td>
             <td scope="col">
@@ -31,7 +30,7 @@
             <td scope="col">
                 @localizer["Specie"]
             </td>
-            <td scope="col">@localizer["Action"]</td>
+            <td scope="col"></td>
         </tr>
     </thead>
     <tbody>
@@ -78,12 +77,12 @@
     </tbody>
 </table>
 
-@*@section DTListAnimals{
+@section DTListAnimals{
 
         <script>
             $(document).ready(function () {
                 $('#myTable').DataTable();
             });
         </script>
-    }*@
+    }
 

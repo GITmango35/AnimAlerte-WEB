@@ -216,7 +216,7 @@
   <data name="TrierDate" xml:space="preserve">
     <value>Trier par Date</value>
   </data>
-  <data name="TypeAnnoce" xml:space="preserve">
+  <data name="TypeAnnonce" xml:space="preserve">
     <value>Type d'annonce</value>
   </data>
   <data name="Ville" xml:space="preserve">

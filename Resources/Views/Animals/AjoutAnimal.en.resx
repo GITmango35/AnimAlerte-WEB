@@ -139,7 +139,7 @@
     <value>Cat</value>
   </data>
   <data name="Choose" xml:space="preserve">
-    <value>-- Please Choose  --</value>
+    <value>           -- Please Choose  --</value>
   </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>Choose your file ...</value>

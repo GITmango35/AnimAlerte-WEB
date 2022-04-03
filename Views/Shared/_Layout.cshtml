@@ -37,6 +37,11 @@
                             <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["Deconnexion"]</a>
                         </div>
                         <div class="navbar-nav ms-auto form-inline">
+                            <form asp-action="Index" asp-controller="Utilisateurs" method="post">
+                                <button type="submit" class="btn btn-outline-danger text-white">
+                                    @localizer["Logged"] @AnimAlerte.Controllers.UtilisateursController.usersession
+                                </button>
+                            </form>
                             <partial name="_Culture" />
                         </div>
                     </div>
@@ -61,13 +66,19 @@
                             <a class="nav-item nav-link text-white" asp-area="" asp-controller="Annonces" asp-action="RechercheAnnonce">@localizer["RechercheAnnonce"]</a>
                             <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="RechercheUtilisateur">@localizer["RechercheUtilisateur"]</a>
                             <a class="nav-item nav-link text-white" asp-area="" asp-controller="Administrateurs" asp-action="Index">@localizer["ListeAdmin"]</a>
-                            <form asp-action="Logout" asp-controller="Utilisateurs" method="post">
+                            <a class="nav-item nav-link text-white" asp-area="" asp-controller="Utilisateurs" asp-action="Login">@localizer["Deconnexion"]</a>
+                            @*<form asp-action="Logout" asp-controller="Utilisateurs" method="post">
                                 <button type="submit" class="btn btn-primary text-white">
                                     @localizer["Deconnexion"]  @AnimAlerte.Controllers.UtilisateursController.usersession
                                 </button>
-                            </form>
+                            </form>*@
                         </div>
                         <div class="navbar-nav ms-auto form-inline">
+                            <form asp-action="Index" asp-controller="Utilisateurs" method="post">
+                                <button type="submit" class="btn btn-outline-danger text-white">
+                                    @localizer["Logged"] @AnimAlerte.Controllers.UtilisateursController.usersession
+                                </button>
+                            </form>
                             <partial name="_Culture" />
                         </div>
                     </div>

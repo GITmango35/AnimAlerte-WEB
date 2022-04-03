@@ -139,7 +139,7 @@
     <value>Found Animals</value>
   </data>
   <data name="CreateAnnonce" xml:space="preserve">
-    <value>Add Ad</value>
+    <value>Post an ad</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date Published</value>
@@ -211,6 +211,6 @@
     <value>City field is required!</value>
   </data>
   <data name="VoirDetails" xml:space="preserve">
-    <value>See Details</value>
+    <value>Details</value>
   </data>
 </root>

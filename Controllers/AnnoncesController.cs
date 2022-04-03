@@ -27,10 +27,10 @@ namespace AnimAlerte.Controllers
 
         // GET: Annonces
         // Index retour la liste des annonces, une barre de recherche par ville, Trier par Date de création, filtrer par type d'annonce (perdu ou trouvé)
-        public async Task<IActionResult> Index(string nomuser, string sortOrder, string searchString, string annoncePerdu, string annonceTrouve)
+        public async Task<IActionResult> Index(string nomuser, string searchString, string annoncePerdu, string annonceTrouve)
         {
-            ViewData["IdAnnonceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            //ViewData["IdAnnonceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             ViewData["LostAnimalFilter"] = annoncePerdu == "perdu" ? "trouve" : "perdu";
             ViewData["FoundAnimalFilter"] = annonceTrouve == "trouve" ? "perdu" : "trouve";
@@ -66,21 +66,21 @@ namespace AnimAlerte.Controllers
             }
 
 
-            switch (sortOrder)
-            {
-                case "id_desc":
-                    annonces = annonces.OrderByDescending(a => a.IdAnnonce);
-                    break;
-                case "Date":
-                    annonces = annonces.OrderBy(a => a.DateCreation);
-                    break;
-                case "date_desc":
-                    annonces = annonces.OrderByDescending(a => a.DateCreation);
-                    break;
-                default:
-                    annonces = annonces.OrderBy(a => a.IdAnnonce);
-                    break;
-            }
+            //switch (sortOrder)
+            //{
+            //    case "id_desc":
+            //        annonces = annonces.OrderByDescending(a => a.IdAnnonce);
+            //        break;
+            //    case "Date":
+            //        annonces = annonces.OrderBy(a => a.DateCreation);
+            //        break;
+            //    case "date_desc":
+            //        annonces = annonces.OrderByDescending(a => a.DateCreation);
+            //        break;
+            //    default:
+            //        annonces = annonces.OrderBy(a => a.IdAnnonce);
+            //        break;
+            //}
 
             return View(await annonces.ToListAsync());
         }
@@ -160,7 +160,7 @@ namespace AnimAlerte.Controllers
                 annonce.NomUtilisateur = session.GetString("NomUtilisateur");
                 _context.Add(annonce);
                 await _context.SaveChangesAsync();
-                TempData["AlertMessage"] = _stringLocalizer["Your ad is added successfully!"].Value;
+                TempData["AlertMessage"] = _stringLocalizer["Your ad is added successfully !"].Value;
                 return RedirectToAction(nameof(TousMesAnnonces));
             }
             catch
@@ -305,10 +305,12 @@ namespace AnimAlerte.Controllers
             ViewBag.images = _context.Images.ToList();
             return View(annonces);
         }
+
+        
         // afficher toutes les annonces
         public IActionResult AllAnnoncesUser(string nomuser)
         {
-            ViewBag.userSession = nomuser;
+            ViewBag.userSession = nomuser;   
             var annonces = _context.Annonces.Where(a => a.AnnonceActive == 1).ToList();
 
             ViewBag.animaux = _context.Animals.Where(a => a.AnimalActif == 1).ToList();

@@ -138,6 +138,9 @@
   <data name="ListeAnnonces" xml:space="preserve">
     <value>List of Ads</value>
   </data>
+  <data name="Logged" xml:space="preserve">
+    <value>You are logged in :  </value>
+  </data>
   <data name="MesAnimaux" xml:space="preserve">
     <value>My Animals</value>
   </data>

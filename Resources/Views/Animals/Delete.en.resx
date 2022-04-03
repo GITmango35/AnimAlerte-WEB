@@ -127,7 +127,7 @@
     <value>Are you sure you want to delete </value>
   </data>
   <data name="AreYouSure2" xml:space="preserve">
-    <value> in you list ?</value>
+    <value> in your list ?</value>
   </data>
   <data name="BackToList" xml:space="preserve">
     <value>Back to list</value>

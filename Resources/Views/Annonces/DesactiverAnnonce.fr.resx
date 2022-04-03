@@ -124,7 +124,7 @@
     <value>Afficher</value>
   </data>
   <data name="AjoutAnimal" xml:space="preserve">
-    <value>Ajouter Animal</value>
+    <value>Ajouter un animal</value>
   </data>
   <data name="Animal" xml:space="preserve">
     <value>Choisissez l'animal</value>
@@ -142,10 +142,10 @@
     <value>Créer une annonce</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
-    <value>Publie le</value>
+    <value>Publié le</value>
   </data>
   <data name="DesactivAnnonce" xml:space="preserve">
-    <value>Désactiver Annonce</value>
+    <value>Désactiver un annonce</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -166,10 +166,10 @@
     <value>Nom d'animal</value>
   </data>
   <data name="NumAnnonce" xml:space="preserve">
-    <value>#  Annonce</value>
+    <value>#  d'annonce</value>
   </data>
   <data name="Perdu" xml:space="preserve">
-    <value>Lost</value>
+    <value>Perdu</value>
   </data>
   <data name="Proprietaire" xml:space="preserve">
     <value>Propriétaire</value>

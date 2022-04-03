@@ -145,12 +145,15 @@
     <value>Date d'inscription</value>
   </data>
   <data name="SeeDetails" xml:space="preserve">
-    <value>Voir le détails</value>
+    <value>Détails</value>
   </data>
   <data name="Specie" xml:space="preserve">
     <value>Espèce</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
   <data name="Success" xml:space="preserve">
-    <value>Succes !</value>
+    <value>Succès !</value>
   </data>
 </root>
