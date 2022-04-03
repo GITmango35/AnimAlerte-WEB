@@ -17,30 +17,35 @@ namespace AnimAlerte.Models
         }
 
         [StringLength(50)]
-        [Display(Name="Nom d'utilisateur")]
-        [Required(ErrorMessage = "Entrez un nom d'utilisateur")]
+        [Display(Name="Username")]
+        [Required(ErrorMessage = "Please enter a username!")]
         public string NomUtilisateur { get; set; }
-        [StringLength(25)]
-        
-        [Required(ErrorMessage = "Entrez votre nom")]
+
+        [StringLength(25)]      
+        [Required(ErrorMessage = "Please enter your lastname!")]
         public string Nom { get; set; }
+
         [StringLength(25)]
-        [Required(ErrorMessage = "Entrez votre prénom")]
-        [Display(Name = "Prénom")]
+        [Required(ErrorMessage = "Please enter your firstname!")]
+        [Display(Name = "Last Name")]
         public string Prenom { get; set; }
+
         [StringLength(25)]
-        [Required(ErrorMessage = "Entrez un courriel valide")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Courriel non valide")]
+        [Required(ErrorMessage = "Please enter a valid email!")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email not valid!")]
         public string Courriel { get; set; }
+
         [StringLength(25)]
-        [Display(Name = "Mot de passe")]
-        [Required(ErrorMessage = "Entrez un mot de passe")]
+        [Display(Name = "Password")]
+        [Required(ErrorMessage = "Please enter a password!")]
         public string MotDePasse { get; set; }
+
         [StringLength(10)]
-        [Display(Name = "Téléphone")]
-        [Required(ErrorMessage = "Entrez votre téléphone")]
-        [RegularExpression(@"[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$", ErrorMessage = "Format de téléphone non valide / Invalid telephone format")]
+        [Display(Name = "Telephone")]
+        [Required(ErrorMessage = "Please enter your telephone number!")]
+        [RegularExpression(@"[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$", ErrorMessage = "Invalid telephone format!")]
         public string NumTel { get; set; }
+
         [Range(0,1)]
         public byte? UtilisateurActive { get; set; }
         [Range(0, 1)]

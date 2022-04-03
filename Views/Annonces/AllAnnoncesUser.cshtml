@@ -95,11 +95,7 @@
                 </td>
                 <td>
                     @*<a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce">@localizer["VoirDetails"]</a>*@
-                    <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce" > @localizer["SeeMoreDetails"]</a>
-
-                </td>
-
-
+                    <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce" > @localizer["VoirDetails"]</a>
             </tr>
         }
 

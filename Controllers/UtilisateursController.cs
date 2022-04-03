@@ -79,8 +79,13 @@ namespace AnimAlerte.Controllers
                     _context.Add(utilisateur);
                     await _context.SaveChangesAsync();
 
+<<<<<<< HEAD
 
                     ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
+=======
+                    TempData["RegisteredUser"] = _stringlocalizer["Welcome to AnimAlerte!"].Value;
+                   // ViewBag.Message = "Bievenue sur le site AnimAlerte! Welcome to AnimAlerte!";
+>>>>>>> f16d167d9a2123d64b0fb5dfd6a2b6a1cb603d2d
                     return RedirectToAction("Login", "Utilisateurs", new { msg = ViewBag.Message });
                 }
                 else

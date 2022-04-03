@@ -1,13 +1,17 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-
 @model IEnumerable<AnimAlerte.Models.Utilisateur>
-<h1> @localizer["RechercherUtilisateur"]</h1>
+
+@{
+    ViewData["Title"] = localizer["SearchAUser"];
+}
+
+<h1> @localizer["SearchAUser"]</h1>
 
 
 
 <form action="/Utilisateurs/RechercheUtilisateur" method="post">
     <div class="mb-3">
-        <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="@localizer["EnterUser"]">
+        <input type="text" class="form-control" id="nomuser" name="nomuser" placeholder="@localizer["FindByUserName"]">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">@localizer["Rechercher"]</button>
@@ -25,29 +29,28 @@
     <thead>
         <tr>
             <th>
-                @*@Html.DisplayNameFor(model => model.NomUtilisateur)*@
                 @localizer["UserName"]
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Nom)*@
                 @localizer["LastName"]
             </th>
             <th>
                 @localizer["FirstName"]
-                @*@Html.DisplayNameFor(model => model.Prenom)*@
             </th>
             <th>
                 @localizer["Email"]
-                @*@Html.DisplayNameFor(model => model.Courriel)*@
             </th>
             <th>
                 @localizer["Telephone"]
-                @*@Html.DisplayNameFor(model => model.NumTel)*@
             </th>
             <th>
+<<<<<<< HEAD
                 @localizer["AdminorUser"]
+=======
+                @localizer["Role"]
+>>>>>>> f16d167d9a2123d64b0fb5dfd6a2b6a1cb603d2d
             </th>
-            <th>@localizer["Action"]</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -56,9 +59,6 @@
 
             @foreach (var item in Model)
             {
-
-
-
                 <tr>
                     <td>
                         @item.NomUtilisateur
@@ -88,13 +88,8 @@
                             @localizer["User"]
                         </td>
                     }
-
-
-
-
                     <td>
-                        @*<a asp-action="DesactiverUtilisateur" asp-route-id="@Model.NomUtilisateur">Désactiver</a>*@
-                        @Html.ActionLink("Désactiver", "DesactiverUtilisateur", new { nomuser = @item.NomUtilisateur })
+                        <a asp-action="DesactiverUtilisateur" asp-route-nomuser="@item.NomUtilisateur"> @localizer["Deactivate"]</a>
                     </td>
                 </tr>
             }

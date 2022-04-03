@@ -123,14 +123,23 @@
   <data name="AlreadyRegistered" xml:space="preserve">
     <value>Vous êtes déja enregistré</value>
   </data>
-  <data name="Deactivate" xml:space="preserve">
-    <value>Désactiver</value>
+  <data name="Email not valid!" xml:space="preserve">
+    <value>Courriel non valide!</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
   </data>
   <data name="Error1" xml:space="preserve">
     <value>Erreur1</value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Invalid telephone format!" xml:space="preserve">
+    <value>Format de téléphone non valide!</value>
+  </data>
+  <data name="Last Name" xml:space="preserve">
+    <value>Nom</value>
   </data>
   <data name="LoginError" xml:space="preserve">
     <value>Pas bon</value>
@@ -141,20 +150,44 @@
   <data name="Modified" xml:space="preserve">
     <value>Modifié</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Please enter a password!" xml:space="preserve">
+    <value>Entrez un mot de passe!</value>
+  </data>
+  <data name="Please enter a username!" xml:space="preserve">
+    <value>Entrez un nom d'utilisateur!</value>
+  </data>
+  <data name="Please enter a valid email!" xml:space="preserve">
+    <value>Entrez un courriel valide!</value>
+  </data>
+  <data name="Please enter your firstname!" xml:space="preserve">
+    <value>Entrez votre prénom!</value>
+  </data>
+  <data name="Please enter your lastname!" xml:space="preserve">
+    <value>Entrez votre nom!</value>
+  </data>
+  <data name="Please enter your telephone number!" xml:space="preserve">
+    <value>Entrez votre numero de téléphone!</value>
+  </data>
   <data name="Registered" xml:space="preserve">
     <value>Enregistré</value>
   </data>
   <data name="RegisteredUser" xml:space="preserve">
-    <value>Bienvenue sur le site Animalerte!</value>
+    <value>Bienvenue sur le site Animalerte</value>
   </data>
   <data name="Sorry, this user does not exists !" xml:space="preserve">
     <value>Désolé, aucun résultat trouvé!</value>
   </data>
-  <data name="This user does not exists!" xml:space="preserve">
-    <value>Cet Utilisateur n'existe pas!</value>
+  <data name="Telephone" xml:space="preserve">
+    <value>Téléphone</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Utilisateur</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
   <data name="We found result(s)." xml:space="preserve">
     <value>Résultat trouvé</value>

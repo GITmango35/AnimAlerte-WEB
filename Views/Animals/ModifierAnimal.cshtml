@@ -89,7 +89,7 @@
     </div>
 
 
-  @*  <script type="text/javascript">
+    <script type="text/javascript">
         $(function () {
 
 
@@ -125,43 +125,6 @@
         });
     </script>
 
-*@
-
 </body>
 </html>
 
-
-
-@section CreateSectionJS {
-        <script>
-            $(document).ready(function () {
-                $("#photoUpload").on("change", function () {
-                    var inputPhoto = $(this).val().split("\\").pop();
-                    $(this).next(".custom-file-label").html(inputPhoto);
-                });
-
-                $("#photoUpload").change(function () {
-                    $("#photoPreview").html("");
-                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-                    if (regex.test($(this).val().toLowerCase())) {
-                        if (typeof (FileReader) != "undefined") {
-                            $("#photoPreview").show();
-                            $("#photoPreview").append("<img />");
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                $("#photoPreview img").attr("src", e.target.result);
-                                $("#photoPreview img").attr("style", "height:200px;width: 100px");
-                            }
-                            reader.readAsDataURL($(this)[0].files[0]);
-                        } else {
-                            alert("This browser does not support FileReader.");
-                        }
-                    } else {
-                        alert("Please upload a valid image file.");
-                    }
-                });
-            })
-        </script>
-    }
-
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
