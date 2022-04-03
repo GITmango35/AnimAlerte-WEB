@@ -124,7 +124,7 @@
     <value>Afficher</value>
   </data>
   <data name="AjoutAnimal" xml:space="preserve">
-    <value>Ajouter Animal</value>
+    <value>Ajouter un animal</value>
   </data>
   <data name="Animal" xml:space="preserve">
     <value>Choisissez l'animal</value>

@@ -139,7 +139,7 @@
     <value>Found Animals</value>
   </data>
   <data name="CreateAnnonce" xml:space="preserve">
-    <value>Add Ad</value>
+    <value>Add an ad</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date Published</value>

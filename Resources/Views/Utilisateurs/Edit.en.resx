@@ -130,10 +130,10 @@
     <value>First Name</value>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>Modify</value>
+    <value>Edit</value>
   </data>
   <data name="ModifyProfile" xml:space="preserve">
-    <value>Modify Profile</value>
+    <value>Edit Profile</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

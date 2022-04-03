@@ -2,25 +2,22 @@
 @model AnimAlerte.Models.Administrateur
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = localizer["Delete"];
 }
 
-<h1> @localizer["Delete"]</h1>
-
+<h1> @localizer["Delete?"]</h1>
 <h3> @localizer["Admin"]</h3>
 <div>
     <h4> @localizer["DateCreation"]</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.DateCreation)*@
             @localizer["DateCreation"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateCreation)
         </dd>
         <dt class="col-sm-2">
-           @* @Html.DisplayNameFor(model => model.NomAdminNavigation)*@
             @localizer["NomAdmin"]
         </dt>
         <dd class="col-sm-10">

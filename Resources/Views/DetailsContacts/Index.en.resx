@@ -126,6 +126,9 @@
   <data name="Back" xml:space="preserve">
     <value>Back to List</value>
   </data>
+  <data name="ContactAdded" xml:space="preserve">
+    <value>A favorite contact is added succesfully.</value>
+  </data>
   <data name="ContactList" xml:space="preserve">
     <value>Favorite Contact List</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success !</value>
   </data>
 </root>

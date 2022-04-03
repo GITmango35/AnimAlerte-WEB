@@ -121,7 +121,7 @@
     <value>Action</value>
   </data>
   <data name="Afficher" xml:space="preserve">
-    <value>Add</value>
+    <value>Add </value>
   </data>
   <data name="AnimalRequis" xml:space="preserve">
     <value>Please add an  animal!</value>
@@ -139,7 +139,7 @@
     <value>Email</value>
   </data>
   <data name="CreateAnnonce" xml:space="preserve">
-    <value>Add Ad</value>
+    <value>Add an ad</value>
   </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Date Published</value>
@@ -149,6 +149,9 @@
   </data>
   <data name="DescriptionRequis" xml:space="preserve">
     <value>Description field is required!</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
   </data>
   <data name="EnregistrerBtn" xml:space="preserve">
     <value>Save</value>
@@ -163,7 +166,7 @@
     <value>Edit</value>
   </data>
   <data name="ModifierTitle" xml:space="preserve">
-    <value>Modify an Ad</value>
+    <value>Modify an ad</value>
   </data>
   <data name="Nom" xml:space="preserve">
     <value>Name</value>

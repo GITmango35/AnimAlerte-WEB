@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model AnimAlerte.Models.Utilisateur
 
-@{ ViewData["Title"] = "S'enregistrer"; }
+@{ ViewData["Title"] = localizer["RegisterBtn"]; }
 
 
 @{ Layout = null; }
@@ -35,7 +35,7 @@
     </header>
 
     <section class="h-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-       
+
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -45,10 +45,6 @@
                                 <h2 class="text-uppercase text-center mb-5">@localizer["Register"]</h2>
 
                                 <form asp-action="Create">
-
-                                    @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-                                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-
                                     <div class="form-outline mb-4">
                                         <label asp-for="NomUtilisateur" class="form-label">@localizer["UserName"]</label>
                                         <input asp-for="NomUtilisateur" class="form-control form-control-lg" />

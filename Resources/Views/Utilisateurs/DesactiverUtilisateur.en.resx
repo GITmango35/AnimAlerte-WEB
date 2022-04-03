@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DesactiverUse" xml:space="preserve">
-    <value>Desactive User</value>
+    <value>Deactivate a user</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email Address</value>
@@ -136,7 +136,7 @@
     <value>Log in now!</value>
   </data>
   <data name="MsgConfirmation" xml:space="preserve">
-    <value>Are you sure to desactivate this user?</value>
+    <value>Are you sure to deactivate this user?</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

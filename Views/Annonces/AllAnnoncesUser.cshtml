@@ -18,18 +18,12 @@
             <th>
                 @localizer["NomAnimal"]
             </th>
-            @*<th>
-                @localizer["Proprietaire"]
-            </th>*@
             <th>
                 @localizer["TitreAnnonce"]
             </th>
             <th>
                 @localizer["TypeAnnonce"]
             </th>
-            @*<th>
-                @localizer["Description"]
-            </th>*@
             <th>
                 @localizer["Ville"]
             </th>
@@ -47,18 +41,18 @@
                 {
                     if (i.IdAnimal == item.IdAnimal)
                     {
-                <td>
-                    <a asp-action="Details" asp-controller="Annonces" asp-route-idAnimal="@item.IdAnnonce">
-                            @if (i.PathImage != null)
-                            {
-                                <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
-                            }
-                            else
-                            {
-                                <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
-                            }
-                        </a>
-                </td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Annonces" asp-route-idAnimal="@item.IdAnnonce">
+                                @if (i.PathImage != null)
+                                {
+                                    <img src="~/uploads/@i.PathImage" style="width:74px;" class="img-thumbnail" />
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/Noimg.jpg" style="width:74px;" class="img-thumbnail" />
+                                }
+                            </a>
+                        </td>
                     }
                 }
                 <td>
@@ -72,21 +66,12 @@
                         <td>@a.NomAnimal </td>
                     }
                 }
-
-
-
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.NomUtilisateur)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Titre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TypeAnnonce)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.DescriptionAnnonce)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Ville)
                 </td>
@@ -94,8 +79,7 @@
                     @Html.DisplayFor(modelItem => item.DateCreation)
                 </td>
                 <td>
-                    @*<a asp-action="DetailAnnonce" asp-route-idAnnonce="@item.IdAnnonce">@localizer["VoirDetails"]</a>*@
-                    <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce" > @localizer["VoirDetails"]</a>
+                    <a asp-controller="Annonces" asp-action="Details" asp-route-idAnimal="@item.IdAnnonce"> @localizer["VoirDetails"]</a>
             </tr>
         }
 
